@@ -1,4 +1,4 @@
-import * as S from "@/components/UI/Navbar/style";
+import * as S from "./style";
 import Link from "next/link";
 
 interface NavbarProps {

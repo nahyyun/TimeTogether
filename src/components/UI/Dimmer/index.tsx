@@ -1,4 +1,4 @@
-import * as S from "@/components/UI/Dimmer/style";
+import * as S from "./style";
 
 export interface DimmerProps {
   onCloseSidebar: () => void;

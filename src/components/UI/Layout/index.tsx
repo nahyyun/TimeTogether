@@ -1,4 +1,4 @@
-import Header from "@/components/UI/Header";
+import Header from "../Header";
 
 interface LayoutProps {
   children: React.ReactNode;
