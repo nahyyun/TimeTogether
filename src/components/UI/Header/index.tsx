@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import { HamburgerButtonIcon } from "../Icons";
 import * as S from "./style";
+import { ROUTE_PATH } from "@/constants/path";
 
 export default function Header() {
   const [isSidebarOn, setIsSidebarOn] = useState(false);
@@ -18,7 +19,7 @@ export default function Header() {
 
   return (
     <S.Header>
-      <Link href="/">
+      <Link href={ROUTE_PATH.MAIN}>
         <h2>TIME TOGETHER</h2>
       </Link>
       <Navbar isSidebarOn={isSidebarOn} />
