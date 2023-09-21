@@ -7,7 +7,9 @@ const style = css`
     color: inherit;
   }
   html,
-  body {
+  body,
+  div#__next,
+  main {
     height: 100%;
   }
   button {

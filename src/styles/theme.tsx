@@ -2,7 +2,7 @@ export const theme = {
   colors: {
     primary: {
       50: "#CFE7D0",
-      100: "#AEE0B0",
+      100: "#A4D8A7",
       200: "#A1F9A5",
       300: "#91C3FC",
     },
@@ -13,6 +13,7 @@ export const theme = {
     text: {
       primary: "#000",
       secondary: "#A4A4A4",
+      light: "#FFF",
     },
     success: "#D9F1DA",
     error: "#FF7C7C",

@@ -5,7 +5,8 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  margin: 0 30px;
+  margin: 0 35px;
+  font-size: ${({ theme }) => theme.text.size.sm};
 `;
 
 export const MenuButton = styled.button<{ visible?: boolean }>`
