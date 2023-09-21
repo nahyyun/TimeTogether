@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import { NavbarProps } from ".";
 
@@ -9,7 +10,7 @@ export const Navbar = styled.nav<NavbarProps>`
   @media (max-width: 991px) {
     display: none;
 
-    ${({ isSidebarNav, isSidebarOn, theme }) =>
+    ${({ isSidebarNav, isSidebarOn }) =>
       isSidebarNav &&
       isSidebarOn &&
       `

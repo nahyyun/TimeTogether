@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 export const Header = styled.header`
@@ -6,7 +7,7 @@ export const Header = styled.header`
   align-items: center;
   height: 70px;
   margin: 0 35px;
-  font-size: ${({ theme }) => theme.text.size.sm};
+  font-size: ${theme.text.size.sm};
 `;
 
 export const MenuButton = styled.button<{ visible?: boolean }>`
