@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
@@ -17,12 +17,16 @@ export default function Header() {
     setIsSidebarOn(false);
   };
 
+  useEffect(() => {
+    return () => setIsSidebarOn(false);
+  }, []);
+
   return (
     <S.Header>
       <Link href={ROUTE_PATH.MAIN}>
-        <h2>TIME TOGETHER</h2>
+        <h1>TIME TOGETHER</h1>
       </Link>
-      <Navbar isSidebarOn={isSidebarOn} />
+      <Navbar isSidebarNav={false} />
       {!isSidebarOn && (
         <S.MenuButton type="button" onClick={toggleSidebar}>
           <HamburgerButtonIcon />

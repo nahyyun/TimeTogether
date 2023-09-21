@@ -8,6 +8,7 @@ interface SidebarProps {
   closeSidebar: () => void;
 }
 
+
 export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
   return (
     <>
@@ -18,7 +19,7 @@ export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
             <CloseButtonIcon />
           </S.SidebarCloseButton>
         </S.SidebarHeader>
-        <Navbar visible={isSidebarOn} />
+        <Navbar isSidebarNav={true} isSidebarOn={isSidebarOn} />
       </S.Sidebar>
     </>
   );
