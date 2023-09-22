@@ -3,7 +3,7 @@ export const theme = {
     primary: {
       50: "#CFE7D0",
       100: "#A4D8A7",
-      200: "#A1F9A5",
+      200: "#AAD6AE",
       300: "#91C3FC",
     },
     disabled: "#C4C4C4",
@@ -12,7 +12,7 @@ export const theme = {
     },
     text: {
       primary: "#000",
-      secondary: "#A4A4A4",
+      secondary: "#505050",
       light: "#FFF",
     },
     success: "#D9F1DA",

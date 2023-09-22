@@ -11,7 +11,7 @@ const showSidebarAnimation = keyframes`
     }
 `;
 
-export const SidebarCloseButton = styled.button`
+export const SidebarCloseButtonWrapper = styled.div`
   position: relative;
   width: 24px;
   height: 24px;

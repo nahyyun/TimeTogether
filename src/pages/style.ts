@@ -21,7 +21,7 @@ export const BackgroundContainer = styled.div`
   z-index: -10;
 `;
 
-export const DescriptionWrapper = styled.div`
+export const Description = styled.p`
   line-height: 30px;
   text-align: center;
   margin: 20px 0 40px 0;
@@ -32,3 +32,4 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
+

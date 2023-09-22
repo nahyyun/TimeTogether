@@ -10,7 +10,7 @@ export const Header = styled.header`
   font-size: ${theme.text.size.sm};
 `;
 
-export const MenuButton = styled.button<{ visible?: boolean }>`
+export const MenuButtonWrapper = styled.div`
   position: relative;
   width: 32px;
   height: 32px;
