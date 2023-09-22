@@ -9,16 +9,27 @@ export const MainContainer = styled.div`
   gap: 15px;
 `;
 
-export const BackgroundContainer = styled.div`
+const BackgroundColorCommonCSS = `
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 680px;
-  height: 680px;
-  transform: translate(-30%, -30%);
+  width: 100%;
+  height: 100%;
   background: rgba(207, 231, 208, 0.71);
   filter: blur(150px);
   z-index: -10;
+`;
+
+export const BackgroundColorTop = styled.div`
+  ${BackgroundColorCommonCSS}
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+`;
+
+export const BackgroundColorBottom = styled.div`
+  ${BackgroundColorCommonCSS}
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 50%);
 `;
 
 export const Description = styled.p`

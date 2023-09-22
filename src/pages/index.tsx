@@ -4,7 +4,8 @@ import * as S from "./style";
 export default function Home() {
   return (
     <S.MainContainer>
-      <S.BackgroundContainer />
+      <S.BackgroundColorTop />
+      <S.BackgroundColorBottom />
       <h1>쉽고 간편하게 약속시간을 정하고 싶으신가요?</h1>
       <S.Description>
         지금 바로 <strong>TIME TOGETHER</strong> 서비스를 통해
