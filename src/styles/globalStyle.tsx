@@ -8,8 +8,7 @@ const style = css`
   }
   html,
   body,
-  div#__next,
-  main {
+  div#__next {
     height: 100%;
   }
   button {

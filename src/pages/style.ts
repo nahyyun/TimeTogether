@@ -10,7 +10,7 @@ export const MainContainer = styled.div`
 `;
 
 const BackgroundColorCommonCSS = `
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background: rgba(207, 231, 208, 0.71);
