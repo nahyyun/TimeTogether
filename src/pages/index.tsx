@@ -1,4 +1,4 @@
-import Button from "@/components/Common/Button";
+import { ROUTE_PATH } from "@/constants/path";
 import * as S from "./style";
 
 export default function Home() {
@@ -13,12 +13,12 @@ export default function Home() {
         <strong>간편하게</strong> 약속 시간을 잡아보세요 ⏰
       </S.Description>
       <S.ButtonWrapper>
-        <Button buttonStyle="primary" type="button">
+        <S.ButtonLink buttonstyle="primary" href={ROUTE_PATH["MAKE_MEETING"]}>
           일정 잡기
-        </Button>
-        <Button buttonStyle="secondary" type="button">
+        </S.ButtonLink>
+        <S.ButtonLink buttonstyle="secondary" href={ROUTE_PATH["LOGIN"]}>
           로그인
-        </Button>
+        </S.ButtonLink>
       </S.ButtonWrapper>
     </S.MainContainer>
   );

@@ -31,7 +31,7 @@ export default function Header() {
       {!isSidebarOn && (
         <S.MenuButtonWrapper>
           <Button
-            buttonStyle="icon-only"
+            buttonstyle="icon-only"
             size="full"
             type="button"
             onClick={toggleSidebar}

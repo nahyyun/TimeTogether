@@ -4,7 +4,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   size?: "md" | "full";
-  buttonStyle?: "primary" | "secondary" | "icon-only";
+  buttonstyle?: "primary" | "secondary" | "icon-only";
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }

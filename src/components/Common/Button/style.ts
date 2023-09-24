@@ -28,6 +28,6 @@ export const Button = styled.button<ButtonProps>(
   { borderRadius: "5px" },
   (props) => css`
     ${BUTTON_SIZE[props.size || "md"]}
-    ${BUTTON_STYLE[props.buttonStyle || "primary"]}
+    ${BUTTON_STYLE[props.buttonstyle || "primary"]}
   `
 );

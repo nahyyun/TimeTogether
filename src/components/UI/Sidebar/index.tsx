@@ -17,7 +17,7 @@ export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
         <S.SidebarHeader>
           <S.SidebarCloseButtonWrapper>
             <Button
-              buttonStyle="icon-only"
+              buttonstyle="icon-only"
               size="full"
               type="button"
               onClick={closeSidebar}

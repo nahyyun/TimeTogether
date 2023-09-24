@@ -1,4 +1,6 @@
+import { Button } from "@/components/Common/Button/style";
 import styled from "@emotion/styled";
+import Link from "next/link";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -44,3 +46,7 @@ export const ButtonWrapper = styled.div`
   gap: 20px;
 `;
 
+export const ButtonLink = styled(Button.withComponent(Link))`
+  text-align: center;
+  line-height: 42px;
+`;
