@@ -1,7 +1,7 @@
 import { ROUTE_PATH } from "@/constants/path";
 import * as S from "./style";
 
-export default function Home() {
+export default function MainPage() {
   return (
     <S.MainContainer>
       <S.BackgroundColorTop />
