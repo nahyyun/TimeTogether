@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
-import MeetingInfoInput from "@/components/MeetingInfoInput";
+import MeetingInfoInputs from "@/components/MeetingInfoInputs";
 import { MeetingFormRefType } from "@/types/Meeting";
-import Input from "@/components/Common/Input";
+import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
@@ -10,15 +10,19 @@ export default function MakeMeetingPage() {
   const meetingInputRefs = useRef<MeetingFormRefType>({
     title: null,
     memberCnt: null,
-    date: null,
+    time: null,
   });
+
+  const setDateValue = (date: Date) => {
+    setMeetingInputForm((prev) => ({ ...prev, date }));
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const totalFormValue = {
       ...meetingInputForm,
-      date: meetingInputRefs.current.date?.value,
+      time: meetingInputRefs.current.time?.value,
     };
   };
 
@@ -40,22 +44,14 @@ export default function MakeMeetingPage() {
     switch (step) {
       case 1:
         return (
-          <MeetingInfoInput
+          <MeetingInfoInputs
             ref={meetingInputRefs}
             navigateStep={navigateStep}
           />
         );
 
       case 2:
-        return (
-          <Input
-            id="date"
-            label="약속날짜를 지정해주세요."
-            type="text"
-            required
-            ref={meetingInputRefs}
-          ></Input>
-        );
+        return <MeetingDateTimePicker setDateValue={setDateValue} />;
     }
   }
 

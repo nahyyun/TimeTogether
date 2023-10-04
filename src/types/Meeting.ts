@@ -12,7 +12,7 @@ export interface Meeting {
 export interface MeetingFormFields {
   title: string;
   memberCnt?: number;
-  date: string;
+  time: string;
 }
 
 export type MeetingFormRefType = {
