@@ -1,9 +1,11 @@
-import React, { FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import MeetingInfoInput from "@/components/MeetingInfoInput";
 import { MeetingFormRefType } from "@/types/Meeting";
+import Input from "@/components/Common/Input";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
+  const [meetingInputForm, setMeetingInputForm] = useState({});
 
   const meetingInputRefs = useRef<MeetingFormRefType>({
     title: null,
@@ -13,10 +15,25 @@ export default function MakeMeetingPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    const totalFormValue = {
+      ...meetingInputForm,
+      date: meetingInputRefs.current.date?.value,
+    };
   };
 
   const navigateStep = (stepOffset: number) => {
-    setStep((prev) => prev + stepOffset);
+    const { title, memberCnt } = meetingInputRefs.current;
+
+    if (!title || !memberCnt) return;
+
+    const meetingInputValue = {
+      title: title.value,
+      memberCnt: memberCnt.value,
+    };
+
+    setMeetingInputForm(meetingInputValue);
+    setStep((prevStep) => prevStep + stepOffset);
   };
 
   function renderStepComponent(step: number) {
@@ -30,7 +47,15 @@ export default function MakeMeetingPage() {
         );
 
       case 2:
-        return <></>;
+        return (
+          <Input
+            id="date"
+            label="약속날짜를 지정해주세요."
+            type="text"
+            required
+            ref={meetingInputRefs}
+          ></Input>
+        );
     }
   }
 
