@@ -42,7 +42,7 @@ export default function MakeMeetingPage() {
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 1:
+      case 2:
         return (
           <MeetingInfoInputs
             ref={meetingInputRefs}
@@ -50,7 +50,7 @@ export default function MakeMeetingPage() {
           />
         );
 
-      case 2:
+      case 1:
         return <MeetingDateTimePicker setDateValue={setDateValue} />;
     }
   }

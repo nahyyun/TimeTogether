@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MAX_SCROLL_Y,
   MIN_SCROLL_Y,
@@ -8,6 +8,7 @@ import {
 import * as S from "./style";
 
 export default function TimePicker() {
+  const [isMouseDown, setIsMouseDown] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [prevTouchY, setPrevTouchY] = useState(0);
 
@@ -36,19 +37,47 @@ export default function TimePicker() {
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     setPrevTouchY(0);
+    setScrollY((prev) => scrollToVisibleArea(prev));
+  };
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsMouseDown(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown) return;
+
+    const currentMouseY = e.pageY;
+    setPrevTouchY(currentMouseY);
+
+    if (!prevTouchY) return;
+
+    const offsetY = prevTouchY - currentMouseY;
+
+    setScrollY((prev) => prev + offsetY);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    setIsMouseDown(false);
+    setPrevTouchY(0);
     setScrollY((prev) => scrollToVisibleArea(prev));
   };
 
   return (
-    <S.TimePickerContainer>
+    <S.TimePickerContainer
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <S.StartTimeWrapper scrollY={scrollY}>
         {TimeRange.map((time, idx) => (
           <S.Time
+            scrollY={scrollY}
             key={idx}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
             isActiveItem={idx === scrollY / TIME_ITEM_HEIGHT + 1}
+            idx={idx}
           >
             {time}
           </S.Time>
