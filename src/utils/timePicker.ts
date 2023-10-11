@@ -5,15 +5,17 @@ export const TimeRange = Array.from({ length: 48 }, (_, hour: number) => {
   return `${hourFormat}:${minuteFormat}`;
 });
 
-const VISIBLE_ITEM_CNT = 3;
+const ITEM_CNT_OF_LAST_SCROLL_PAGE = 2;
 export const TIME_ITEM_HEIGHT = 40;
-const SCROLLED_ITEM_CNT = TimeRange.length - VISIBLE_ITEM_CNT;
+const SCROLLED_ITEM_CNT_BEFORE_LAST_SCROLL_PAGE =
+  TimeRange.length - ITEM_CNT_OF_LAST_SCROLL_PAGE;
 
-export const MIN_SCROLL_Y = 0;
-export const MAX_SCROLL_Y = TIME_ITEM_HEIGHT * SCROLLED_ITEM_CNT;
+export const MIN_SCROLL_Y = -TIME_ITEM_HEIGHT;
+export const MAX_SCROLL_Y =
+  TIME_ITEM_HEIGHT * SCROLLED_ITEM_CNT_BEFORE_LAST_SCROLL_PAGE;
 
 export const scrollToVisibleArea = (_scrollY: number) => {
-  if (_scrollY < 0) return MIN_SCROLL_Y;
+  if (_scrollY < MIN_SCROLL_Y) return MIN_SCROLL_Y;
   if (_scrollY > MAX_SCROLL_Y) return MAX_SCROLL_Y;
 
   const remainderFromScroll = _scrollY % TIME_ITEM_HEIGHT;

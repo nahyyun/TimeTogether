@@ -19,6 +19,13 @@ export const theme = {
     error: "#FF7C7C",
   },
   text: {
-    size: { xs: "10px", sm: "14px", md: "18px", lg: "20px", xxlg: "46px" },
+    size: {
+      xs: "10px",
+      sm: "14px",
+      md: "18px",
+      lg: "20px",
+      xlg: "30px",
+      xxlg: "46px",
+    },
   },
 } as const;

@@ -21,8 +21,8 @@ const MeetingDateTimePicker = forwardRef<
       <span>모임 날짜를 지정해주세요.</span>
       <CustomDatePicker setDateValue={setDateValue} />
 
-      <h3>몇명이서 모이나요?</h3>
-      <span>모임 인원 수를 입력해주세요.</span>
+      <h3>약속 시간이 어떻게 되나요?</h3>
+      <span>약속 시간대를 지정해주세요.</span>
       <TimePicker />
 
       <Button type="submit">일정 생성 완료</Button>
