@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  MAX_SCROLL_Y,
-  MIN_SCROLL_Y,
+  scrollToVisibleArea,
   TimeRange,
   TIME_ITEM_HEIGHT,
-} from "utils/time";
+} from "utils/timePicker";
 import * as S from "./style";
 
 export default function TimePicker() {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [prevTouchY, setPrevTouchY] = useState(0);
-
-  const scrollToVisibleArea = (_scrollY: number) => {
-    if (_scrollY < 0) return MIN_SCROLL_Y;
-    if (_scrollY > MAX_SCROLL_Y) return MAX_SCROLL_Y;
-
-    const remainderFromScroll = _scrollY % TIME_ITEM_HEIGHT;
-
-    if (remainderFromScroll < TIME_ITEM_HEIGHT % 2)
-      return _scrollY - remainderFromScroll;
-
-    return _scrollY + TIME_ITEM_HEIGHT - remainderFromScroll;
-  };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     const currentTouchY = e.touches[0].pageY;
@@ -71,13 +58,12 @@ export default function TimePicker() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <S.StartTimeWrapper scrollY={scrollY}>
+      <S.StartTimeWrapper>
         {TimeRange.map((time, idx) => (
           <S.Time
-            scrollY={scrollY}
             key={idx}
+            scrollY={scrollY}
             isActiveItem={idx === scrollY / TIME_ITEM_HEIGHT + 1}
-            idx={idx}
           >
             {time}
           </S.Time>

@@ -1,33 +1,27 @@
-import { TIME_ITEM_HEIGHT } from "./../../utils/time";
+import { TIME_ITEM_HEIGHT } from "../../utils/timePicker";
 import styled from "@emotion/styled";
 
 export const TimePickerContainer = styled.div`
   position: absolute;
   top: 0;
-  height: 800px;
+  height: 100vh;
 `;
 
-export const StartTimeWrapper = styled.div<{
-  scrollY: number;
-}>`
-  line-height: ${TIME_ITEM_HEIGHT}px;
-
-  transition: transform 0.2s;
-  background-color: lightpink;
-  overflow-y: hidden;
+export const StartTimeWrapper = styled.div`
   position: relative;
-  top: 50%;
-  display: block;
-  height: 120px;
+  top: 420px;
+  height: ${TIME_ITEM_HEIGHT * 3}px;
+  line-height: ${TIME_ITEM_HEIGHT}px;
+  transition: transform 0.2s;
+  overflow-y: hidden;
 `;
 
 export const Time = styled.div<{
   isActiveItem: boolean;
   scrollY: number;
-  idx: number;
 }>`
   height: ${TIME_ITEM_HEIGHT}px;
-  color: ${({ isActiveItem }) => (isActiveItem ? "black" : "red")};
+  color: ${({ isActiveItem }) => (isActiveItem ? "black" : "lightgrey")};
   cursor: pointer;
   transform: translateY(${({ scrollY }) => -scrollY + "px"});
 `;
