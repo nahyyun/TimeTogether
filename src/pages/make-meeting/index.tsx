@@ -5,25 +5,28 @@ import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
-  const [meetingInputForm, setMeetingInputForm] = useState({});
+  const [meetingForm, setMeetingForm] = useState({
+    title: "",
+    memberCnt: "",
+    date: new Date(),
+    time: ["", ""],
+  });
 
   const meetingInputRefs = useRef<MeetingFormRefType>({
     title: null,
     memberCnt: null,
-    time: null,
   });
 
   const setDateValue = (date: Date) => {
-    setMeetingInputForm((prev) => ({ ...prev, date }));
+    setMeetingForm((prev) => ({ ...prev, date }));
+  };
+
+  const setTimeValue = (time: [string, string]) => {
+    setMeetingForm((prev) => ({ ...prev, time }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    const totalFormValue = {
-      ...meetingInputForm,
-      time: meetingInputRefs.current.time?.value,
-    };
   };
 
   const navigateStep = (stepOffset: number) => {
@@ -31,12 +34,12 @@ export default function MakeMeetingPage() {
 
     if (!title || !memberCnt) return;
 
-    const meetingInputValue = {
+    const firstStepInputValue = {
       title: title.value,
       memberCnt: memberCnt.value,
     };
 
-    setMeetingInputForm(meetingInputValue);
+    setMeetingForm((prev) => ({ ...prev, ...firstStepInputValue }));
     setStep((prevStep) => prevStep + stepOffset);
   };
 
@@ -51,7 +54,12 @@ export default function MakeMeetingPage() {
         );
 
       case 1:
-        return <MeetingDateTimePicker setDateValue={setDateValue} />;
+        return (
+          <MeetingDateTimePicker
+            setDateValue={setDateValue}
+            setTimeValue={setTimeValue}
+          />
+        );
     }
   }
 

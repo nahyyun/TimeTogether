@@ -6,13 +6,14 @@ import TimePicker from "../TimePicker";
 
 interface MeetingDateTimePickerProps {
   setDateValue: (date: Date) => void;
+  setTimeValue: (time: [string, string]) => void;
 }
 
 const MeetingDateTimePicker = forwardRef<
   MeetingFormRefType,
   MeetingDateTimePickerProps
 >(function MeetingDateTimePicker(
-  { setDateValue }: MeetingDateTimePickerProps,
+  { setDateValue, setTimeValue }: MeetingDateTimePickerProps,
   ref
 ) {
   return (
@@ -23,7 +24,7 @@ const MeetingDateTimePicker = forwardRef<
 
       <h3>약속 시간이 어떻게 되나요?</h3>
       <span>약속 시간대를 지정해주세요.</span>
-      <TimePicker />
+      <TimePicker setTimeValue={setTimeValue} />
 
       <Button type="submit">일정 생성 완료</Button>
     </>

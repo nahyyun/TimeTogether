@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MIN_SCROLL_Y,
   scrollToVisibleArea,
@@ -38,12 +38,13 @@ export default function TimeListContainer({
     setScrollY((prev) => scrollToVisibleArea(prev));
   };
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     setIsScrollStart(true);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isScrollStart) return;
+    console.log("move", isScrollStart, e);
 
     const currentMouseY = e.pageY;
     setPrevTouchY(currentMouseY);
@@ -56,6 +57,7 @@ export default function TimeListContainer({
   };
 
   const handleMouseUp = () => {
+    if (!isScrollStart) return;
     setIsScrollStart(false);
     setPrevTouchY(0);
     setScrollY((prev) => scrollToVisibleArea(prev));

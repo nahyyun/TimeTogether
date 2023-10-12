@@ -9,12 +9,11 @@ export interface Meeting {
   members: GuestUser[];
 }
 
-export interface MeetingFormFields {
+export interface MeetingFirstStepFormFields {
   title: string;
   memberCnt?: number;
-  time: string;
 }
 
 export type MeetingFormRefType = {
-  [key in keyof MeetingFormFields]: HTMLInputElement | null;
+  [key in keyof MeetingFirstStepFormFields]: HTMLInputElement | null;
 };
