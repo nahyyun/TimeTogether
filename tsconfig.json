@@ -21,7 +21,8 @@
       "@/hooks/*": ["hooks/*"],
       "@/types/*": ["types/*"],
       "@/services/*": ["services/*"],
-      "@/constants/*": ["constants/*"]
+      "@/constants/*": ["constants/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

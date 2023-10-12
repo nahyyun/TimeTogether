@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
+  calcMiddleItemIdxFromScollY,
   MIN_SCROLL_Y,
   scrollToVisibleArea,
-  TIME_ITEM_HEIGHT,
-} from "utils/timePicker";
+} from "@/utils/timePicker";
 import * as S from "./style";
 
 interface TimeListContainerProps {
@@ -38,13 +38,12 @@ export default function TimeListContainer({
     setScrollY((prev) => scrollToVisibleArea(prev));
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = () => {
     setIsScrollStart(true);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isScrollStart) return;
-    console.log("move", isScrollStart, e);
 
     const currentMouseY = e.pageY;
     setPrevTouchY(currentMouseY);
@@ -66,28 +65,26 @@ export default function TimeListContainer({
   useEffect(() => {
     if (isScrollStart) return;
 
-    setSelectedTimeIdx(scrollY / TIME_ITEM_HEIGHT + 1);
+    setSelectedTimeIdx(calcMiddleItemIdxFromScollY(scrollY));
   }, [isScrollStart]);
 
   return (
-    <S.TimeListContainer
+    <S.TimeList
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <S.TimeList>
-        {range.map((time, idx) => (
-          <S.TimeItem
-            key={idx}
-            scrollY={scrollY}
-            isActiveItem={idx === scrollY / TIME_ITEM_HEIGHT + 1}
-          >
-            {time}
-          </S.TimeItem>
-        ))}
-      </S.TimeList>
-    </S.TimeListContainer>
+      {range.map((time, idx) => (
+        <S.TimeItem
+          key={idx}
+          scrollY={scrollY}
+          isActiveItem={idx === calcMiddleItemIdxFromScollY(scrollY)}
+        >
+          {time}
+        </S.TimeItem>
+      ))}
+    </S.TimeList>
   );
 }

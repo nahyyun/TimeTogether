@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TimeRange } from "utils/timePicker";
+import { TimeRange } from "@/utils/timePicker";
 import * as S from "./style";
 import TimeListContainer from "./TimeListContainer";
 
