@@ -1,5 +1,3 @@
-import { MeetingFormRefType } from "@/types/Meeting";
-import { forwardRef } from "react";
 import Button from "../Common/Button";
 import CustomDatePicker from "../CustomDatePicker";
 import TimePicker from "../TimePicker";
@@ -9,13 +7,10 @@ interface MeetingDateTimePickerProps {
   setTimeValue: (time: [string, string]) => void;
 }
 
-const MeetingDateTimePicker = forwardRef<
-  MeetingFormRefType,
-  MeetingDateTimePickerProps
->(function MeetingDateTimePicker(
-  { setDateValue, setTimeValue }: MeetingDateTimePickerProps,
-  ref
-) {
+export default function MeetingDateTimePicker({
+  setDateValue,
+  setTimeValue,
+}: MeetingDateTimePickerProps) {
   return (
     <>
       <h3>언제 모일 예정인가요?</h3>
@@ -29,6 +24,4 @@ const MeetingDateTimePicker = forwardRef<
       <Button type="submit">일정 생성 완료</Button>
     </>
   );
-});
-
-export default MeetingDateTimePicker;
+}
