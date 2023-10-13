@@ -6,11 +6,13 @@ import TimePicker from "../TimePicker";
 interface MeetingDateTimePickerProps {
   setDateValue: (date: Date) => void;
   setTimeValue: (time: selectedTimeInfo) => void;
+  goToPrevStep: () => void;
 }
 
 export default function MeetingDateTimePicker({
   setDateValue,
   setTimeValue,
+  goToPrevStep,
 }: MeetingDateTimePickerProps) {
   return (
     <>
@@ -22,6 +24,9 @@ export default function MeetingDateTimePicker({
       <span>약속 시간대를 지정해주세요.</span>
       <TimePicker setTimeValue={setTimeValue} />
 
+      <Button type="button" onClick={goToPrevStep}>
+        이전 단계
+      </Button>
       <Button type="submit">일정 생성 완료</Button>
     </>
   );

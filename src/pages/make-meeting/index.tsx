@@ -36,12 +36,20 @@ export default function MakeMeetingPage() {
     if (!isTimeValid(startIdx, endIdx)) return;
   };
 
-  const navigateStep = (stepOffset: number) => {
+
+  const goToprevStep = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
+
+  const goToNextStep = () => {
     const { title, memberCnt } = meetingInputRefs.current;
 
-    if (!title || !memberCnt) return;
-
-    if (!isFirstStepInputsValid(title.value, Number(memberCnt.value))) return;
+    if (
+      !title ||
+      !memberCnt ||
+      !isFirstStepInputsValid(title.value, Number(memberCnt.value))
+    )
+      return;
 
     const firstStepInputValue = {
       title: title.value,
@@ -49,7 +57,7 @@ export default function MakeMeetingPage() {
     };
 
     setMeetingForm((prev) => ({ ...prev, ...firstStepInputValue }));
-    setStep((prevStep) => prevStep + stepOffset);
+    setStep((prevStep) => prevStep + 1);
   };
 
   function renderStepComponent(step: number) {
@@ -58,7 +66,7 @@ export default function MakeMeetingPage() {
         return (
           <MeetingInfoInputs
             ref={meetingInputRefs}
-            navigateStep={navigateStep}
+            navigateStep={goToNextStep}
           />
         );
 
@@ -67,6 +75,7 @@ export default function MakeMeetingPage() {
           <MeetingDateTimePicker
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
+            goToPrevStep={goToprevStep}
           />
         );
     }
