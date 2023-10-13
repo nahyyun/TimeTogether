@@ -7,6 +7,7 @@ import {
   meetingFormDefaultValue,
   meetingInputRefsDefaultValue,
 } from "@/constants/stateDefaultValue";
+import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
@@ -26,12 +27,21 @@ export default function MakeMeetingPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    const {
+      startTime: { idx: startIdx },
+      endTime: { idx: endIdx },
+    } = meetingForm.time;
+
+    if (!isTimeValid(startIdx, endIdx)) return;
   };
 
   const navigateStep = (stepOffset: number) => {
     const { title, memberCnt } = meetingInputRefs.current;
 
     if (!title || !memberCnt) return;
+
+    if (!isFirstStepInputsValid(title.value, Number(memberCnt.value))) return;
 
     const firstStepInputValue = {
       title: title.value,
