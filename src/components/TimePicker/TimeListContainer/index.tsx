@@ -8,7 +8,7 @@ import * as S from "./style";
 
 interface TimeListContainerProps {
   range: string[];
-  setSelectedTimeIdx: (idx: number) => void;
+  setSelectedTimeIdx: (idx: number, value: string) => void;
 }
 
 export default function TimeListContainer({
@@ -65,7 +65,9 @@ export default function TimeListContainer({
   useEffect(() => {
     if (isScrollStart) return;
 
-    setSelectedTimeIdx(calcMiddleItemIdxFromScollY(scrollY));
+    const selectedTimeIdx = calcMiddleItemIdxFromScollY(scrollY);
+
+    setSelectedTimeIdx(selectedTimeIdx, range[selectedTimeIdx]);
   }, [isScrollStart]);
 
   return (

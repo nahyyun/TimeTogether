@@ -1,3 +1,4 @@
+import { meetingInputRefsDefaultValue } from "@/constants/defaultValue";
 import { GuestUser } from "./user";
 
 export interface Meeting {
@@ -9,11 +10,6 @@ export interface Meeting {
   members: GuestUser[];
 }
 
-export interface MeetingFirstStepFormFields {
-  title: string;
-  memberCnt?: number;
-}
-
-export type MeetingFormRefType = {
-  [key in keyof MeetingFirstStepFormFields]: HTMLInputElement | null;
+export type MeetingInputRefs = {
+  [key in keyof typeof meetingInputRefsDefaultValue]: HTMLInputElement | null;
 };

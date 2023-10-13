@@ -1,39 +1,33 @@
 import { useEffect, useState } from "react";
 import { TimeRange } from "@/utils/timePicker";
-import * as S from "./style";
 import TimeListContainer from "./TimeListContainer";
+import { selectedTimeInfoDefaultValue } from "@/constants/defaultValue";
+import { selectedTimeInfo } from "@/types/timeInfo";
+import * as S from "./style";
 
 interface TimePickerProps {
-  setTimeValue: (time: [string, string]) => void;
+  setTimeValue: (time: selectedTimeInfo) => void;
 }
 
 export default function TimePicker({ setTimeValue }: TimePickerProps) {
-  const [selectedTimeIdx, setSelectedTimeIdx] = useState({
-    startTimeIdx: 0,
-    endTimeIdx: 0,
-  });
+  const [selectedTimeInfo, setSelectedTimeInfo] = useState(
+    selectedTimeInfoDefaultValue
+  );
 
-  const updateSelectedTimeIdx = (key: string, idx: number) => {
-    const newSelectedTimeIdx = { ...selectedTimeIdx, [key]: idx };
-    const { startTimeIdx, endTimeIdx } = newSelectedTimeIdx;
-
-    if (startTimeIdx > endTimeIdx) return;
-
-    setSelectedTimeIdx((prev) => ({ ...prev, [key]: idx }));
+  const updateSelectedTimeIdx = (key: string, idx: number, value: string) => {
+    setSelectedTimeInfo((prev) => ({ ...prev, [key]: { idx, value } }));
   };
 
   useEffect(() => {
-    const { startTimeIdx, endTimeIdx } = selectedTimeIdx;
-
-    setTimeValue([TimeRange[startTimeIdx], TimeRange[endTimeIdx]]);
-  }, [selectedTimeIdx]);
+    setTimeValue(selectedTimeInfo);
+  }, [selectedTimeInfo]);
 
   return (
     <S.TimePickerContainer>
       <TimeListContainer
         range={TimeRange}
-        setSelectedTimeIdx={(idx: number) =>
-          updateSelectedTimeIdx("startTimeIdx", idx)
+        setSelectedTimeIdx={(idx: number, value: string) =>
+          updateSelectedTimeIdx("startTime", idx, value)
         }
       />
 
@@ -41,8 +35,8 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
 
       <TimeListContainer
         range={TimeRange}
-        setSelectedTimeIdx={(idx: number) =>
-          updateSelectedTimeIdx("endTimeIdx", idx)
+        setSelectedTimeIdx={(idx: number, value: string) =>
+          updateSelectedTimeIdx("endTime", idx, value)
         }
       />
     </S.TimePickerContainer>

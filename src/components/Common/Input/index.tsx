@@ -1,13 +1,13 @@
 import { forwardRef } from "react";
-import { MeetingFormRefType } from "@/types/Meeting";
+import { MeetingInputRefs } from "@/types/meeting";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: keyof MeetingFormRefType;
+  id: keyof MeetingInputRefs;
   label: string;
   type: string;
 }
 
-const Input = forwardRef<MeetingFormRefType, InputProps>(function Input(
+const Input = forwardRef<MeetingInputRefs, InputProps>(function Input(
   { label, type, id, ...props }: InputProps,
   ref
 ) {

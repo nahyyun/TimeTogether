@@ -1,27 +1,26 @@
 import { FormEvent, useRef, useState } from "react";
 import MeetingInfoInputs from "@/components/MeetingInfoInputs";
-import { MeetingFormRefType } from "@/types/Meeting";
+import { MeetingInputRefs } from "@/types/meeting";
 import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
+import { selectedTimeInfo } from "@/types/timeInfo";
+import {
+  meetingFormDefaultValue,
+  meetingInputRefsDefaultValue,
+} from "@/constants/defaultValue";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
-  const [meetingForm, setMeetingForm] = useState({
-    title: "",
-    memberCnt: "",
-    date: new Date(),
-    time: ["", ""],
-  });
+  const [meetingForm, setMeetingForm] = useState(meetingFormDefaultValue);
 
-  const meetingInputRefs = useRef<MeetingFormRefType>({
-    title: null,
-    memberCnt: null,
-  });
+  const meetingInputRefs = useRef<MeetingInputRefs>(
+    meetingInputRefsDefaultValue
+  );
 
   const setDateValue = (date: Date) => {
     setMeetingForm((prev) => ({ ...prev, date }));
   };
 
-  const setTimeValue = (time: [string, string]) => {
+  const setTimeValue = (time: selectedTimeInfo) => {
     setMeetingForm((prev) => ({ ...prev, time }));
   };
 
@@ -45,7 +44,7 @@ export default function MakeMeetingPage() {
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 2:
+      case 1:
         return (
           <MeetingInfoInputs
             ref={meetingInputRefs}
@@ -53,7 +52,7 @@ export default function MakeMeetingPage() {
           />
         );
 
-      case 1:
+      case 2:
         return (
           <MeetingDateTimePicker
             setDateValue={setDateValue}

@@ -1,10 +1,11 @@
+import { selectedTimeInfo } from "@/types/timeInfo";
 import Button from "../Common/Button";
 import CustomDatePicker from "../CustomDatePicker";
 import TimePicker from "../TimePicker";
 
 interface MeetingDateTimePickerProps {
   setDateValue: (date: Date) => void;
-  setTimeValue: (time: [string, string]) => void;
+  setTimeValue: (time: selectedTimeInfo) => void;
 }
 
 export default function MeetingDateTimePicker({
