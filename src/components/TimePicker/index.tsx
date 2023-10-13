@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { TimeRange } from "@/utils/timePicker";
+import { TimeRange } from "@/constants/timeRange";
 import TimeListContainer from "./TimeListContainer";
-import { selectedTimeInfoDefaultValue } from "@/constants/defaultValue";
+import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
 import { selectedTimeInfo } from "@/types/timeInfo";
 import * as S from "./style";
 

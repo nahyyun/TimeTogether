@@ -1,4 +1,4 @@
-import { ITEM_CNT_PER_SCROLL, TIME_ITEM_HEIGHT } from "@/utils/timePicker";
+import { ITEM_CNT_PER_SCROLL, TIME_ITEM_HEIGHT } from "@/constants/scroll";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 

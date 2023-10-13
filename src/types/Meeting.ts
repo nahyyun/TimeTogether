@@ -1,4 +1,4 @@
-import { meetingInputRefsDefaultValue } from "@/constants/defaultValue";
+import { meetingInputRefsDefaultValue } from "@/constants/stateDefaultValue";
 import { GuestUser } from "./user";
 
 export interface Meeting {

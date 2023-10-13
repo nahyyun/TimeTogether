@@ -17,7 +17,6 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
           label="약속명을 입력해주세요."
           type="text"
           placeholder="해커톤 뒷풀이"
-          required
           ref={ref}
         />
 
@@ -27,9 +26,8 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
           label="모임 인원 수를 입력해주세요."
           type="number"
           placeholder="5"
-          required
           min={1}
-          max={40}
+          max={20}
           ref={ref}
         />
 

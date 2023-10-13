@@ -6,7 +6,7 @@ import { selectedTimeInfo } from "@/types/timeInfo";
 import {
   meetingFormDefaultValue,
   meetingInputRefsDefaultValue,
-} from "@/constants/defaultValue";
+} from "@/constants/stateDefaultValue";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);

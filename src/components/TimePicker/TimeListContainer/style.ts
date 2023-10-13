@@ -1,5 +1,5 @@
+import { TIME_ITEM_HEIGHT } from "@/constants/scroll";
 import styled from "@emotion/styled";
-import { TIME_ITEM_HEIGHT } from "@/utils/timePicker";
 
 export const TimeList = styled.div`
   line-height: ${TIME_ITEM_HEIGHT}px;

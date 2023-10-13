@@ -1,19 +1,9 @@
-export const TimeRange = Array.from({ length: 48 }, (_, hour: number) => {
-  const hourFormat = String(Math.floor(hour * 0.5)).padStart(2, "0");
-  const minuteFormat = String((hour * 30) % 60).padStart(2, "0");
-
-  return `${hourFormat}:${minuteFormat}`;
-});
-
-export const ITEM_CNT_PER_SCROLL = 3;
-const ITEM_CNT_OF_LAST_SCROLL_PAGE = 2;
-export const TIME_ITEM_HEIGHT = 40;
-const SCROLLED_ITEM_CNT_BEFORE_LAST_SCROLL_PAGE =
-  TimeRange.length - ITEM_CNT_OF_LAST_SCROLL_PAGE;
-
-export const MIN_SCROLL_Y = -TIME_ITEM_HEIGHT;
-export const MAX_SCROLL_Y =
-  TIME_ITEM_HEIGHT * SCROLLED_ITEM_CNT_BEFORE_LAST_SCROLL_PAGE;
+import {
+  ITEM_CNT_PER_SCROLL,
+  MAX_SCROLL_Y,
+  MIN_SCROLL_Y,
+  TIME_ITEM_HEIGHT,
+} from "@/constants/scroll";
 
 export const scrollToVisibleArea = (scrollY: number) => {
   if (scrollY < MIN_SCROLL_Y) return MIN_SCROLL_Y;
@@ -27,6 +17,5 @@ export const scrollToVisibleArea = (scrollY: number) => {
   return scrollY + TIME_ITEM_HEIGHT - remainderFromScroll;
 };
 
-export const calcMiddleItemIdxFromScollY = (scrollY: number) => 
-   scrollY / TIME_ITEM_HEIGHT + Math.floor(ITEM_CNT_PER_SCROLL / 2);
-;
+export const calcMiddleItemIdxFromScollY = (scrollY: number) =>
+  scrollY / TIME_ITEM_HEIGHT + Math.floor(ITEM_CNT_PER_SCROLL / 2);

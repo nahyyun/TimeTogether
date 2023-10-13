@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   calcMiddleItemIdxFromScollY,
-  MIN_SCROLL_Y,
   scrollToVisibleArea,
 } from "@/utils/timePicker";
+import { MIN_SCROLL_Y } from "@/constants/scroll";
 import * as S from "./style";
 
 interface TimeListContainerProps {

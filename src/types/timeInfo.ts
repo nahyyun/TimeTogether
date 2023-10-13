@@ -1,3 +1,3 @@
-import { selectedTimeInfoDefaultValue } from "@/constants/defaultValue";
+import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
 
 export type selectedTimeInfo = typeof selectedTimeInfoDefaultValue;
