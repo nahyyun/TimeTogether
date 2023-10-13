@@ -5,6 +5,6 @@ const isMemeberCntValid = (cnt: number) => cnt > 0 && cnt < 20;
 export const isTimeValid = (startIdx: number, endIdx: number) =>
   startIdx < endIdx;
 
-export const isFirstStepInputsValid = (title: string, cnt: number) => {
-  return isTitleNull(title) && isMemeberCntValid(cnt);
-};
+export const isFirstStepInputsValid = (title: string, cnt: number) =>
+  isTitleNull(title) && isMemeberCntValid(cnt);
+

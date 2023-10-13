@@ -1,10 +1,7 @@
+import { PropsWithChildren } from "@/types/propsWithChildren";
 import Header from "../Header";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Header />
