@@ -6,6 +6,7 @@ import { ButtonProps } from ".";
 const BUTTON_SIZE = {
   md: { width: "120px", height: "42px" },
   full: { width: "100%", height: "100%" },
+  square: { width: "45px", height: "45px" },
 } as const;
 
 const BUTTON_STYLE = {

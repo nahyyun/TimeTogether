@@ -1,6 +1,6 @@
 import Dimmer from "../Dimmer";
 import * as S from "./style";
-import { CloseButtonIcon } from "../Icons";
+import { CloseIcon } from "../Icons";
 import Navbar from "../Navbar";
 import Button from "@/components/Common/Button";
 
@@ -22,7 +22,7 @@ export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
               type="button"
               onClick={closeSidebar}
             >
-              <CloseButtonIcon />
+              <CloseIcon />
             </Button>
           </S.SidebarCloseButtonWrapper>
         </S.SidebarHeader>

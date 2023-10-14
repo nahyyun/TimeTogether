@@ -1,40 +1,45 @@
-import { MeetingInputRefs } from "@/types/meeting";
 import { forwardRef } from "react";
+import { MeetingInputRefs } from "@/types/meeting";
 import Button from "../Common/Button";
-import Input from "../Common/Input";
+import InputWithLabel from "../Common/InputWithLabel";
+import * as S from "./style";
 
 interface MeetingInfoInputsProps {
-  navigateStep: (stepOffset: number) => void;
+  goToNextStep: () => void;
 }
 
 const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
-  function MeetingInfoInputs({ navigateStep }: MeetingInfoInputsProps, ref) {
+  function MeetingInfoInputs({ goToNextStep }: MeetingInfoInputsProps, ref) {
     return (
-      <>
-        <h3>어떤 약속인가요?</h3>
-        <Input
-          id="title"
-          label="약속명을 입력해주세요."
-          type="text"
-          placeholder="해커톤 뒷풀이"
-          required
-          ref={ref}
-        />
+      <S.MeetingInfoInputsContainer>
+        <S.Fieldset>
+          <h2>어떤 약속인가요?</h2>
+          <InputWithLabel
+            id="title"
+            label="약속명을 입력해주세요."
+            type="text"
+            placeholder="해커톤 뒷풀이"
+            required
+            ref={ref}
+          />
+        </S.Fieldset>
 
-        <h3>몇명이서 모이나요?</h3>
-        <Input
-          id="memberCnt"
-          label="모임 인원 수를 입력해주세요."
-          type="number"
-          placeholder="5"
-          min={1}
-          max={20}
-          required
-          ref={ref}
-        />
+        <S.Fieldset>
+          <h2>몇명이서 모이나요?</h2>
+          <InputWithLabel
+            id="memberCnt"
+            label="모임 인원 수를 입력해주세요."
+            type="number"
+            placeholder="5"
+            min={1}
+            max={20}
+            required
+            ref={ref}
+          />
+        </S.Fieldset>
 
-        <Button onClick={() => navigateStep(1)}>다음</Button>
-      </>
+        <Button onClick={goToNextStep}>다음</Button>
+      </S.MeetingInfoInputsContainer>
     );
   }
 );

@@ -8,6 +8,7 @@ import {
   meetingInputRefsDefaultValue,
 } from "@/constants/stateDefaultValue";
 import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
+import * as S from "./style";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
@@ -36,7 +37,6 @@ export default function MakeMeetingPage() {
     if (!isTimeValid(startIdx, endIdx)) return;
   };
 
-
   const goToprevStep = () => {
     setStep((prevStep) => prevStep - 1);
   };
@@ -62,15 +62,15 @@ export default function MakeMeetingPage() {
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 1:
+      case 2:
         return (
           <MeetingInfoInputs
             ref={meetingInputRefs}
-            navigateStep={goToNextStep}
+            goToNextStep={goToNextStep}
           />
         );
 
-      case 2:
+      case 1:
         return (
           <MeetingDateTimePicker
             setDateValue={setDateValue}
@@ -81,5 +81,5 @@ export default function MakeMeetingPage() {
     }
   }
 
-  return <form onSubmit={handleSubmit}>{renderStepComponent(step)}</form>;
+  return <S.Form onSubmit={handleSubmit}>{renderStepComponent(step)}</S.Form>;
 }
