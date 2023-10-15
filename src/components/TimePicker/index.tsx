@@ -24,6 +24,7 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
 
   return (
     <S.TimePickerContainer>
+      <S.HighlightBorder></S.HighlightBorder>
       <TimeListContainer
         range={TimeRange}
         setSelectedTimeIdx={(idx: number, value: string) =>

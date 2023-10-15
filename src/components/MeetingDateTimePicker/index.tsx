@@ -34,7 +34,7 @@ export default function MeetingDateTimePicker({
       </Fieldset>
 
       <S.ButtonWrapper>
-        <Button type="button" onClick={goToPrevStep}>
+        <Button type="button" buttonstyle="secondary" onClick={goToPrevStep}>
           이전 단계
         </Button>
         <Button type="submit">일정 생성 완료</Button>
