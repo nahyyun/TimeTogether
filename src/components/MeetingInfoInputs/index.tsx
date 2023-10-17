@@ -27,7 +27,7 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
         <S.Fieldset>
           <h2>몇명이서 모이나요?</h2>
           <InputWithLabel
-            id="memberCnt"
+            id="memberCount"
             label="모임 인원 수를 입력해주세요."
             type="number"
             placeholder="5"

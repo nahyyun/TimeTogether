@@ -26,6 +26,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@types/react-datepicker": "^4.15.1"
+    "@types/react-datepicker": "^4.15.1",
+    "supabase": "^1.100.1"
   }
 }

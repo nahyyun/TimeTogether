@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TimeRange } from "@/constants/timeRange";
+import { TimeRange } from "@/constants/timeArray";
 import TimeListContainer from "./TimeListContainer";
 import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
 import { selectedTimeInfo } from "@/types/timeInfo";

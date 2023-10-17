@@ -23,37 +23,47 @@ export default function MakeMeetingPage() {
   };
 
   const setTimeValue = (time: selectedTimeInfo) => {
-    setMeetingForm((prev) => ({ ...prev, time }));
+    setMeetingForm((prev) => ({ ...prev, timeRange: time }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const {
       startTime: { idx: startIdx },
       endTime: { idx: endIdx },
-    } = meetingForm.time;
+    } = meetingForm.timeRange;
 
     if (!isTimeValid(startIdx, endIdx)) return;
+
+    const { startTime, endTime } = meetingForm.timeRange;
+
+    await fetch("/api/guest/meeting", {
+      method: "POST",
+      body: JSON.stringify({
+        ...meetingForm,
+        timeRange: [startTime.value, endTime.value],
+      }),
+    });
   };
 
-  const goToprevStep = () => {
+  const goToPrevStep = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
   const goToNextStep = () => {
-    const { title, memberCnt } = meetingInputRefs.current;
+    const { title, memberCount } = meetingInputRefs.current;
 
     if (
       !title ||
-      !memberCnt ||
-      !isFirstStepInputsValid(title.value, Number(memberCnt.value))
+      !memberCount ||
+      !isFirstStepInputsValid(title.value, Number(memberCount.value))
     )
       return;
 
     const firstStepInputValue = {
       title: title.value,
-      memberCnt: memberCnt.value,
+      memberCount: Number(memberCount.value),
     };
 
     setMeetingForm((prev) => ({ ...prev, ...firstStepInputValue }));
@@ -62,7 +72,7 @@ export default function MakeMeetingPage() {
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 2:
+      case 1:
         return (
           <MeetingInfoInputs
             ref={meetingInputRefs}
@@ -70,12 +80,12 @@ export default function MakeMeetingPage() {
           />
         );
 
-      case 1:
+      case 2:
         return (
           <MeetingDateTimePicker
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
-            goToPrevStep={goToprevStep}
+            goToPrevStep={goToPrevStep}
           />
         );
     }

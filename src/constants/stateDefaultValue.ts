@@ -5,12 +5,12 @@ export const selectedTimeInfoDefaultValue = {
 
 export const meetingFormDefaultValue = {
   title: "",
-  memberCnt: "",
+  memberCount: 0,
   date: new Date(),
-  time: selectedTimeInfoDefaultValue,
+  timeRange: selectedTimeInfoDefaultValue,
 };
 
 export const meetingInputRefsDefaultValue = {
   title: null,
-  memberCnt: null,
+  memberCount: null,
 };

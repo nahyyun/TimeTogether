@@ -1,4 +1,4 @@
-import { TimeRange } from "@/constants/timeRange";
+import { TimeRange } from "@/constants/timeArray";
 
 export const ITEM_CNT_PER_SCROLL = 3;
 const ITEM_CNT_OF_LAST_SCROLL_PAGE = 2;

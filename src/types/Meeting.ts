@@ -1,14 +1,18 @@
-import { meetingInputRefsDefaultValue } from "@/constants/stateDefaultValue";
-import { GuestUser } from "./user";
+import {
+  meetingFormDefaultValue,
+  meetingInputRefsDefaultValue,
+} from "@/constants/stateDefaultValue";
 
 export interface Meeting {
   title: string;
   date: string;
-  memberCnt?: string;
-  isMemberCntDecided: boolean;
+  memberCount?: number;
+  isMemberCountDecided: boolean;
   timeRange: string[];
-  members: GuestUser[];
+  members: string[];
 }
+
+export type MeetingForm = typeof meetingFormDefaultValue;
 
 export type MeetingInputRefs = {
   [key in keyof typeof meetingInputRefsDefaultValue]: HTMLInputElement | null;
