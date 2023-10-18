@@ -8,11 +8,14 @@ import {
   meetingInputRefsDefaultValue,
 } from "@/constants/stateDefaultValue";
 import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
+import { useCreateMeeting } from "@/hooks/queries/meeting";
 import * as S from "./style";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
   const [meetingForm, setMeetingForm] = useState(meetingFormDefaultValue);
+
+  const { mutate: createMeeting } = useCreateMeeting();
 
   const meetingInputRefs = useRef<MeetingInputRefs>(
     meetingInputRefsDefaultValue
@@ -38,12 +41,9 @@ export default function MakeMeetingPage() {
 
     const { startTime, endTime } = meetingForm.timeRange;
 
-    await fetch("/api/guest/meeting", {
-      method: "POST",
-      body: JSON.stringify({
-        ...meetingForm,
-        timeRange: [startTime.value, endTime.value],
-      }),
+    createMeeting({
+      ...meetingForm,
+      timeRange: [startTime.value, endTime.value],
     });
   };
 
