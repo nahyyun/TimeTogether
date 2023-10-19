@@ -10,6 +10,7 @@ export interface Meeting {
   isMemberCountDecided: boolean;
   timeRange: string[];
   members: string[];
+  created_at: string;
 }
 
 export type MeetingForm = typeof meetingFormDefaultValue;
