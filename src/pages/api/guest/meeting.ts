@@ -7,11 +7,7 @@ export default async function handler(
 ) {
   const meetingFormData = JSON.parse(req.body);
 
-  const { data, error } = await createMeeting({
-    ...meetingFormData,
-    members: [],
-    isMemberCountDecided: true,
-  });
+  const { data, error } = await createMeeting(meetingFormData);
 
   if (error)
     return res.status(Number(error.code)).json({ message: error.message });

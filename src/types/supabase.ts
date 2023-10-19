@@ -33,7 +33,7 @@ export interface Database {
       Meeting: {
         Row: {
           created_at: string;
-          date: string;
+          date: Date;
           id: string;
           isMemberCountDecided: boolean;
           memberCount: number | null;
@@ -43,7 +43,7 @@ export interface Database {
         };
         Insert: {
           created_at?: string;
-          date: string;
+          date: Date;
           id?: string;
           isMemberCountDecided: boolean;
           memberCount?: number | null;
@@ -53,7 +53,7 @@ export interface Database {
         };
         Update: {
           created_at?: string;
-          date?: string;
+          date?: Date;
           id?: string;
           isMemberCountDecided?: boolean;
           memberCount?: number | null;
@@ -78,3 +78,9 @@ export interface Database {
     };
   };
 }
+
+export type Row<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Row"];
+
+export type RowInsert<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Insert"];

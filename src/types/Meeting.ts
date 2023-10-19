@@ -1,19 +1,8 @@
-import {
-  meetingFormDefaultValue,
-  meetingInputRefsDefaultValue,
-} from "@/constants/stateDefaultValue";
+import { meetingInputRefsDefaultValue } from "@/constants/stateDefaultValue";
+import { Row, RowInsert } from "./supabase";
 
-export interface Meeting {
-  title: string;
-  date: string;
-  memberCount?: number;
-  isMemberCountDecided: boolean;
-  timeRange: string[];
-  members: string[];
-  created_at: string;
-}
-
-export type MeetingForm = typeof meetingFormDefaultValue;
+export interface Meeting extends Row<"Meeting"> {}
+export interface MeetingInsert extends RowInsert<"Meeting"> {}
 
 export type MeetingInputRefs = {
   [key in keyof typeof meetingInputRefsDefaultValue]: HTMLInputElement | null;

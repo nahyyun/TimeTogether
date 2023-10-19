@@ -1,9 +1,10 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getMeetingInfo } from "@/services/meeting";
 import { ParsedUrlQuery } from "querystring";
+import { Meeting } from "@/types/meeting";
 
 interface PageProps {
-  meetingInfo: any;
+  meetingInfo: Meeting;
 }
 
 interface Params extends ParsedUrlQuery {

@@ -6,7 +6,9 @@ export const selectedTimeInfoDefaultValue = {
 export const meetingFormDefaultValue = {
   title: "",
   memberCount: 0,
+  members: [],
   date: new Date(),
+  isMemberCountDecided: true,
   timeRange: selectedTimeInfoDefaultValue,
 };
 
