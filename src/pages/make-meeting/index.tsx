@@ -9,6 +9,7 @@ import {
 } from "@/constants/stateDefaultValue";
 import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
 import { useCreateMeeting } from "@/hooks/queries/meeting";
+import { formatDateToString } from "@/utils/date";
 import * as S from "./style";
 
 export default function MakeMeetingPage() {
@@ -43,6 +44,7 @@ export default function MakeMeetingPage() {
 
     createMeeting({
       ...meetingForm,
+      date: formatDateToString(meetingForm.date),
       timeRange: [startTime.value, endTime.value],
     });
   };

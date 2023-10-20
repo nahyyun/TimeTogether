@@ -33,7 +33,7 @@ export interface Database {
       Meeting: {
         Row: {
           created_at: string;
-          date: Date;
+          date: string;
           id: string;
           isMemberCountDecided: boolean;
           memberCount: number | null;
@@ -43,7 +43,7 @@ export interface Database {
         };
         Insert: {
           created_at?: string;
-          date: Date;
+          date: string;
           id?: string;
           isMemberCountDecided: boolean;
           memberCount?: number | null;
@@ -53,7 +53,7 @@ export interface Database {
         };
         Update: {
           created_at?: string;
-          date?: Date;
+          date?: string;
           id?: string;
           isMemberCountDecided?: boolean;
           memberCount?: number | null;
