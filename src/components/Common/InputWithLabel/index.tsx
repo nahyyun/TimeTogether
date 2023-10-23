@@ -1,15 +1,16 @@
 import { forwardRef } from "react";
-import { MeetingInputRefs } from "@/types/meeting";
 import * as S from "./style";
 
 interface InputWithLabelProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: keyof MeetingInputRefs;
+  id: string;
   label: string;
   type: string;
 }
 
-const InputWithLabel = forwardRef<MeetingInputRefs, InputWithLabelProps>(
+type HTMLInputElementMap = { [key: string]: HTMLInputElement | null };
+
+const InputWithLabel = forwardRef<HTMLInputElementMap, InputWithLabelProps>(
   function Input({ label, type, id, ...props }: InputWithLabelProps, ref) {
     if (!ref || typeof ref == "function") return null;
 

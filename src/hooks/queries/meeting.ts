@@ -12,7 +12,7 @@ const useCreateMeeting = () => {
     mutationFn: (meetingFormData: MeetingInsert) =>
       apiService.post(END_POINT.GUEST_MEETING, meetingFormData),
 
-    onSuccess: ({ meetingId }: { meetingId: number }) =>
+    onSuccess: ({ meetingId }: { meetingId: string }) =>
       router.push(ROUTE_PATH.MAKE_MEETING_RESULT(meetingId)),
 
     onError: (error) => console.error(error),

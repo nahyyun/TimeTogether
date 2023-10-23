@@ -3,6 +3,7 @@ import { getMeetingInfo } from "@/services/meeting";
 import { ParsedUrlQuery } from "querystring";
 import { Meeting } from "@/types/meeting";
 import { extractDatePartsFromStringType } from "@/utils/date";
+import { ROUTE_PATH } from "@/constants/path";
 import Button from "@/components/Common/Button";
 import * as S from "./style";
 
@@ -31,6 +32,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
 
 export default function MakeMeetingResultPage({
   meetingInfo: {
+    id,
     title,
     timeRange: [startTime, endTime],
     date: dateData,
@@ -55,7 +57,9 @@ export default function MakeMeetingResultPage({
       </S.MeetingInfoWrapper>
       <S.ButtonWrapper>
         <Button>일정 공유하기</Button>
-        <Button>내 일정 등록하기</Button>
+        <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)}>
+          내 일정 등록하기
+        </S.ButtonLink>
       </S.ButtonWrapper>
     </S.MeetingResultWrapper>
   );

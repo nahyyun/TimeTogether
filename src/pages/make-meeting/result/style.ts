@@ -1,17 +1,18 @@
+import { Button } from "@/components/Common/Button/style";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import Link from "next/link";
 
 export const MeetingResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
   gap: 30px;
-  padding: 0 60px;
+  padding: 30px 60px 0 60px;
 `;
 
 export const MainTitle = styled.h2`
-  font-size: ${theme.text.size.lg}px;
+  font-size: ${theme.text.size.lg};
   font-weight: 600;
 `;
 
@@ -32,10 +33,17 @@ export const MeetingInfoWrapper = styled.div`
 export const MeetingTitle = styled.h3`
   font-size: ${theme.text.size.md};
   margin-bottom: 30px;
+  font-weight: 600;
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   gap: 15px;
   margin-top: 20px;
+`;
+
+export const ButtonLink = styled(Button.withComponent(Link))`
+  text-align: center;
+  line-height: 42px;
+  font-size: ${theme.text.size.sm};
 `;
