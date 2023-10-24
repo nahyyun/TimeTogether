@@ -4,6 +4,7 @@ import {
   Fieldset,
   MeetingInfoInputsContainer as NameInputWrapper,
 } from "@/components/MeetingInfoInputs/style";
+import ScheduleRegistForm from "@/components/ScheduleRegistForm";
 import { Form } from "@/pages/make-meeting/style";
 import { FormEvent, useRef, useState } from "react";
 
@@ -30,7 +31,7 @@ export default function ScheduleLoginPage() {
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 1:
+      case 2:
         return (
           <NameInputWrapper>
             <Fieldset>
@@ -48,7 +49,8 @@ export default function ScheduleLoginPage() {
           </NameInputWrapper>
         );
 
-      case 2:
+      case 1:
+        return <ScheduleRegistForm name={scheduleForm.name} />;
     }
   }
 

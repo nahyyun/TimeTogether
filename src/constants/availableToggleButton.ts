@@ -1,0 +1,5 @@
+export const TOGGLE_CONTAINER_WIDTH = 95;
+export const TOGGLE_BUTTON_WIDTH = 28;
+
+export const MAX_POSITION_X = TOGGLE_CONTAINER_WIDTH - TOGGLE_BUTTON_WIDTH - 1;
+export const MIN_POSITION_X = 1;
