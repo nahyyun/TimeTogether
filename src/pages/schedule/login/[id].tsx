@@ -6,9 +6,38 @@ import {
 } from "@/components/MeetingInfoInputs/style";
 import ScheduleRegistForm from "@/components/ScheduleRegistForm";
 import { Form } from "@/pages/make-meeting/style";
+import { getMeetingInfo } from "@/services/meeting";
+import { Meeting } from "@/types/meeting";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
 
-export default function ScheduleLoginPage() {
+interface PageProps {
+  timeRange: string[];
+}
+
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
+
+export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
+  context
+) => {
+  const meetingId = context.params?.id || "";
+
+  const { data, error } = await getMeetingInfo(meetingId);
+
+  if (!data)
+    return {
+      notFound: true,
+    };
+
+  return { props: { timeRange: data[0].timeRange } };
+};
+
+export default function ScheduleLoginPage({
+  timeRange,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
   const [scheduleForm, setScheduleForm] = useState({ name: "", schedule: [] });
 
@@ -50,7 +79,9 @@ export default function ScheduleLoginPage() {
         );
 
       case 1:
-        return <ScheduleRegistForm name={scheduleForm.name} />;
+        return (
+          <ScheduleRegistForm name={scheduleForm.name} timeRange={timeRange} />
+        );
     }
   }
 

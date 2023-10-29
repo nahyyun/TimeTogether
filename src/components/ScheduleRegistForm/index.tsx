@@ -1,11 +1,16 @@
 import { useState } from "react";
+import ScheduleTable from "../ScheduleTable";
 import ToggleButton from "../ToggleButton";
 
 interface ScheduleRegistFormProps {
   name: string;
+  timeRange: string[];
 }
 
-export default function ScheduleRegistForm({ name }: ScheduleRegistFormProps) {
+export default function ScheduleRegistForm({
+  name,
+  timeRange,
+}: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
   const toggle = (status: boolean) => {
@@ -14,7 +19,13 @@ export default function ScheduleRegistForm({ name }: ScheduleRegistFormProps) {
 
   return (
     <>
-      <ToggleButton isChecked={isAvailable} toggle={toggle} />
+      <h3>
+        {name}님의
+        <br />
+        <ToggleButton isChecked={isAvailable} toggle={toggle} />
+        시간을 선택해주세요.
+      </h3>
+      <ScheduleTable isAvailable={isAvailable} scheduleRange={timeRange} />
     </>
   );
 }
