@@ -13,7 +13,7 @@ import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
 
 interface PageProps {
-  timeRange: string[];
+  meetingInfo: Meeting;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -32,11 +32,11 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
       notFound: true,
     };
 
-  return { props: { timeRange: data[0].timeRange } };
+  return { props: { meetingInfo: data[0] } };
 };
 
 export default function ScheduleLoginPage({
-  timeRange,
+  meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
   const [scheduleForm, setScheduleForm] = useState({ name: "", schedule: [] });
@@ -80,7 +80,10 @@ export default function ScheduleLoginPage({
 
       case 1:
         return (
-          <ScheduleRegistForm name={scheduleForm.name} timeRange={timeRange} />
+          <ScheduleRegistForm
+            name={scheduleForm.name}
+            meetingInfo={meetingInfo}
+          />
         );
     }
   }

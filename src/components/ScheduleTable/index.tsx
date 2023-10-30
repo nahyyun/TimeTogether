@@ -5,24 +5,25 @@ import {
   getTimeStringArray,
 } from "@/utils/timeRange";
 import * as S from "./style";
+import { Meeting } from "@/types/meeting";
 
 interface ScheduleTableProps {
   isAvailable?: boolean;
-  scheduleRange: string[];
+  meetingInfo: Meeting;
 }
 
 export default function ScheduleTable({
   isAvailable,
-  scheduleRange,
+  meetingInfo: { date, timeRange },
 }: ScheduleTableProps) {
-  const [startTime, endTime] = scheduleRange;
+  const [startTime, endTime] = timeRange;
 
   const allTimeRange = getAllTimeRange(startTime, endTime);
   const timeArray = getTimeStringArray(allTimeRange);
 
   return (
     <S.ScheduleTableContainer>
-      <S.TableHeader>29일</S.TableHeader>
+      <S.TableHeader>{new Date(date).getDate()}일</S.TableHeader>
 
       {allTimeRange.slice(1).map((time, idx) => (
         <S.TimeScale key={idx} idx={idx}>
