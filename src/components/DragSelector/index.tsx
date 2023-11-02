@@ -7,8 +7,9 @@ import {
   clearDragAreaBound,
   filterSelectedElements,
 } from "@/utils/dragHelper";
-import { isElementNull } from "@/utils/typeGuard";
+import { isElementNull, isMouseEvent } from "@/utils/typeGuard";
 import * as S from "./style";
+import { getEventPosition } from "@/utils/event";
 
 interface DragSelectorProps {
   dragSelectionRefs: dragSelectionRefs;
@@ -22,21 +23,32 @@ export default function DragSelector({
   const startDragPosition = useRef({ startX: Infinity, startY: Infinity });
   const dragArea = useRef<HTMLDivElement | null>(null);
 
-  const handleMouseDown = (e: MouseEvent) => {
-    const { pageX, pageY } = e;
+  const addMoveEvent = (e: MouseEvent | TouchEvent) => {
+    const eventType = isMouseEvent(e) ? "mousemove" : "touchmove";
 
-    startDragPosition.current.startX = pageX;
-    startDragPosition.current.startY = pageY;
-
-    setSelected([]);
-
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener(eventType, handleMoveEvent);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const removeMoveEvent = (e: MouseEvent | TouchEvent) => {
+    const eventType = isMouseEvent(e) ? "mousemove" : "touchmove";
+
+    window.removeEventListener(eventType, handleMoveEvent);
+  };
+
+  const handleStartEvent = (e: MouseEvent | TouchEvent) => {
+    const { currentX, currentY } = getEventPosition(e);
+
+    startDragPosition.current.startX = currentX;
+    startDragPosition.current.startY = currentY;
+
+    setSelected([]);
+    addMoveEvent(e);
+  };
+
+  const handleMoveEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
 
-    const { pageX: currentX, pageY: currentY } = e;
+    const { currentX, currentY } = getEventPosition(e);
 
     const dragAreaBoundRect = getDragAreaBoundRect(
       { currentX, currentY },
@@ -52,10 +64,10 @@ export default function DragSelector({
     );
   };
 
-  const handleMouseUp = () => {
+  const handleEndEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
 
-    window.removeEventListener("mousemove", handleMouseMove);
+    removeMoveEvent(e);
 
     clearDragAreaBound(dragArea.current);
 
@@ -67,16 +79,28 @@ export default function DragSelector({
   useEffect(() => {
     dragSelectionRefs.dragContainerRef?.addEventListener(
       "mousedown",
-      handleMouseDown
+      handleStartEvent
     );
-    window.addEventListener("mouseup", handleMouseUp);
+    dragSelectionRefs.dragContainerRef?.addEventListener(
+      "touchstart",
+      handleStartEvent
+    );
+
+    window.addEventListener("mouseup", handleEndEvent);
+    window.addEventListener("touchend", handleEndEvent);
 
     return () => {
       dragSelectionRefs.dragContainerRef?.removeEventListener(
         "mousedown",
-        handleMouseDown
+        handleStartEvent
       );
-      window.removeEventListener("mouseup", handleMouseUp);
+      dragSelectionRefs.dragContainerRef?.removeEventListener(
+        "touchstart",
+        handleStartEvent
+      );
+
+      window.removeEventListener("mouseup", handleEndEvent);
+      window.removeEventListener("touchend", handleEndEvent);
     };
   }, []);
 
