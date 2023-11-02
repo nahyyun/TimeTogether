@@ -9,6 +9,7 @@ import { Form } from "@/pages/make-meeting/style";
 import { getMeetingInfo } from "@/services/meeting";
 import { Meeting } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
 
@@ -79,6 +80,11 @@ export default function ScheduleLoginPage({
         );
 
       case 1:
+        const ScheduleRegistForm = dynamic(
+          () => import("@/components/ScheduleRegistForm"),
+          { ssr: false }
+        );
+
         return (
           <ScheduleRegistForm
             name={scheduleForm.name}

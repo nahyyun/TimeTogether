@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 const TIME_BLOCK_HEIGHT = 20;
@@ -31,6 +32,10 @@ export const TimeScale = styled.div<{ idx: number }>`
 
 export const TimeBlock = styled.div<{ disabled: boolean }>`
   height: ${TIME_BLOCK_HEIGHT}px;
+
+  &.selected {
+    background-color: ${theme.colors.primary[100]};
+  }
 
   &:nth-of-type(odd) {
     border-bottom: 1px dashed lightgray;
