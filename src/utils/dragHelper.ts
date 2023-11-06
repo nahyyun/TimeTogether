@@ -64,55 +64,94 @@ export const isElementWithinDragArea = (
   isInnerPosition(clientBottom, dragAreaTop, dragAreaBottom) ||
   isInnerPosition(dragAreaTop, clientTop, clientBottom);
 
-export const setSelectedTargets = (
-  selectableTargets: HTMLElement[],
-  dragAreaTop: number,
-  dragAreaBottom: number,
-  {
-    draggedElements: prevDraggedEls,
-    selectedAllElements: prevSelectedAllEls,
-  }: prevDragInfo,
-  currDragInfo: currDragInfo
-) => {
-  selectableTargets.forEach((client) => {
-    const { clientTop, clientBottom } = getClientBoundRect(client);
 
-    const toggleClassName = () => {
-      if (!prevSelectedAllEls.includes(client)) {
-        currDragInfo.selectedAllElements.push(client);
-        client.classList.add("selected");
-        return;
-      }
-      currDragInfo.selectedAllElements =
-        currDragInfo.selectedAllElements.filter((el) => el !== client);
-      client.classList.remove("selected");
-    };
+  const deleteElementFromList = (
+    elementList: HTMLElement[],
+    element: HTMLElement
+  ) => {
+    const findIdx = elementList.findIndex((el) => el === element);
+    if (findIdx !== -1) elementList.splice(findIdx, 1);
+  };
 
-    if (
-      isElementWithinDragArea(
-        clientTop,
-        clientBottom,
-        dragAreaTop,
-        dragAreaBottom
-      )
-    ) {
-      if (prevDraggedEls.includes(client)) return;
+  const selectElement = (
+    selectedElements: HTMLElement[],
+    element: HTMLElement
+  ) => {
+    selectedElements.push(element);
 
-      currDragInfo.draggedElements.push(client);
+    element.classList.add("selected");
+  };
 
-      toggleClassName();
-    } else {
-      if (!prevDraggedEls.includes(client)) return;
+  const deSelectElement = (
+    selectedElements: HTMLElement[],
+    element: HTMLElement
+  ) => {
+    deleteElementFromList(selectedElements, element);
 
-      const findIdx = currDragInfo.draggedElements.findIndex(
-        (el) => el == client
-      );
-      currDragInfo.draggedElements.splice(findIdx, 1);
+    element.classList.remove("selected");
+  };
 
-      toggleClassName();
+  const handleElementSelection = (
+    prevSelectedAllElements: HTMLElement[],
+    currSelectedAllElements: HTMLElement[],
+    element: HTMLElement
+  ) => {
+    if (!prevSelectedAllElements.includes(element)) {
+      return selectElement(currSelectedAllElements, element);
     }
-  });
-};
+
+    deSelectElement(currSelectedAllElements, element);
+  };
+
+  const isElementInsidePrevDragArea = (
+    prevDraggedElements: HTMLElement[],
+    element: HTMLElement
+  ) => prevDraggedElements.includes(element);
+
+  export const setSelectedTargets = (
+    selectableTargets: HTMLElement[],
+    dragAreaTop: number,
+    dragAreaBottom: number,
+    {
+      draggedElements: prevDraggedElements,
+      selectedAllElements: prevSelectedAllElements,
+    }: prevDragInfo,
+    {
+      draggedElements: currDraggedElements,
+      selectedAllElements: currSelectedAllElements,
+    }: currDragInfo
+  ) => {
+    selectableTargets.forEach((client) => {
+      const { clientTop, clientBottom } = getClientBoundRect(client);
+
+      if (
+        isElementWithinDragArea(
+          clientTop,
+          clientBottom,
+          dragAreaTop,
+          dragAreaBottom
+        )
+      ) {
+        if (isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+
+        currDraggedElements.push(client);
+
+        return handleElementSelection(
+          prevSelectedAllElements,
+          currSelectedAllElements,
+          client
+        );
+      }
+      if (!isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+
+      deleteElementFromList(currDraggedElements, client);
+      handleElementSelection(
+        prevSelectedAllElements,
+        currSelectedAllElements,
+        client
+      );
+    });
+  };
 
 export const clearDragAreaBound = (dragArea: HTMLDivElement) => {
   dragArea.style.width = "0";
