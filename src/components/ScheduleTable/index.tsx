@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from "react";
+import React, { forwardRef } from "react";
 import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
 import {
   canSelect,
@@ -46,7 +46,6 @@ const ScheduleTable = forwardRef<
       ))}
 
       {children}
-
       {timeArray.map((time, idx, arr) => (
         <React.Fragment key={idx}>
           <S.TimeBlock

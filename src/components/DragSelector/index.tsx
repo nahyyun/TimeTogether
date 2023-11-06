@@ -6,6 +6,8 @@ import {
   printDragArea,
   clearDragAreaBound,
   filterSelectedElements,
+  getClientBoundRect,
+  isElementWithinDragArea,
 } from "@/utils/dragHelper";
 import { isElementNull, isMouseEvent } from "@/utils/typeGuard";
 import * as S from "./style";
@@ -16,12 +18,30 @@ interface DragSelectorProps {
   setSelected: Dispatch<SetStateAction<HTMLElement[]>>;
 }
 
+export interface prevDragInfo {
+  draggedElements: HTMLElement[];
+  selectedAllElements: HTMLElement[];
+}
+
+export interface currDragInfo {
+  draggedElements: HTMLElement[];
+  selectedAllElements: HTMLElement[];
+}
+
 export default function DragSelector({
   dragSelectionRefs,
   setSelected,
 }: DragSelectorProps) {
   const startDragPosition = useRef({ startX: Infinity, startY: Infinity });
   const dragArea = useRef<HTMLDivElement | null>(null);
+  const currDragInfo = useRef<currDragInfo>({
+    draggedElements: [],
+    selectedAllElements: [],
+  });
+  const prevDragInfo = useRef<prevDragInfo>({
+    draggedElements: [],
+    selectedAllElements: [],
+  });
 
   const addMoveEvent = (e: MouseEvent | TouchEvent) => {
     const eventType = isMouseEvent(e) ? "mousemove" : "touchmove";
@@ -48,6 +68,13 @@ export default function DragSelector({
   const handleMoveEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
 
+    prevDragInfo.current.draggedElements = [
+      ...currDragInfo.current.draggedElements,
+    ];
+    prevDragInfo.current.selectedAllElements = [
+      ...currDragInfo.current.selectedAllElements,
+    ];
+
     const { currentX, currentY } = getEventPosition(e);
 
     const dragAreaBoundRect = getDragAreaBoundRect(
@@ -60,7 +87,9 @@ export default function DragSelector({
     setSelectedTargets(
       dragSelectionRefs.selectableTargetsRefs,
       dragAreaBoundRect.top,
-      dragAreaBoundRect.bottom
+      dragAreaBoundRect.bottom,
+      prevDragInfo.current,
+      currDragInfo.current
     );
   };
 
@@ -71,12 +100,29 @@ export default function DragSelector({
 
     clearDragAreaBound(dragArea.current);
 
+    currDragInfo.current.draggedElements = [];
+    prevDragInfo.current.draggedElements = [];
+
+    dragSelectionRefs.selectableTargetsRefs.forEach((client) => {
+      const { clientTop, clientBottom } = getClientBoundRect(client);
+
+      if (isElementWithinDragArea(e.pageY, clientTop, clientBottom))
+        client.classList.toggle("selected");
+    });
+
     setSelected(
       filterSelectedElements(dragSelectionRefs.selectableTargetsRefs)
     );
   };
 
+  const handleClickEvent = (e: any) => {};
+
   useEffect(() => {
+    dragSelectionRefs.dragContainerRef?.addEventListener(
+      "click",
+      handleClickEvent
+    );
+
     dragSelectionRefs.dragContainerRef?.addEventListener(
       "mousedown",
       handleStartEvent
@@ -105,4 +151,5 @@ export default function DragSelector({
   }, []);
 
   return <S.DragArea ref={dragArea} />;
-}
+};
+

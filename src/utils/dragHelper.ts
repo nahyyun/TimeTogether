@@ -1,3 +1,4 @@
+import { prevDragInfo, currDragInfo } from "@/components/DragSelector";
 import { DragAreaBound } from "@/types/dragAreaBound";
 
 export const getDragAreaBoundRect = (
@@ -43,29 +44,73 @@ export const printDragArea = (
   dragArea.style.height = height + "px";
 };
 
-const getClientBoundRect = (client: HTMLElement) => {
+export const getClientBoundRect = (client: HTMLElement) => {
   const { y, height } = client.getBoundingClientRect();
   const clientTop = window.scrollY + y;
 
   return { clientTop, clientBottom: clientTop + height };
 };
 
-const isIntersect = (targetY: number, minY: number, maxY: number) =>
+export const isInnerPosition = (targetY: number, minY: number, maxY: number) =>
   targetY >= minY && targetY <= maxY;
+
+export const isElementWithinDragArea = (
+  clientTop: number,
+  clientBottom: number,
+  dragAreaTop: number,
+  dragAreaBottom: number
+) =>
+  isInnerPosition(clientTop, dragAreaTop, dragAreaBottom) ||
+  isInnerPosition(clientBottom, dragAreaTop, dragAreaBottom) ||
+  isInnerPosition(dragAreaTop, clientTop, clientBottom);
 
 export const setSelectedTargets = (
   selectableTargets: HTMLElement[],
   dragAreaTop: number,
-  dragAreaBottom: number
+  dragAreaBottom: number,
+  {
+    draggedElements: prevDraggedEls,
+    selectedAllElements: prevSelectedAllEls,
+  }: prevDragInfo,
+  currDragInfo: currDragInfo
 ) => {
   selectableTargets.forEach((client) => {
     const { clientTop, clientBottom } = getClientBoundRect(client);
 
+    const toggleClassName = () => {
+      if (!prevSelectedAllEls.includes(client)) {
+        currDragInfo.selectedAllElements.push(client);
+        client.classList.add("selected");
+        return;
+      }
+      currDragInfo.selectedAllElements =
+        currDragInfo.selectedAllElements.filter((el) => el !== client);
+      client.classList.remove("selected");
+    };
+
     if (
-      isIntersect(clientTop, dragAreaTop, dragAreaBottom) ||
-      isIntersect(clientBottom, dragAreaTop, dragAreaBottom)
-    )
-      client.classList.add("selected");
+      isElementWithinDragArea(
+        clientTop,
+        clientBottom,
+        dragAreaTop,
+        dragAreaBottom
+      )
+    ) {
+      if (prevDraggedEls.includes(client)) return;
+
+      currDragInfo.draggedElements.push(client);
+
+      toggleClassName();
+    } else {
+      if (!prevDraggedEls.includes(client)) return;
+
+      const findIdx = currDragInfo.draggedElements.findIndex(
+        (el) => el == client
+      );
+      currDragInfo.draggedElements.splice(findIdx, 1);
+
+      toggleClassName();
+    }
   });
 };
 
