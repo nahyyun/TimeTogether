@@ -1,4 +1,4 @@
-import { isMouseEvent } from "./typeGuard";
+import { isMouseEvent, isTouchEvent } from "./typeGuard";
 
 export const getEventPosition = (e: MouseEvent | TouchEvent) => {
   if (isMouseEvent(e))
@@ -6,9 +6,15 @@ export const getEventPosition = (e: MouseEvent | TouchEvent) => {
       currentX: e.pageX,
       currentY: e.pageY,
     };
-  else
+
+  if (isTouchEvent(e)) {
+    const touch = e.touches[0] || e.changedTouches[0];
+
     return {
-      currentX: e.touches[0].pageX,
-      currentY: e.touches[0].pageY,
+      currentX: touch.pageX,
+      currentY: touch.pageY,
     };
+  } else {
+    throw new Error("Unsupported event type");
+  }
 };

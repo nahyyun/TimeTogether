@@ -2,30 +2,21 @@ import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
 import {
   getDragAreaBoundRect,
-  setSelectedTargets,
+  selectElementsByDrag,
   printDragArea,
   clearDragAreaBound,
   filterSelectedElements,
-  getClientBoundRect,
-  isElementWithinDragArea,
+  selectElementByClick,
+  isClickedNotDragged,
 } from "@/utils/dragHelper";
 import { isElementNull, isMouseEvent } from "@/utils/typeGuard";
-import * as S from "./style";
 import { getEventPosition } from "@/utils/event";
+import { SelectionInfo } from "@/types/dragSelection";
+import * as S from "./style";
 
 interface DragSelectorProps {
   dragSelectionRefs: dragSelectionRefs;
   setSelected: Dispatch<SetStateAction<HTMLElement[]>>;
-}
-
-export interface prevDragInfo {
-  draggedElements: HTMLElement[];
-  selectedAllElements: HTMLElement[];
-}
-
-export interface currDragInfo {
-  draggedElements: HTMLElement[];
-  selectedAllElements: HTMLElement[];
 }
 
 export default function DragSelector({
@@ -34,11 +25,12 @@ export default function DragSelector({
 }: DragSelectorProps) {
   const startDragPosition = useRef({ startX: Infinity, startY: Infinity });
   const dragArea = useRef<HTMLDivElement | null>(null);
-  const currDragInfo = useRef<currDragInfo>({
+
+  const currSelectionInfo = useRef<SelectionInfo>({
     draggedElements: [],
     selectedAllElements: [],
   });
-  const prevDragInfo = useRef<prevDragInfo>({
+  const prevSelectionInfo = useRef<SelectionInfo>({
     draggedElements: [],
     selectedAllElements: [],
   });
@@ -55,41 +47,62 @@ export default function DragSelector({
     window.removeEventListener(eventType, handleMoveEvent);
   };
 
+  const updatePrevInfoToCurrInfo = (
+    prevDragInfo: SelectionInfo,
+    currDragInfo: SelectionInfo,
+    key: keyof SelectionInfo
+  ) => {
+    prevDragInfo[key] = [...currDragInfo[key]];
+  };
+
+  const clearDragInfo = () => {
+    prevSelectionInfo.current.draggedElements = [];
+    currSelectionInfo.current.draggedElements = [];
+  };
+
   const handleStartEvent = (e: MouseEvent | TouchEvent) => {
+    e.preventDefault();
+
     const { currentX, currentY } = getEventPosition(e);
 
     startDragPosition.current.startX = currentX;
     startDragPosition.current.startY = currentY;
 
     setSelected([]);
+
     addMoveEvent(e);
   };
 
   const handleMoveEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
 
-    prevDragInfo.current.draggedElements = [
-      ...currDragInfo.current.draggedElements,
-    ];
-    prevDragInfo.current.selectedAllElements = [
-      ...currDragInfo.current.selectedAllElements,
-    ];
+    updatePrevInfoToCurrInfo(
+      prevSelectionInfo.current,
+      currSelectionInfo.current,
+      "draggedElements"
+    );
 
-    const { currentX, currentY } = getEventPosition(e);
+    updatePrevInfoToCurrInfo(
+      prevSelectionInfo.current,
+      currSelectionInfo.current,
+      "selectedAllElements"
+    );
+
+    const eventPosition = getEventPosition(e);
 
     const dragAreaBoundRect = getDragAreaBoundRect(
-      { currentX, currentY },
+      eventPosition,
       startDragPosition.current
     );
 
     printDragArea(dragArea.current, dragAreaBoundRect);
 
-    setSelectedTargets(
+    selectElementsByDrag(
       dragSelectionRefs.selectableTargetsRefs,
       dragAreaBoundRect.top,
       dragAreaBoundRect.bottom,
-      prevDragInfo.current,
-      currDragInfo.current
+      prevSelectionInfo.current,
+      currSelectionInfo.current
     );
   };
 
@@ -98,35 +111,37 @@ export default function DragSelector({
 
     removeMoveEvent(e);
 
+    const { currentY } = getEventPosition(e);
+
+    if (isClickedNotDragged(currSelectionInfo.current.draggedElements)) {
+      selectElementByClick(
+        dragSelectionRefs.selectableTargetsRefs,
+        currentY,
+        prevSelectionInfo.current,
+        currSelectionInfo.current
+      );
+
+      return updatePrevInfoToCurrInfo(
+        prevSelectionInfo.current,
+        currSelectionInfo.current,
+        "selectedAllElements"
+      );
+    }
+
     clearDragAreaBound(dragArea.current);
-
-    currDragInfo.current.draggedElements = [];
-    prevDragInfo.current.draggedElements = [];
-
-    dragSelectionRefs.selectableTargetsRefs.forEach((client) => {
-      const { clientTop, clientBottom } = getClientBoundRect(client);
-
-      if (isElementWithinDragArea(e.pageY, clientTop, clientBottom))
-        client.classList.toggle("selected");
-    });
+    clearDragInfo();
 
     setSelected(
       filterSelectedElements(dragSelectionRefs.selectableTargetsRefs)
     );
   };
 
-  const handleClickEvent = (e: any) => {};
-
   useEffect(() => {
-    dragSelectionRefs.dragContainerRef?.addEventListener(
-      "click",
-      handleClickEvent
-    );
-
     dragSelectionRefs.dragContainerRef?.addEventListener(
       "mousedown",
       handleStartEvent
     );
+
     dragSelectionRefs.dragContainerRef?.addEventListener(
       "touchstart",
       handleStartEvent
@@ -140,13 +155,11 @@ export default function DragSelector({
         "mousedown",
         handleStartEvent
       );
+
       dragSelectionRefs.dragContainerRef?.removeEventListener(
         "touchstart",
         handleStartEvent
       );
-
-      window.removeEventListener("mouseup", handleEndEvent);
-      window.removeEventListener("touchend", handleEndEvent);
     };
   }, []);
 

@@ -1,5 +1,5 @@
-import { prevDragInfo, currDragInfo } from "@/components/DragSelector";
 import { DragAreaBound } from "@/types/dragAreaBound";
+import { SelectionInfo } from "@/types/dragSelection";
 
 export const getDragAreaBoundRect = (
   { currentX, currentY }: { currentX: number; currentY: number },
@@ -51,8 +51,11 @@ export const getClientBoundRect = (client: HTMLElement) => {
   return { clientTop, clientBottom: clientTop + height };
 };
 
-export const isInnerPosition = (targetY: number, minY: number, maxY: number) =>
-  targetY >= minY && targetY <= maxY;
+export const isPositionInTopBottomBound = (
+  targetY: number,
+  minY: number,
+  maxY: number
+) => targetY >= minY && targetY <= maxY;
 
 export const isElementWithinDragArea = (
   clientTop: number,
@@ -60,98 +63,116 @@ export const isElementWithinDragArea = (
   dragAreaTop: number,
   dragAreaBottom: number
 ) =>
-  isInnerPosition(clientTop, dragAreaTop, dragAreaBottom) ||
-  isInnerPosition(clientBottom, dragAreaTop, dragAreaBottom) ||
-  isInnerPosition(dragAreaTop, clientTop, clientBottom);
+  isPositionInTopBottomBound(clientTop, dragAreaTop, dragAreaBottom) ||
+  isPositionInTopBottomBound(clientBottom, dragAreaTop, dragAreaBottom) ||
+  isPositionInTopBottomBound(dragAreaTop, clientTop, clientBottom);
 
+const deleteElementFromList = (
+  elementList: HTMLElement[],
+  element: HTMLElement
+) => {
+  const findIdx = elementList.findIndex((el) => el === element);
+  if (findIdx !== -1) elementList.splice(findIdx, 1);
+};
 
-  const deleteElementFromList = (
-    elementList: HTMLElement[],
-    element: HTMLElement
-  ) => {
-    const findIdx = elementList.findIndex((el) => el === element);
-    if (findIdx !== -1) elementList.splice(findIdx, 1);
-  };
+const selectElement = (
+  selectedElements: HTMLElement[],
+  element: HTMLElement
+) => {
+  selectedElements.push(element);
 
-  const selectElement = (
-    selectedElements: HTMLElement[],
-    element: HTMLElement
-  ) => {
-    selectedElements.push(element);
+  element.classList.add("selected");
+};
 
-    element.classList.add("selected");
-  };
+const deSelectElement = (
+  selectedElements: HTMLElement[],
+  element: HTMLElement
+) => {
+  deleteElementFromList(selectedElements, element);
 
-  const deSelectElement = (
-    selectedElements: HTMLElement[],
-    element: HTMLElement
-  ) => {
-    deleteElementFromList(selectedElements, element);
+  element.classList.remove("selected");
+};
 
-    element.classList.remove("selected");
-  };
+export const handleElementSelection = (
+  prevSelectedAllElements: HTMLElement[],
+  currSelectedAllElements: HTMLElement[],
+  element: HTMLElement
+) => {
+  if (!prevSelectedAllElements.includes(element)) {
+    return selectElement(currSelectedAllElements, element);
+  }
 
-  const handleElementSelection = (
-    prevSelectedAllElements: HTMLElement[],
-    currSelectedAllElements: HTMLElement[],
-    element: HTMLElement
-  ) => {
-    if (!prevSelectedAllElements.includes(element)) {
-      return selectElement(currSelectedAllElements, element);
-    }
+  deSelectElement(currSelectedAllElements, element);
+};
 
-    deSelectElement(currSelectedAllElements, element);
-  };
+const isElementInsidePrevDragArea = (
+  prevDraggedElements: HTMLElement[],
+  element: HTMLElement
+) => prevDraggedElements.includes(element);
 
-  const isElementInsidePrevDragArea = (
-    prevDraggedElements: HTMLElement[],
-    element: HTMLElement
-  ) => prevDraggedElements.includes(element);
+export const selectElementByClick = (
+  selectableTargets: HTMLElement[],
+  clickedY: number,
+  { selectedAllElements: prevSelectedAllElements }: SelectionInfo,
+  { selectedAllElements: currSelectedAllElements }: SelectionInfo
+) => {
+  selectableTargets.forEach((client) => {
+    const { clientTop, clientBottom } = getClientBoundRect(client);
 
-  export const setSelectedTargets = (
-    selectableTargets: HTMLElement[],
-    dragAreaTop: number,
-    dragAreaBottom: number,
-    {
-      draggedElements: prevDraggedElements,
-      selectedAllElements: prevSelectedAllElements,
-    }: prevDragInfo,
-    {
-      draggedElements: currDraggedElements,
-      selectedAllElements: currSelectedAllElements,
-    }: currDragInfo
-  ) => {
-    selectableTargets.forEach((client) => {
-      const { clientTop, clientBottom } = getClientBoundRect(client);
-
-      if (
-        isElementWithinDragArea(
-          clientTop,
-          clientBottom,
-          dragAreaTop,
-          dragAreaBottom
-        )
-      ) {
-        if (isElementInsidePrevDragArea(prevDraggedElements, client)) return;
-
-        currDraggedElements.push(client);
-
-        return handleElementSelection(
-          prevSelectedAllElements,
-          currSelectedAllElements,
-          client
-        );
-      }
-      if (!isElementInsidePrevDragArea(prevDraggedElements, client)) return;
-
-      deleteElementFromList(currDraggedElements, client);
+    if (isPositionInTopBottomBound(clickedY, clientTop, clientBottom)) {
       handleElementSelection(
         prevSelectedAllElements,
         currSelectedAllElements,
         client
       );
-    });
-  };
+    }
+  });
+};
+
+export const selectElementsByDrag = (
+  selectableTargets: HTMLElement[],
+  dragAreaTop: number,
+  dragAreaBottom: number,
+  {
+    draggedElements: prevDraggedElements,
+    selectedAllElements: prevSelectedAllElements,
+  }: SelectionInfo,
+  {
+    draggedElements: currDraggedElements,
+    selectedAllElements: currSelectedAllElements,
+  }: SelectionInfo
+) => {
+  selectableTargets.forEach((client) => {
+    const { clientTop, clientBottom } = getClientBoundRect(client);
+
+    if (
+      isElementWithinDragArea(
+        clientTop,
+        clientBottom,
+        dragAreaTop,
+        dragAreaBottom
+      )
+    ) {
+      if (isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+
+      currDraggedElements.push(client);
+
+      return handleElementSelection(
+        prevSelectedAllElements,
+        currSelectedAllElements,
+        client
+      );
+    }
+    if (!isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+
+    deleteElementFromList(currDraggedElements, client);
+    handleElementSelection(
+      prevSelectedAllElements,
+      currSelectedAllElements,
+      client
+    );
+  });
+};
 
 export const clearDragAreaBound = (dragArea: HTMLDivElement) => {
   dragArea.style.width = "0";
@@ -161,3 +182,6 @@ export const clearDragAreaBound = (dragArea: HTMLDivElement) => {
 
 export const filterSelectedElements = (selectableTargets: HTMLElement[]) =>
   selectableTargets.filter((client) => client.classList.contains("selected"));
+
+export const isClickedNotDragged = (draggedElements: HTMLElement[]) =>
+  draggedElements.length === 0;
