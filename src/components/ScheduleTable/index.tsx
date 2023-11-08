@@ -8,6 +8,7 @@ import {
 import { Meeting } from "@/types/meeting";
 import * as S from "./style";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
+import { daysOfWeek } from "@/constants/day";
 
 interface ScheduleTableProps {
   isAvailable?: boolean;
@@ -37,30 +38,40 @@ const ScheduleTable = forwardRef<
     <S.ScheduleTableContainer
       ref={(el) => el && ref.current && (ref.current.dragContainerRef = el)}
     >
-      <S.TableHeader>{new Date(date).getDate()}일</S.TableHeader>
+      <S.TableHeader>
+        <S.Day>{daysOfWeek[new Date(date).getDay()]}</S.Day>
+        <S.Date> {new Date(date).getDate()}</S.Date>
+      </S.TableHeader>
 
       {allTimeRange.slice(1).map((time, idx) => (
         <S.TimeScale key={idx} idx={idx}>
-          {time}
+          {time < 12 ? time + " AM" : time + " PM"}
         </S.TimeScale>
       ))}
 
       {children}
-      {timeArray.map((time, idx, arr) => (
-        <React.Fragment key={idx}>
-          <S.TimeBlock
-            data-time={time}
-            disabled={canSelect(idx, time, arr.length - 1, startTime, endTime)}
-            ref={(el) =>
-              el &&
-              ref.current?.selectableTargetsRefs &&
-              (ref.current.selectableTargetsRefs[idx] = el)
-            }
-          >
-            {time}
-          </S.TimeBlock>
-        </React.Fragment>
-      ))}
+
+      <S.TimeBlocksWrapper>
+        {timeArray.map((time, idx, arr) => (
+          <React.Fragment key={idx}>
+            <S.TimeBlock
+              data-time={time}
+              disabled={canSelect(
+                idx,
+                time,
+                arr.length - 1,
+                startTime,
+                endTime
+              )}
+              ref={(el) =>
+                el &&
+                ref.current?.selectableTargetsRefs &&
+                (ref.current.selectableTargetsRefs[idx] = el)
+              }
+            />
+          </React.Fragment>
+        ))}
+      </S.TimeBlocksWrapper>
     </S.ScheduleTableContainer>
   );
 });

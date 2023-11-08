@@ -13,6 +13,7 @@ export const ToggleButtonContainer = styled.label`
   width: ${TOGGLE_CONTAINER_WIDTH}px;
   height: 30px;
   line-height: 30px;
+  margin: 5px 5px 0 0;
 `;
 
 export const ToggleBackground = styled.div<{ isChecked: boolean }>`

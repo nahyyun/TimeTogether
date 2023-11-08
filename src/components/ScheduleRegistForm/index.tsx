@@ -4,6 +4,7 @@ import Button from "../Common/Button";
 import DragSelector from "../DragSelector";
 import ToggleButton from "../ToggleButton";
 import ScheduleTable from "../ScheduleTable";
+import * as S from "./style";
 
 interface ScheduleRegistFormProps {
   name: string;
@@ -50,8 +51,9 @@ export default function ScheduleRegistForm({
           setSelected={setSelected}
         />
       </ScheduleTable>
-
-      <Button>일정 등록 완료</Button>
+      <S.ButtonWrapper>
+        <Button>일정 등록 완료</Button>
+      </S.ButtonWrapper>
     </>
   );
 }
