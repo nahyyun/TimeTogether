@@ -23,7 +23,7 @@ export const DatePickerWrapper = styled.div`
   }
 
   .react-datepicker__day--selected {
-    background: ${theme.colors.primary[100]};
+    background: ${theme.colors.primary[50]};
     border-radius: 50%;
   }
 

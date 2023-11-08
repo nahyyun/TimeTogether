@@ -17,7 +17,8 @@ export const ToggleButtonContainer = styled.label`
 `;
 
 export const ToggleBackground = styled.div<{ isChecked: boolean }>`
-  background-color: ${({ isChecked }) => (isChecked ? "#69d495" : "#888888")};
+  background-color: ${({ isChecked }) =>
+    isChecked ? theme.colors.primary[100] : "#888888"};
   color: ${theme.colors.text.light};
   position: relative;
   height: 100%;

@@ -1,10 +1,10 @@
 export const theme = {
   colors: {
     primary: {
-      50: "#CFE7D0",
-      100: "#A4D8A7",
-      200: "#AAD6AE",
-      300: "#92BD96",
+      50: "#C2E7E8",
+      100: "#9AD7D9",
+      200: "#5EC0C3",
+      300: "#21A8AC",
     },
     disabled: "#C4C4C4",
     bg: {

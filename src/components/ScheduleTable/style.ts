@@ -75,7 +75,7 @@ export const TimeBlock = styled.div<{ disabled: boolean }>`
   height: ${TIME_BLOCK_HEIGHT}px;
 
   &.selected {
-    background-color: ${theme.colors.primary[50]};
+    background-color: ${theme.colors.primary[200]};
   }
 
   ${({ disabled }) =>

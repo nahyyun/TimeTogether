@@ -12,7 +12,7 @@ const BUTTON_SIZE = {
 const BUTTON_STYLE = {
   primary: {
     color: theme.colors.text.light,
-    background: theme.colors.primary[200],
+    background: theme.colors.primary[100],
   },
   secondary: {
     color: theme.colors.text.secondary,
