@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
 import {
   getDragAreaBoundRect,
@@ -63,12 +63,11 @@ export default function DragSelector({
   const handleStartEvent = (e: MouseEvent | TouchEvent) => {
     e.preventDefault();
 
+    console.log("start", e.type);
     const { currentX, currentY } = getEventPosition(e);
 
     startDragPosition.current.startX = currentX;
     startDragPosition.current.startY = currentY;
-
-    onSelect([]);
 
     addMoveEvent(e);
   };
@@ -108,6 +107,8 @@ export default function DragSelector({
 
   const handleEndEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
+
+    console.log("end", e.type);
 
     removeMoveEvent(e);
 
@@ -162,5 +163,4 @@ export default function DragSelector({
   }, []);
 
   return <S.DragArea ref={dragArea} />;
-};
-
+}

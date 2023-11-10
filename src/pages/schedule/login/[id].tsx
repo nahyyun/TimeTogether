@@ -46,9 +46,10 @@ export default function ScheduleLoginPage({
   }>({ name: "", schedule: [] });
 
   const setScheduleTime = (schedule: string[]) => {
+
     scheduleForm.current = {
       ...scheduleForm.current,
-      schedule: [...scheduleForm.current.schedule, ...schedule],
+      schedule,
     };
   };
 
