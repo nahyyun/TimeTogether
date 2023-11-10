@@ -16,12 +16,12 @@ import * as S from "./style";
 
 interface DragSelectorProps {
   dragSelectionRefs: dragSelectionRefs;
-  setSelected: Dispatch<SetStateAction<HTMLElement[]>>;
+  onSelect: (selected: HTMLElement[]) => void;
 }
 
 export default function DragSelector({
   dragSelectionRefs,
-  setSelected,
+  onSelect,
 }: DragSelectorProps) {
   const startDragPosition = useRef({ startX: Infinity, startY: Infinity });
   const dragArea = useRef<HTMLDivElement | null>(null);
@@ -68,7 +68,7 @@ export default function DragSelector({
     startDragPosition.current.startX = currentX;
     startDragPosition.current.startY = currentY;
 
-    setSelected([]);
+    onSelect([]);
 
     addMoveEvent(e);
   };
@@ -131,9 +131,7 @@ export default function DragSelector({
     clearDragAreaBound(dragArea.current);
     clearDragInfo();
 
-    setSelected(
-      filterSelectedElements(dragSelectionRefs.selectableTargetsRefs)
-    );
+    onSelect(filterSelectedElements(dragSelectionRefs.selectableTargetsRefs));
   };
 
   useEffect(() => {

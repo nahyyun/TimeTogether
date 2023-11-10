@@ -9,6 +9,7 @@ import * as S from "./style";
 interface ScheduleRegistFormProps {
   name: string;
   meetingInfo: Meeting;
+  setScheduleTime: (schedule: HTMLElement[]) => void;
 }
 
 export interface dragSelectionRefs {
@@ -19,9 +20,9 @@ export interface dragSelectionRefs {
 export default function ScheduleRegistForm({
   name,
   meetingInfo,
+  setScheduleTime,
 }: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
-  const [selected, setSelected] = useState<HTMLElement[]>([]);
 
   const dragSelectionRefs = useRef<dragSelectionRefs>({
     dragContainerRef: null,
@@ -40,19 +41,14 @@ export default function ScheduleRegistForm({
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
       </h3>
-      <ScheduleTable
-        isAvailable={isAvailable}
-        meetingInfo={meetingInfo}
-        ref={dragSelectionRefs}
-        selected={selected}
-      >
+      <ScheduleTable meetingInfo={meetingInfo} ref={dragSelectionRefs}>
         <DragSelector
           dragSelectionRefs={dragSelectionRefs.current}
-          setSelected={setSelected}
+          onSelect={setScheduleTime}
         />
       </ScheduleTable>
       <S.ButtonWrapper>
-        <Button>일정 등록 완료</Button>
+        <Button type="submit">일정 등록 완료</Button>
       </S.ButtonWrapper>
     </>
   );

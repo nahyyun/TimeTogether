@@ -4,10 +4,10 @@ import {
   Fieldset,
   MeetingInfoInputsContainer as NameInputWrapper,
 } from "@/components/MeetingInfoInputs/style";
-import ScheduleRegistForm from "@/components/ScheduleRegistForm";
 import { Form } from "@/pages/make-meeting/style";
 import { getMeetingInfo } from "@/services/meeting";
 import { Meeting } from "@/types/meeting";
+import { extractTimeDataset } from "@/utils/time";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
@@ -40,7 +40,17 @@ export default function ScheduleLoginPage({
   meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
-  const [scheduleForm, setScheduleForm] = useState({ name: "", schedule: [] });
+  const scheduleForm = useRef<{
+    name: string;
+    schedule: string[];
+  }>({ name: "", schedule: [] });
+
+  const setScheduleTime = (schedule: string[]) => {
+    scheduleForm.current = {
+      ...scheduleForm.current,
+      schedule: [...scheduleForm.current.schedule, ...schedule],
+    };
+  };
 
   const nameInputRef = useRef<{ name: HTMLInputElement | null }>({
     name: null,
@@ -48,6 +58,7 @@ export default function ScheduleLoginPage({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(scheduleForm);
   };
 
   const goToNextStep = () => {
@@ -55,13 +66,13 @@ export default function ScheduleLoginPage({
 
     if (!name) return;
 
-    setScheduleForm((prev) => ({ ...prev, name: name.value }));
+    scheduleForm.current = { ...scheduleForm.current, name: name.value };
     setStep((prevStep) => prevStep + 1);
   };
 
   function renderStepComponent(step: number) {
     switch (step) {
-      case 2:
+      case 1:
         return (
           <NameInputWrapper>
             <Fieldset>
@@ -79,7 +90,7 @@ export default function ScheduleLoginPage({
           </NameInputWrapper>
         );
 
-      case 1:
+      case 2:
         const ScheduleRegistForm = dynamic(
           () => import("@/components/ScheduleRegistForm"),
           { ssr: false }
@@ -87,8 +98,11 @@ export default function ScheduleLoginPage({
 
         return (
           <ScheduleRegistForm
-            name={scheduleForm.name}
+            name={scheduleForm.current.name}
             meetingInfo={meetingInfo}
+            setScheduleTime={(elements) =>
+              setScheduleTime(extractTimeDataset(elements))
+            }
           />
         );
     }

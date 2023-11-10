@@ -1,19 +1,13 @@
 import React, { forwardRef } from "react";
 import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
-import {
-  canSelect,
-  getAllTimeRange,
-  getTimeStringArray,
-} from "@/utils/timeRange";
+import { canSelect, getAllTimeRange, getTimeStringArray } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
-import * as S from "./style";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
 import { daysOfWeek } from "@/constants/day";
+import * as S from "./style";
 
 interface ScheduleTableProps {
-  isAvailable?: boolean;
   meetingInfo: Meeting;
-  selected: HTMLElement[];
 }
 
 const ScheduleTable = forwardRef<
@@ -21,7 +15,6 @@ const ScheduleTable = forwardRef<
   PropsWithOptionalChildren<ScheduleTableProps>
 >(function ScheduleTable(
   {
-    isAvailable,
     meetingInfo: { date, timeRange },
     children,
   }: PropsWithOptionalChildren<ScheduleTableProps>,

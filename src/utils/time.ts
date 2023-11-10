@@ -27,3 +27,6 @@ export const canSelect = (
   endTime: string
 ) =>
   (idx == 0 && startTime !== target) || (idx == endIdx && endTime !== target);
+
+export const extractTimeDataset = (elements: HTMLElement[]) =>
+  elements.map((el) => el.dataset.time || "");

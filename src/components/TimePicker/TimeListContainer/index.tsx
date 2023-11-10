@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   calcMiddleItemIdxFromScollY,
   scrollToVisibleArea,
-} from "@/utils/timePicker";
+} from "@/utils/scrollHelper";
 import { MIN_SCROLL_Y } from "@/constants/scroll";
 import * as S from "./style";
 
