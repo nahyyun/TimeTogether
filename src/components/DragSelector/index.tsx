@@ -63,7 +63,6 @@ export default function DragSelector({
   const handleStartEvent = (e: MouseEvent | TouchEvent) => {
     e.preventDefault();
 
-    console.log("start", e.type);
     const { currentX, currentY } = getEventPosition(e);
 
     startDragPosition.current.startX = currentX;
@@ -108,8 +107,6 @@ export default function DragSelector({
   const handleEndEvent = (e: MouseEvent | TouchEvent) => {
     if (isElementNull(dragArea.current)) return;
 
-    console.log("end", e.type);
-
     removeMoveEvent(e);
 
     const { currentY } = getEventPosition(e);
@@ -121,6 +118,8 @@ export default function DragSelector({
         prevSelectionInfo.current,
         currSelectionInfo.current
       );
+
+      onSelect(filterSelectedElements(dragSelectionRefs.selectableTargetsRefs));
 
       return updatePrevInfoToCurrInfo(
         prevSelectionInfo.current,
@@ -159,8 +158,11 @@ export default function DragSelector({
         "touchstart",
         handleStartEvent
       );
+
+      window.removeEventListener("mouseup", handleEndEvent);
+      window.removeEventListener("touchend", handleEndEvent);
     };
-  }, []);
+  }, [onSelect, handleStartEvent, handleEndEvent]);
 
   return <S.DragArea ref={dragArea} />;
 }

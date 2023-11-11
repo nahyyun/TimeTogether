@@ -5,11 +5,16 @@ import DragSelector from "../DragSelector";
 import ToggleButton from "../ToggleButton";
 import ScheduleTable from "../ScheduleTable";
 import * as S from "./style";
+import {
+  extractTimeDataset,
+  getAllTimeRange,
+  getTimeTableValues,
+} from "@/utils/time";
 
 interface ScheduleRegistFormProps {
   name: string;
   meetingInfo: Meeting;
-  setScheduleTime: (schedule: HTMLElement[]) => void;
+  setScheduleTime: (schedule: string[]) => void;
 }
 
 export interface dragSelectionRefs {
@@ -24,6 +29,11 @@ export default function ScheduleRegistForm({
 }: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
+  const [startTime, endTime] = meetingInfo.timeRange;
+
+  const allTimeRange = getAllTimeRange(startTime, endTime);
+  const timeTableValues = getTimeTableValues(allTimeRange);
+
   const dragSelectionRefs = useRef<dragSelectionRefs>({
     dragContainerRef: null,
     selectableTargetsRefs: [],
@@ -31,6 +41,17 @@ export default function ScheduleRegistForm({
 
   const toggle = (status: boolean) => {
     setIsAvailable(status);
+  };
+
+  const getSelectedTime = (selectedList: HTMLElement[]) => {
+    const selectedTimeStringList = extractTimeDataset(selectedList);
+
+    if (!isAvailable)
+      return timeTableValues.filter(
+        (value) => !selectedTimeStringList.includes(value)
+      );
+
+    return selectedTimeStringList;
   };
 
   return (
@@ -41,10 +62,17 @@ export default function ScheduleRegistForm({
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
       </h3>
-      <ScheduleTable meetingInfo={meetingInfo} ref={dragSelectionRefs}>
+      <ScheduleTable
+        meetingInfo={meetingInfo}
+        ref={dragSelectionRefs}
+        allTimeRange={allTimeRange}
+        timeTableValues={timeTableValues}
+      >
         <DragSelector
           dragSelectionRefs={dragSelectionRefs.current}
-          onSelect={setScheduleTime}
+          onSelect={(selected: HTMLElement[]) =>
+            setScheduleTime(getSelectedTime(selected))
+          }
         />
       </ScheduleTable>
       <S.ButtonWrapper>

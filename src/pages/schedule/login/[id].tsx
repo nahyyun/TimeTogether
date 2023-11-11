@@ -46,7 +46,6 @@ export default function ScheduleLoginPage({
   }>({ name: "", schedule: [] });
 
   const setScheduleTime = (schedule: string[]) => {
-
     scheduleForm.current = {
       ...scheduleForm.current,
       schedule,
@@ -59,7 +58,6 @@ export default function ScheduleLoginPage({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(scheduleForm);
   };
 
   const goToNextStep = () => {
@@ -101,9 +99,7 @@ export default function ScheduleLoginPage({
           <ScheduleRegistForm
             name={scheduleForm.current.name}
             meetingInfo={meetingInfo}
-            setScheduleTime={(elements) =>
-              setScheduleTime(extractTimeDataset(elements))
-            }
+            setScheduleTime={setScheduleTime}
           />
         );
     }

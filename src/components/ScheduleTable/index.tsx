@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
-import { canSelect, getAllTimeRange, getTimeStringArray } from "@/utils/time";
+import { canSelect } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
 import { daysOfWeek } from "@/constants/day";
@@ -8,6 +8,8 @@ import * as S from "./style";
 
 interface ScheduleTableProps {
   meetingInfo: Meeting;
+  allTimeRange: number[];
+  timeTableValues: string[];
 }
 
 const ScheduleTable = forwardRef<
@@ -15,16 +17,16 @@ const ScheduleTable = forwardRef<
   PropsWithOptionalChildren<ScheduleTableProps>
 >(function ScheduleTable(
   {
-    meetingInfo: { date, timeRange },
+    meetingInfo: {
+      date,
+      timeRange: [startTime, endTime],
+    },
+    allTimeRange,
+    timeTableValues,
     children,
   }: PropsWithOptionalChildren<ScheduleTableProps>,
   ref
 ) {
-  const [startTime, endTime] = timeRange;
-
-  const allTimeRange = getAllTimeRange(startTime, endTime);
-  const timeArray = getTimeStringArray(allTimeRange);
-
   if (!ref || typeof ref == "function") return null;
 
   return (
@@ -45,7 +47,7 @@ const ScheduleTable = forwardRef<
       {children}
 
       <S.TimeBlocksWrapper>
-        {timeArray.map((time, idx, arr) => (
+        {timeTableValues.map((time, idx, arr) => (
           <React.Fragment key={idx}>
             <S.TimeBlock
               data-time={time}

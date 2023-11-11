@@ -14,10 +14,14 @@ export const getAllTimeRange = (startTime: string, endTime: string) => {
   );
 };
 
-export const getTimeStringArray = (allTimeRange: number[]) =>
+export const getTimeTableValues = (allTimeRange: number[]) =>
   allTimeRange
-    .map((time) => [time < 10 ? `0${time}:00` : `${time}:00`, `${time}:30`])
+    .map((time) => [
+      `${String(time).padStart(2, "0")}:00`,
+      `${String(time).padStart(2, "0")}:30`,
+    ])
     .flat();
+
 
 export const canSelect = (
   idx: number,

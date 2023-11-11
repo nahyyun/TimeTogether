@@ -16,9 +16,7 @@ export default function ToggleButton({ isChecked, toggle }: ToggleButtonProps) {
       <S.CheckBox
         type="checkbox"
         checked={isChecked}
-        onChange={(e) => {
-          toggle(e.target.checked);
-        }}
+        onChange={(e) => toggle(e.target.checked)}
       />
     </S.ToggleButtonContainer>
   );
