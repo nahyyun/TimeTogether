@@ -13,5 +13,5 @@ export default async function handler(
   if (error)
     return res.status(Number(error.code)).json({ message: error.message });
 
-  return res.status(200);
+  return res.status(200).json({ meetingId });
 }

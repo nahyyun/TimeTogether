@@ -6,12 +6,12 @@ import {
 } from "@/components/MeetingInfoInputs/style";
 import { Form } from "@/pages/make-meeting/style";
 import { getMeetingInfo } from "@/services/meeting";
-import { Meeting } from "@/types/meeting";
+import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
-import { apiService } from "@/api/apiService";
+import { useCreateSchedule } from "@/hooks/queries/schedule";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -40,10 +40,9 @@ export default function ScheduleLoginPage({
   meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
-  const scheduleForm = useRef<{
-    name: string;
-    schedule: string[];
-  }>({ name: "", schedule: [] });
+  const scheduleForm = useRef<ScheduleForm>({ name: "", schedule: [] });
+
+  const { mutate: createSchedule } = useCreateSchedule();
 
   const setScheduleTime = (schedule: string[]) => {
     scheduleForm.current = {
@@ -60,7 +59,7 @@ export default function ScheduleLoginPage({
     e.preventDefault();
     const meetingId = meetingInfo.id;
 
-    apiService.post(`/api/guest/${meetingId}/schedule`, scheduleForm.current);
+    createSchedule({ meetingId, scheduleForm: scheduleForm.current });
   };
 
   const goToNextStep = () => {

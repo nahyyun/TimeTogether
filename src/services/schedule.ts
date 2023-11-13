@@ -2,6 +2,7 @@ import {
   ScheduleTimeRangeInfo,
   CandidateTimeInfo,
 } from "@/types/candidateTime";
+import { ScheduleForm } from "@/types/meeting";
 import { add30Minutes, isSequentialTimes } from "@/utils/time";
 import supabase from "./init";
 
@@ -69,7 +70,7 @@ const getAdditionalCandidateTimes = (
 };
 
 const getUpdatedCandidates = (
-  { name, schedule: personalSchedule }: { name: string; schedule: string[] },
+  { name, schedule: personalSchedule }: ScheduleForm,
   currCandidateTimeInfos: CandidateTimeInfo[]
 ) => {
   const personalCandidateTimes = genCandidateTimes(personalSchedule);
@@ -103,10 +104,7 @@ const getUpdatedCandidates = (
 
 export const createSchedule = async (
   meetingId: string,
-  personalScheduleFormData: {
-    name: string;
-    schedule: string[];
-  }
+  personalScheduleForm: ScheduleForm
 ) => {
   const { data, error } = await getCandidateTimes(meetingId);
 
@@ -115,7 +113,7 @@ export const createSchedule = async (
   const currCandidateTimeInfos = data[0].candidates;
 
   const updatedCandidates = getUpdatedCandidates(
-    personalScheduleFormData,
+    personalScheduleForm,
     currCandidateTimeInfos
   );
 
