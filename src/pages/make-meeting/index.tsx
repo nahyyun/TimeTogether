@@ -46,6 +46,7 @@ export default function MakeMeetingPage() {
       ...meetingForm,
       date: formatDateToString(meetingForm.date),
       timeRange: [startTime.value, endTime.value],
+      candidates: [],
     });
   };
 

@@ -7,11 +7,11 @@ import {
 import { Form } from "@/pages/make-meeting/style";
 import { getMeetingInfo } from "@/services/meeting";
 import { Meeting } from "@/types/meeting";
-import { extractTimeDataset } from "@/utils/time";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
+import { apiService } from "@/api/apiService";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
 
   const { data, error } = await getMeetingInfo(meetingId);
 
-  if (!data)
+  if (!data || data.length == 0)
     return {
       notFound: true,
     };
@@ -58,6 +58,9 @@ export default function ScheduleLoginPage({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const meetingId = meetingInfo.id;
+
+    apiService.post(`/api/guest/${meetingId}/schedule`, scheduleForm.current);
   };
 
   const goToNextStep = () => {
@@ -107,3 +110,5 @@ export default function ScheduleLoginPage({
 
   return <Form onSubmit={handleSubmit}>{renderStepComponent(step)}</Form>;
 }
+
+

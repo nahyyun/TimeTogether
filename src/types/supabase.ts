@@ -1,3 +1,5 @@
+import { CandidateTimeInfo } from "./candidateTime";
+
 export type Json =
   | string
   | number
@@ -32,6 +34,7 @@ export interface Database {
       };
       Meeting: {
         Row: {
+          candidates: CandidateTimeInfo[];
           created_at: string;
           date: string;
           id: string;
@@ -42,6 +45,7 @@ export interface Database {
           title: string;
         };
         Insert: {
+          candidates?: CandidateTimeInfo[];
           created_at?: string;
           date: string;
           id?: string;
@@ -52,6 +56,7 @@ export interface Database {
           title: string;
         };
         Update: {
+          candidates?: CandidateTimeInfo[];
           created_at?: string;
           date?: string;
           id?: string;
@@ -78,7 +83,6 @@ export interface Database {
     };
   };
 }
-
 export type Row<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];
 
