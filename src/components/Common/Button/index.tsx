@@ -6,6 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   buttonstyle?: "primary" | "secondary" | "icon-only";
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  isActive?: boolean;
 }
 
 const Button = ({ children, ...props }: PropsWithChildren<ButtonProps>) => {

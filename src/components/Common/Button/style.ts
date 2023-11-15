@@ -30,5 +30,6 @@ export const Button = styled.button<ButtonProps>(
   (props) => css`
     ${BUTTON_SIZE[props.size || "md"]}
     ${BUTTON_STYLE[props.buttonstyle || "primary"]}
+    ${props.isActive && `font-weight: 700`}
   `
 );
