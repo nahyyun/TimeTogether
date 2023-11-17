@@ -34,6 +34,7 @@ export default function ScheduleResultPage() {
     setActiveTab(tab);
   };
 
+  const availableTotalMemberCnt = members.length;
   return (
     <>
       <TabList
@@ -43,7 +44,7 @@ export default function ScheduleResultPage() {
       />
 
       <p>
-        현재까지 {memberCount} 중 {members.length}명이 참여했어요 !
+        현재까지 {memberCount} 중 {availableTotalMemberCnt}명이 참여했어요 !
       </p>
 
       {activeTab === RESULT_TABS_INFO[0].value && (
@@ -51,6 +52,8 @@ export default function ScheduleResultPage() {
           meetingInfo={meetingInfo}
           allTimeRange={allTimeRange}
           timeTableValues={timeTableValues}
+          timeMembersMap={timeMembersMap}
+          availableTotalMemberCnt={availableTotalMemberCnt}
         />
       )}
     </>

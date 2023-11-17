@@ -81,11 +81,17 @@ export const TimeBlocksWrapper = styled.div`
   }
 `;
 
-export const TimeBlock = styled.div<{ disabled: boolean }>`
+export const TimeBlock = styled.div<{
+  disabled: boolean;
+  availableMemberCntByTime?: number;
+  availableMemberCnt?: number;
+}>`
   height: ${TIME_BLOCK_HEIGHT}px;
 
   &.selected {
     background-color: ${theme.colors.primary[200]};
+    opacity: ${({ availableMemberCntByTime = 0, availableMemberCnt = 0 }) =>
+      availableMemberCntByTime / availableMemberCnt};
   }
 
   ${({ disabled }) =>

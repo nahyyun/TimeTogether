@@ -10,6 +10,8 @@ interface ScheduleTableProps {
   meetingInfo: Meeting;
   allTimeRange: number[];
   timeTableValues: string[];
+  timeMembersMap?: { [key: string]: string[] };
+  availableTotalMemberCnt?: number;
 }
 
 const ScheduleTable = forwardRef<
@@ -23,6 +25,8 @@ const ScheduleTable = forwardRef<
     },
     allTimeRange,
     timeTableValues,
+    timeMembersMap = {},
+    availableTotalMemberCnt = 0,
     children,
   }: PropsWithOptionalChildren<ScheduleTableProps>,
   ref
@@ -50,6 +54,9 @@ const ScheduleTable = forwardRef<
         {timeTableValues.map((time, idx, arr) => (
           <React.Fragment key={idx}>
             <S.TimeBlock
+              className={timeMembersMap[time] ? "selected" : undefined}
+              availableMemberCntByTime={timeMembersMap[time]?.length}
+              availableMemberCnt={availableTotalMemberCnt}
               data-time={time}
               disabled={canSelect(
                 idx,
