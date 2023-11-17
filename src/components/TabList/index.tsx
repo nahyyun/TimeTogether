@@ -1,5 +1,5 @@
-import Tab from "../Tab";
-import { Tab as TabType } from "../tabs.type";
+import Tab from "./Tab";
+import { Tab as TabType } from "./tabs.type";
 
 interface TabListProps {
   tabsInfo: TabType[];

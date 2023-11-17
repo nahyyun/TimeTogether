@@ -1,3 +1,5 @@
+import { CandidateTimeInfo } from "@/types/candidateTime";
+
 const extractHourAndMinute = (time: string) => {
   const [hour, minute] = time.split(":").map(Number);
 
@@ -56,4 +58,23 @@ export const add30Minutes = (time: string) => {
   const stringMinute = String(totalMinutes % 60).padStart(2, "0");
 
   return `${stringHour}:${stringMinute}`;
+};
+
+export const createTimeMembersMap = (candidates: CandidateTimeInfo[]) => {
+  const initValue = {
+    [candidates[0].startTime]: candidates[0].members,
+  };
+
+  return candidates.reduce(
+    (acc: { [key: string]: string[] }, { startTime, members }) => {
+      acc[startTime] = !acc[startTime]
+        ? members
+        : acc[startTime].length > members.length
+        ? acc[startTime]
+        : members;
+
+      return acc;
+    },
+    initValue
+  );
 };

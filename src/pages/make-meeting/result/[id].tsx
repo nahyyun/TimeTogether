@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
       notFound: true,
     };
 
-  return { props: { meetingInfo: data[0] } };
+  return { props: { meetingInfo: data } };
 };
 
 export default function MakeMeetingResultPage({

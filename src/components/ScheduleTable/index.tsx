@@ -27,18 +27,18 @@ const ScheduleTable = forwardRef<
   }: PropsWithOptionalChildren<ScheduleTableProps>,
   ref
 ) {
-  if (!ref || typeof ref == "function") return null;
+  if (typeof ref == "function") return null;
 
   return (
     <S.ScheduleTableContainer
-      ref={(el) => el && ref.current && (ref.current.dragContainerRef = el)}
+      ref={(el) => el && ref?.current && (ref.current.dragContainerRef = el)}
     >
       <S.TableHeader>
         <S.Day>{daysOfWeek[new Date(date).getDay()]}</S.Day>
         <S.Date> {new Date(date).getDate()}</S.Date>
       </S.TableHeader>
 
-      {allTimeRange.slice(1).map((time, idx) => (
+      {allTimeRange.map((time, idx) => (
         <S.TimeScale key={idx} idx={idx}>
           {time < 12 ? time + " AM" : time + " PM"}
         </S.TimeScale>
@@ -60,7 +60,7 @@ const ScheduleTable = forwardRef<
               )}
               ref={(el) =>
                 el &&
-                ref.current?.selectableTargetsRefs &&
+                ref?.current?.selectableTargetsRefs &&
                 (ref.current.selectableTargetsRefs[idx] = el)
               }
             />

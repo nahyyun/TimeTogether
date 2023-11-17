@@ -13,6 +13,9 @@ export const ScheduleTableContainer = styled.div`
   position: relative;
 `;
 
+const TIME_SCALE_WIDTH = 33;
+const TIME_DIVIDER = 15;
+
 export const TableHeader = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,6 +24,16 @@ export const TableHeader = styled.div`
   border-bottom: 1px solid ${borderColor};
   gap: 5px;
   height: ${TABLE_HEADER_HEIGHT}px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: ${TABLE_HEADER_HEIGHT - 2}px;
+    left: -${TIME_DIVIDER}px;
+    width: ${TIME_DIVIDER}px;
+    height: 1px;
+    border-bottom: 1px solid ${borderColor};
+  }
 `;
 
 export const Day = styled.div`
@@ -34,14 +47,11 @@ export const Date = styled.div`
   color: #acacac;
 `;
 
-const TIME_SCALE_WIDTH = 33;
-const TIME_DIVIDER = 15;
-
 export const TimeScale = styled.div<{ idx: number }>`
   position: absolute;
   left: -${TIME_SCALE_WIDTH + TIME_DIVIDER}px;
   top: ${({ idx }) => {
-    const baseHeight = TABLE_HEADER_HEIGHT + TIME_BLOCK_HEIGHT * 2 - 10 / 2;
+    const baseHeight = TABLE_HEADER_HEIGHT - 10 / 2;
 
     return baseHeight + idx * TIME_BLOCK_HEIGHT * 2 + "px";
   }};

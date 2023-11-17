@@ -28,12 +28,12 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
 
   const { data, error } = await getMeetingInfo(meetingId);
 
-  if (!data || data.length == 0)
+  if (!data)
     return {
       notFound: true,
     };
 
-  return { props: { meetingInfo: data[0] } };
+  return { props: { meetingInfo: data } };
 };
 
 export default function ScheduleLoginPage({

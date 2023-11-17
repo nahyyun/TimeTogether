@@ -1,3 +1,4 @@
+import { getMeetingInfo } from "@/services/meeting";
 import {
   ScheduleTimeRangeInfo,
   CandidateTimeInfo,
@@ -106,11 +107,11 @@ export const createSchedule = async (
   meetingId: string,
   personalScheduleForm: ScheduleForm
 ) => {
-  const { data, error } = await getCandidateTimes(meetingId);
+  const { data: meetingInfo, error } = await getMeetingInfo(meetingId);
 
-  if (!data || error) throw new Error("error");
+  if (!meetingInfo || error) throw new Error("error");
 
-  const currCandidateTimeInfos = data[0].candidates;
+  const { candidates: currCandidateTimeInfos, members } = meetingInfo;
 
   const updatedCandidates = getUpdatedCandidates(
     personalScheduleForm,
@@ -119,6 +120,9 @@ export const createSchedule = async (
 
   return supabase
     .from("Meeting")
-    .update({ candidates: updatedCandidates })
+    .update({
+      candidates: updatedCandidates,
+      members: [...members, personalScheduleForm.name],
+    })
     .eq("id", meetingId);
 };
