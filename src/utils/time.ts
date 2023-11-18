@@ -66,6 +66,7 @@ export const add30Minutes = (time: string) => {
  * @returns time slot key - available members array value map
  */
 export const mapMembersToTimeSlots = (candidates: CandidateTimeInfo[]) => {
+
   const initValue = { [candidates[0].startTime]: candidates[0].members };
 
   return candidates.reduce(

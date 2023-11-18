@@ -1,8 +1,8 @@
 import { apiService } from "@/api/apiService";
 import { END_POINT } from "@/constants/api";
 import { ROUTE_PATH } from "@/constants/path";
-import { ScheduleForm } from "@/types/meeting";
-import { useMutation } from "@tanstack/react-query";
+import { Meeting, ScheduleForm } from "@/types/meeting";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 const useCreateSchedule = () => {
@@ -24,4 +24,14 @@ const useCreateSchedule = () => {
   });
 };
 
-export { useCreateSchedule };
+const useGetScheduleResult = (meetingId: string) => {
+  return useQuery({
+    queryKey: ["meeting", "schedule", meetingId],
+    queryFn: () =>
+      apiService.get<Meeting & { schedule: { [key: string]: string[] } }>(
+        END_POINT.GUEST_SCHEDULE_RESULT(meetingId)
+      ),
+  });
+};
+
+export { useCreateSchedule, useGetScheduleResult };

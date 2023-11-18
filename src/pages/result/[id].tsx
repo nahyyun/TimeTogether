@@ -2,12 +2,8 @@ import ScheduleTable from "@/components/ScheduleTable";
 import TabList from "@/components/TabList";
 import { Tab } from "@/components/TabList/tabs.type";
 import { RESULT_TABS_INFO } from "@/constants/resultTab";
-import { useGetMeeting } from "@/hooks/queries/meeting";
-import {
-  mapMembersToTimeSlots,
-  getAllTimeRange,
-  getTimeTableValues,
-} from "@/utils/time";
+import { useGetScheduleResult } from "@/hooks/queries/schedule";
+import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -15,15 +11,14 @@ export default function ScheduleResultPage() {
   const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
 
   const router = useRouter();
-  const meetingId = router.query.id as string;
 
-  const { data: meetingInfo, error } = useGetMeeting(meetingId);
+  const meetingId = router.query.id as string | undefined;
+
+  const { data: meetingInfo, error } = useGetScheduleResult(meetingId);
 
   if (!meetingInfo) return;
 
-  const { id, memberCount, members, candidates } = meetingInfo;
-
-  const mappedMembersByTimeSlots = mapMembersToTimeSlots(candidates);
+  const { memberCount, members, candidates, schedule } = meetingInfo;
 
   const [startTime, endTime] = meetingInfo.timeRange;
 
@@ -52,7 +47,7 @@ export default function ScheduleResultPage() {
           meetingInfo={meetingInfo}
           allTimeRange={allTimeRange}
           timeTableValues={timeTableValues}
-          mappedMembersByTimeSlots={mappedMembersByTimeSlots}
+          mappedMembersByTimeSlots={schedule}
           availableTotalMemberCnt={availableTotalMemberCnt}
         />
       )}
@@ -60,7 +55,11 @@ export default function ScheduleResultPage() {
       {activeTab === RESULT_TABS_INFO[1].value && (
         <>
           <h3>모두가 가능한 시간대는 아래와 같아요.</h3>
-          {/** 카드 */}
+          {candidates.map(({ startTime, endTime, members }, idx) => (
+            <div key={idx}>
+              {startTime} ~ {endTime} {members.length}명
+            </div>
+          ))}
           <h3>모두가 가능한 시간대가 없어요. 😢</h3>
           <h3>추천하는 모임 시간대는 아래와 같아요.</h3>
           <span>* 참여 가능한 사람이 많은 순</span>

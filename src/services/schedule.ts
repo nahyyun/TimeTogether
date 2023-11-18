@@ -12,14 +12,6 @@ import {
 } from "@/utils/time";
 import supabase from "./init";
 
-const getCandidateTimes = (meetingId: string) => {
-  return supabase
-    .from("Meeting")
-    .select()
-    .eq("id", meetingId)
-    .select("candidates");
-};
-
 const addCandidateTime = (
   arr: ScheduleTimeRangeInfo[],
   startTime: string,
@@ -109,7 +101,7 @@ const getUpdatedCandidates = (
 };
 
 /**
- * 큰 시간 간격 기준, 그 후 빠른 시작 시간을 기준으로 내림차순 정렬하기 위해 정렬 순서를 정의하는 함수
+ * 큰 시간 간격 기준 내림차순, 그 후 빠른 시작 시간을 기준으로 오름차순 정렬하기 위해 정렬 순서를 정의하는 함수
  * @param prevDataTime 이전 요소
  * @param currDataTime 현재 요소
  * @returns 정렬 순서를 정의하기 위한 숫자
@@ -133,16 +125,18 @@ const compareTimeIntervalsAndStartTimes = (
   else
     return (
       getTimestampFromTime(prevDataStartTime) -
-      getTimestampFromTime(prevDataEndTime)
+      getTimestampFromTime(currDataStartTime)
     );
 };
 
 /**
- * 참여자 수, 큰 시간 간격, 빠른 시작 시간을 기준으로 후보 시간대를 내림차순 정렬하는 함수
+ * 참여자 수 기준 내림차순, 큰 시간 간격 기준 내림차순, 빠른 시작 시간 기준 오름차순으로 후보 시간대를 정렬하는 함수
  * @param target 정렬할 후보 시간대 배열
  * @returns 정렬된 배열
  */
-const sortCandidatesByMultipleFactors = (target: CandidateTimeInfo[]) => {
+export const sortCandidatesByMultipleFactors = (
+  target: CandidateTimeInfo[]
+) => {
   return target.sort(
     (
       { members: prevDataMembers, ...prevDataTime },
@@ -167,8 +161,9 @@ export const createSchedule = async (
 
   const { candidates: currCandidateTimeInfos, members } = meetingInfo;
 
-  const updatedCandidates = sortCandidatesByMultipleFactors(
-    getUpdatedCandidates(personalScheduleForm, currCandidateTimeInfos)
+  const updatedCandidates = getUpdatedCandidates(
+    personalScheduleForm,
+    currCandidateTimeInfos
   );
 
   return supabase

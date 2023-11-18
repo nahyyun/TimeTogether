@@ -8,7 +8,7 @@ import {
   meetingInputRefsDefaultValue,
 } from "@/constants/stateDefaultValue";
 import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
-import { useCreateMeeting } from "@/hooks/queries/meeting";
+import { useCreateMeeting } from "@/hooks/queries";
 import { formatDateToString } from "@/utils/date";
 import * as S from "./style";
 

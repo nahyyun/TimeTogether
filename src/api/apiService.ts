@@ -1,7 +1,7 @@
 export const apiService = {
-  get: (endPoint: string) =>
+  get: <ResponseSuccessType>(endPoint: string) =>
     fetch(endPoint)
-      .then((data) => data.json())
+      .then<ResponseSuccessType>((data) => data.json())
       .catch((err) => console.error(err)),
 
   put: (endPoint: string, body: any) =>
