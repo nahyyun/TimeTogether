@@ -1,5 +1,3 @@
-import { CandidateTimeInfo } from "@/types/candidateTime";
-
 const extractHourAndMinute = (time: string) => {
   const [hour, minute] = time.split(":").map(Number);
 
@@ -58,38 +56,4 @@ export const add30Minutes = (time: string) => {
   const stringMinute = String(totalMinutes % 60).padStart(2, "0");
 
   return `${stringHour}:${stringMinute}`;
-};
-
-/**
- * 모든 time slot을 기준으로 참여가능한 멤버들의 배열을 매핑한 객체를 생성하는 함수
- * @param candidates  후보 시간대 배열
- * @returns time slot key - available members array value map
- */
-export const mapMembersToTimeSlots = (candidates: CandidateTimeInfo[]) => {
-
-  const initValue = { [candidates[0].startTime]: candidates[0].members };
-
-  return candidates.reduce(
-    (acc: { [key: string]: string[] }, { startTime, members }) => {
-      acc[startTime] = !acc[startTime]
-        ? members
-        : Array.from(new Set([...acc[startTime], ...members]));
-
-      return acc;
-    },
-    initValue
-  );
-};
-
-export const getTimestampFromTime = (time: string) =>
-  new Date(`2000-01-01 ${time}`).getTime();
-
-export const getTimeInterval = (
-  startStringTime: string,
-  endStringTime: string
-) => {
-  const startTime = getTimestampFromTime(startStringTime);
-  const endTime = getTimestampFromTime(endStringTime);
-
-  return endTime - startTime;
 };

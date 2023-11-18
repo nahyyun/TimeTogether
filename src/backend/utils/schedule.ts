@@ -1,16 +1,10 @@
-import { getMeetingInfo } from "@/services/meeting";
 import {
-  ScheduleTimeRangeInfo,
   CandidateTimeInfo,
+  ScheduleTimeRangeInfo,
 } from "@/types/candidateTime";
-import { ScheduleForm } from "@/types/meeting";
-import {
-  add30Minutes,
-  getTimeInterval,
-  getTimestampFromTime,
-  isSequentialTimes,
-} from "@/utils/time";
-import supabase from "./init";
+import { ScheduleForm } from "@/types/Meeting";
+import { add30Minutes, isSequentialTimes } from "@/utils/time";
+import { getTimeInterval, getTimestampFromTime } from "./time";
 
 const addCandidateTime = (
   arr: ScheduleTimeRangeInfo[],
@@ -67,7 +61,7 @@ const getAdditionalCandidateTimes = (
   }));
 };
 
-const getUpdatedCandidates = (
+export const getUpdatedCandidates = (
   { name, schedule: personalSchedule }: ScheduleForm,
   currCandidateTimeInfos: CandidateTimeInfo[]
 ) => {
@@ -98,6 +92,26 @@ const getUpdatedCandidates = (
   );
 
   return [...updatedCurrCandidateTimeInfos, ...additionalCandidateTimes];
+};
+
+/**
+ * 모든 time slot을 기준으로 참여가능한 멤버들의 배열을 매핑한 객체를 생성하는 함수
+ * @param candidates  후보 시간대 배열
+ * @returns time slot key - available members array value map
+ */
+export const mapMembersToTimeSlots = (candidates: CandidateTimeInfo[]) => {
+  const initValue = { [candidates[0].startTime]: candidates[0].members };
+
+  return candidates.reduce(
+    (acc: { [key: string]: string[] }, { startTime, members }) => {
+      acc[startTime] = !acc[startTime]
+        ? members
+        : Array.from(new Set([...acc[startTime], ...members]));
+
+      return acc;
+    },
+    initValue
+  );
 };
 
 /**
@@ -149,28 +163,4 @@ export const sortCandidatesByMultipleFactors = (
       }
     }
   );
-};
-
-export const createSchedule = async (
-  meetingId: string,
-  personalScheduleForm: ScheduleForm
-) => {
-  const { data: meetingInfo, error } = await getMeetingInfo(meetingId);
-
-  if (!meetingInfo || error) throw new Error("error");
-
-  const { candidates: currCandidateTimeInfos, members } = meetingInfo;
-
-  const updatedCandidates = getUpdatedCandidates(
-    personalScheduleForm,
-    currCandidateTimeInfos
-  );
-
-  return supabase
-    .from("Meeting")
-    .update({
-      candidates: updatedCandidates,
-      members: [...members, personalScheduleForm.name],
-    })
-    .eq("id", meetingId);
 };

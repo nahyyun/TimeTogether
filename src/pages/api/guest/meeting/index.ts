@@ -1,5 +1,5 @@
+import { createMeeting } from "@/backend/services/meeting";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createMeeting } from "@/services/meeting";
 
 export default async function handler(
   req: NextApiRequest,

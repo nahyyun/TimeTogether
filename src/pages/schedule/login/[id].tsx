@@ -5,13 +5,13 @@ import {
   MeetingInfoInputsContainer as NameInputWrapper,
 } from "@/components/MeetingInfoInputs/style";
 import { Form } from "@/pages/make-meeting/style";
-import { getMeetingInfo } from "@/services/meeting";
 import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useRef, useState } from "react";
 import { useCreateSchedule } from "@/hooks/queries/schedule";
+import { getMeetingInfo } from "@/backend/services/meeting";
 
 interface PageProps {
   meetingInfo: Meeting;

@@ -1,11 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { getMeetingInfo } from "@/services/meeting";
 import { ParsedUrlQuery } from "querystring";
 import { Meeting } from "@/types/meeting";
 import { extractDatePartsFromStringType } from "@/utils/date";
 import { ROUTE_PATH } from "@/constants/path";
 import Button from "@/components/Common/Button";
 import * as S from "./style";
+import { getMeetingInfo } from "@/backend/services/meeting";
 
 interface PageProps {
   meetingInfo: Meeting;

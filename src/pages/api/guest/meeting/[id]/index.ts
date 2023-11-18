@@ -1,4 +1,4 @@
-import { createSchedule } from "@/services/schedule";
+import { createSchedule } from "@/backend/services/schedule";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

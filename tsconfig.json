@@ -20,10 +20,10 @@
       "@/styles/*": ["styles/*"],
       "@/hooks/*": ["hooks/*"],
       "@/types/*": ["types/*"],
-      "@/services/*": ["services/*"],
       "@/constants/*": ["constants/*"],
       "@/utils/*": ["utils/*"],
-      "@/api/*": ["api/*"]
+      "@/api/*": ["api/*"],
+      "@/backend/*": ["backend/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

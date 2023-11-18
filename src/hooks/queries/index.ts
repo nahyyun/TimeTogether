@@ -1,7 +1,7 @@
 import { apiService } from "@/api/apiService";
+import { getMeetingInfo } from "@/backend/services/meeting";
 import { END_POINT } from "@/constants/api";
 import { ROUTE_PATH } from "@/constants/path";
-import { getMeetingInfo } from "@/services/meeting";
 import { MeetingInsert } from "@/types/meeting";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
