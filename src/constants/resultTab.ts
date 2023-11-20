@@ -1,4 +1,4 @@
 export const RESULT_TABS_INFO = [
-  { value: "schedule", label: "시간표 결과 확인하기" },
-  { value: "priority", label: "모임 시간 순위 확인하기" },
+  { value: "schedule", label: "스케줄 확인하기" },
+  { value: "priority", label: "추천 시간 확인하기" },
 ];

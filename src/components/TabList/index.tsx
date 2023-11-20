@@ -1,5 +1,6 @@
 import Tab from "./Tab";
 import { Tab as TabType } from "./tabs.type";
+import * as S from "./style";
 
 interface TabListProps {
   tabsInfo: TabType[];
@@ -13,7 +14,7 @@ export default function TabList({
   onChange,
 }: TabListProps) {
   return (
-    <>
+    <S.TabList>
       {tabsInfo.map((tabInfo, idx) => (
         <Tab
           key={idx}
@@ -22,6 +23,9 @@ export default function TabList({
           onChange={onChange}
         />
       ))}
-    </>
+      <S.HighLighter
+        activeTabIdx={tabsInfo.findIndex(({ value }) => value === activeTab)}
+      />
+    </S.TabList>
   );
 }

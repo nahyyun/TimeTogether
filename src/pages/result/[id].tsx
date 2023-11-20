@@ -6,6 +6,7 @@ import { useGetScheduleResult } from "@/hooks/queries/schedule";
 import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import * as S from "./style";
 
 export default function ScheduleResultPage() {
   const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
@@ -30,26 +31,29 @@ export default function ScheduleResultPage() {
   };
 
   const availableTotalMemberCnt = members.length;
+
   return (
-    <>
+    <S.ResultPageLayout>
       <TabList
         tabsInfo={RESULT_TABS_INFO}
         activeTab={activeTab}
         onChange={onChangeActiveTab}
       />
 
-      <p>
-        현재까지 {memberCount} 중 {availableTotalMemberCnt}명이 참여했어요 !
-      </p>
-
       {activeTab === RESULT_TABS_INFO[0].value && (
-        <ScheduleTable
-          meetingInfo={meetingInfo}
-          allTimeRange={allTimeRange}
-          timeTableValues={timeTableValues}
-          mappedMembersByTimeSlots={schedule}
-          availableTotalMemberCnt={availableTotalMemberCnt}
-        />
+        <>
+          <S.ParticipationInfo>
+            현재까지 {memberCount}명 중 {availableTotalMemberCnt}명이 참여했어요
+            !
+          </S.ParticipationInfo>
+          <ScheduleTable
+            meetingInfo={meetingInfo}
+            allTimeRange={allTimeRange}
+            timeTableValues={timeTableValues}
+            mappedMembersByTimeSlots={schedule}
+            availableTotalMemberCnt={availableTotalMemberCnt}
+          />
+        </>
       )}
 
       {activeTab === RESULT_TABS_INFO[1].value && (
@@ -65,6 +69,6 @@ export default function ScheduleResultPage() {
           <span>* 참여 가능한 사람이 많은 순</span>
         </>
       )}
-    </>
+    </S.ResultPageLayout>
   );
 }

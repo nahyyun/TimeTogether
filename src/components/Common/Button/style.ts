@@ -23,6 +23,9 @@ const BUTTON_STYLE = {
     color: theme.colors.text.primary,
     background: "transparent",
   },
+  none: {
+    borderRadius: "0px",
+  },
 } as const;
 
 export const Button = styled.button<ButtonProps>(
@@ -30,6 +33,18 @@ export const Button = styled.button<ButtonProps>(
   (props) => css`
     ${BUTTON_SIZE[props.size || "md"]}
     ${BUTTON_STYLE[props.buttonstyle || "primary"]}
-    ${props.isActive && `font-weight: 700`}
+    
+
+    &.active-tab {
+      font-weight: 600;
+      height: 42px;
+      color: ${theme.colors.primary[200]};
+    }
+
+    &.inactive-tab {
+      font-weight: 600;
+      height: 42px;
+      color: ${theme.colors.text.inactive};
+    }
   `
 );

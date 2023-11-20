@@ -15,9 +15,10 @@ export default function Tab({
   return (
     <Button
       type="button"
-      buttonstyle="secondary"
+      size="full"
+      buttonstyle="none"
+      className={activeTab === value ? "active-tab" : "inactive-tab"}
       onClick={() => onChange(value)}
-      isActive={activeTab === value}
     >
       <span>{label}</span>
     </Button>
