@@ -8,7 +8,8 @@ export const theme = {
     },
     disabled: "#C4C4C4",
     bg: {
-      primary: "#FFF",
+      primary: "#E5E8EB",
+      secondary: "#FFF",
     },
     text: {
       primary: "#000",

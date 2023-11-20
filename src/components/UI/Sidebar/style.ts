@@ -30,7 +30,7 @@ export const Sidebar = styled.aside`
   height: 100%;
   z-index: 10;
   border-radius: 30px 0 0 30px;
-  background-color: ${theme.colors.bg.primary};
+  background-color: ${theme.colors.bg.secondary};
   animation: ${showSidebarAnimation} 0.3s ease;
 
   @media (min-width: 992px) {

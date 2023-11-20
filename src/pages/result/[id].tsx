@@ -1,3 +1,4 @@
+import AvatarGroup from "@/components/Common/AvatarGroup";
 import ScheduleTable from "@/components/ScheduleTable";
 import TabList from "@/components/TabList";
 import { Tab } from "@/components/TabList/tabs.type";
@@ -43,8 +44,11 @@ export default function ScheduleResultPage() {
       {activeTab === RESULT_TABS_INFO[0].value && (
         <>
           <S.ParticipationInfo>
-            현재까지 {memberCount}명 중 {availableTotalMemberCnt}명이 참여했어요
-            !
+            <h4>참여인원</h4>
+            <AvatarGroup list={members} max={2} />
+            <span>
+              {memberCount} / {availableTotalMemberCnt}명
+            </span>
           </S.ParticipationInfo>
           <ScheduleTable
             meetingInfo={meetingInfo}
