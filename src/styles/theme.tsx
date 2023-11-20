@@ -16,6 +16,7 @@ export const theme = {
       secondary: "#505050",
       light: "#FFF",
       inactive: "#757575",
+      muted: "#C1C1C1",
     },
     success: "#D9F1DA",
     error: "#FF7C7C",

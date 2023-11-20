@@ -43,13 +43,18 @@ export default function ScheduleResultPage() {
 
       {activeTab === RESULT_TABS_INFO[0].value && (
         <>
-          <S.ParticipationInfo>
-            <h4>참여인원</h4>
-            <AvatarGroup list={members} max={2} />
-            <span>
-              {memberCount} / {availableTotalMemberCnt}명
-            </span>
-          </S.ParticipationInfo>
+          <S.ParticipationInfoWrapper>
+            <h4>참여 인원</h4>
+            <S.ParticipationInfo>
+              <AvatarGroup list={members} max={2} />
+              <S.MemberCountInfo>
+                <S.AvailableMemberCount>
+                  {availableTotalMemberCnt}
+                </S.AvailableMemberCount>
+                <S.ToTalMemberCount> / {memberCount}명</S.ToTalMemberCount>
+              </S.MemberCountInfo>
+            </S.ParticipationInfo>
+          </S.ParticipationInfoWrapper>
           <ScheduleTable
             meetingInfo={meetingInfo}
             allTimeRange={allTimeRange}
