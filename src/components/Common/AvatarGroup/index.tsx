@@ -3,12 +3,12 @@ import { FaCircleUser } from "react-icons/fa6";
 
 import * as S from "./style";
 
-interface AvatarGroupProps {
-  list: [];
+interface AvatarGroupProps<T> {
+  list: T[];
   max: number;
 }
 
-export default function AvatarGroup({ list, max }: AvatarGroupProps) {
+export default function AvatarGroup<T>({ list, max }: AvatarGroupProps<T>) {
   const extraNum = list.length > max ? list.length - max : 0;
 
   return (
