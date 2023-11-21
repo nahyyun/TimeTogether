@@ -1,3 +1,4 @@
+import { CandidateTimeInfo } from "./../../types/candidateTime";
 import { apiService } from "@/api/apiService";
 import { END_POINT } from "@/constants/api";
 import { ROUTE_PATH } from "@/constants/path";
@@ -24,11 +25,22 @@ const useCreateSchedule = () => {
   });
 };
 
+type ResultResponseDataType = Meeting & {
+  schedule: {
+    [key: string]: string[];
+  };
+  hasBestCandidates: boolean;
+  candidates: {
+    bestCandidates: CandidateTimeInfo[];
+    otherCandidates: CandidateTimeInfo[];
+  };
+};
+
 const useGetScheduleResult = (meetingId: string) => {
   return useQuery({
     queryKey: ["meeting", "schedule", meetingId],
     queryFn: () =>
-      apiService.get<Meeting & { schedule: { [key: string]: string[] } }>(
+      apiService.get<ResultResponseDataType>(
         END_POINT.GUEST_SCHEDULE_RESULT(meetingId)
       ),
   });

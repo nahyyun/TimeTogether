@@ -6,7 +6,7 @@ const TABLE_HEADER_HEIGHT = 70;
 const borderColor = "#c6c6c6";
 
 export const ScheduleTableContainer = styled.div`
-  width: 220px;
+  width: 260px;
   margin: 30px auto;
   border: 1px solid ${borderColor};
   border-radius: 13px;

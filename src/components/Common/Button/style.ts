@@ -7,6 +7,7 @@ const BUTTON_SIZE = {
   md: { width: "120px", height: "42px", fontSize: "14px" },
   full: { width: "100%", height: "100%" },
   square: { width: "45px", height: "45px" },
+  "full-width": { width: "100%", height: "42px" },
 } as const;
 
 const BUTTON_STYLE = {

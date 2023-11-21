@@ -12,7 +12,7 @@ export const theme = {
       secondary: "#FFF",
     },
     text: {
-      primary: "#000",
+      primary: "#191f28",
       secondary: "#505050",
       light: "#FFF",
       inactive: "#757575",

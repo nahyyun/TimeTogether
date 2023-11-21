@@ -1,19 +1,25 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
+const AVATAR_SIZE = {
+  sm: "22px",
+  md: "30px",
+} as const;
+
 export const AVATAR_BORDER_COLOR = {
   lightgray: theme.colors.bg.primary,
   white: theme.colors.bg.secondary,
 } as const;
 
 export const Avatar = styled.div<{
+  size: keyof typeof AVATAR_SIZE;
   borderColor: keyof typeof AVATAR_BORDER_COLOR;
 }>`
-  width: 30px;
-  height: 30px;
+  width: ${({ size }) => AVATAR_SIZE[size]};
+  height: ${({ size }) => AVATAR_SIZE[size]};
   margin-left: -10px;
   text-align: center;
-  line-height: 30px;
+  line-height: ${({ size }) => AVATAR_SIZE[size]};
   font-size: ${theme.text.size.sm};
   color: ${theme.colors.text.secondary};
   background-color: ${theme.colors.bg.secondary};

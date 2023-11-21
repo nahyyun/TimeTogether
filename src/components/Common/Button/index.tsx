@@ -2,7 +2,7 @@ import { PropsWithChildren } from "@/types/propsWithChildren";
 import * as S from "./style";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: "md" | "full" | "square";
+  size?: "md" | "full" | "square" | "full-width";
   buttonstyle?: "primary" | "secondary" | "icon-only" | "none";
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

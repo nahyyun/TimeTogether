@@ -2,12 +2,18 @@ import { PropsWithChildren } from "@/types/propsWithChildren";
 import * as S from "./style";
 
 interface AvatarProps {
-  borderColor?: keyof typeof S.AVATAR_BORDER_COLOR;
+  size?: "sm" | "md";
+  borderColor?: "white" | "lightgray";
 }
 
 export default function Avatar({
-  children,
+  size = "md",
   borderColor = "white",
+  children,
 }: PropsWithChildren<AvatarProps>) {
-  return <S.Avatar borderColor={borderColor}>{children}</S.Avatar>;
+  return (
+    <S.Avatar borderColor={borderColor} size={size}>
+      {children}
+    </S.Avatar>
+  );
 }
