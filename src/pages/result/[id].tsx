@@ -46,7 +46,7 @@ export default function ScheduleResultPage() {
           <S.ParticipationInfoWrapper>
             <h4>참여 인원</h4>
             <S.ParticipationInfo>
-              <AvatarGroup list={members} max={2} />
+              <AvatarGroup list={members} max={6} />
               <S.MemberCountInfo>
                 <S.AvailableMemberCount>
                   {availableTotalMemberCnt}
