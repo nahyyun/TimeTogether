@@ -1,5 +1,5 @@
+import { UserIcon } from "@/components/UI/Icons";
 import Avatar from "./Avatar";
-import { FaCircleUser } from "react-icons/fa6";
 import * as S from "./style";
 
 interface AvatarGroupProps<T> {
@@ -17,7 +17,7 @@ export default function AvatarGroup<T>({ list, max }: AvatarGroupProps<T>) {
         .filter((_, idx) => idx < limitedMax)
         .map((item, idx) => (
           <Avatar key={idx}>
-            <FaCircleUser size={"100%"} color="#e5e8eb" />
+            <UserIcon />
           </Avatar>
         ))}
       {extraNum ? <Avatar borderColor="lightgray">+{extraNum}</Avatar> : null}
