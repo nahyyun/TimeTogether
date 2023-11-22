@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Dimmer = styled.div`
   display: none;
+  z-index: 9;
 
   @media (max-width: 991px) {
     display: block;
