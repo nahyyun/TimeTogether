@@ -73,7 +73,7 @@ export default function MakeMeetingPage() {
     setStep((prevStep) => prevStep + 1);
   };
 
-  function renderStepComponent(step: number) {
+  const renderStepComponent = (step: number) => {
     switch (step) {
       case 1:
         return (
@@ -92,7 +92,7 @@ export default function MakeMeetingPage() {
           />
         );
     }
-  }
+  };
 
   return <S.Form onSubmit={handleSubmit}>{renderStepComponent(step)}</S.Form>;
 }

@@ -25,7 +25,7 @@ const useCreateSchedule = () => {
   });
 };
 
-type ResultResponseDataType = Meeting & {
+export type ResultResponseDataType = Meeting & {
   schedule: {
     [key: string]: string[];
   };
