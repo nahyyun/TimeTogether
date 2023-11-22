@@ -19,7 +19,7 @@ export const ToggleButtonContainer = styled.label`
 export const ToggleBackground = styled.div<{ isChecked: boolean }>`
   background-color: ${({ isChecked }) =>
     isChecked ? theme.colors.primary[100] : "#888888"};
-  color: ${theme.colors.text.light};
+  color: ${theme.colors.text.white};
   position: relative;
   height: 100%;
   width: 100%;
@@ -45,7 +45,7 @@ export const ToggleButton = styled.div<{
   width: ${TOGGLE_BUTTON_WIDTH}px;
   height: 28px;
   border-radius: 50%;
-  background-color: white;
+  background-color: ${theme.colors.white};
   cursor: pointer;
   transform: ${({ isChecked }) =>
     `translateX(${isChecked ? MAX_POSITION_X : MIN_POSITION_X}px)`};

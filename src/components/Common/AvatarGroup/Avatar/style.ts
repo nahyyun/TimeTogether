@@ -7,8 +7,8 @@ const AVATAR_SIZE = {
 } as const;
 
 export const AVATAR_BORDER_COLOR = {
-  lightgray: theme.colors.bg.primary,
-  white: theme.colors.bg.secondary,
+  lightgray: theme.colors.gray[200],
+  white: theme.colors.white,
 } as const;
 
 export const Avatar = styled.div<{
@@ -22,7 +22,7 @@ export const Avatar = styled.div<{
   line-height: ${({ size }) => AVATAR_SIZE[size]};
   font-size: ${theme.text.size.sm};
   color: ${theme.colors.text.secondary};
-  background-color: ${theme.colors.bg.secondary};
+  background-color: ${theme.colors.gray[200]};
   border: 1px solid ${({ borderColor }) => AVATAR_BORDER_COLOR[borderColor]};
   border-radius: ${theme.text.size.sm};
 `;

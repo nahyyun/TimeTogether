@@ -12,7 +12,7 @@ const BUTTON_SIZE = {
 
 const BUTTON_STYLE = {
   primary: {
-    color: theme.colors.text.light,
+    color: theme.colors.text.white,
     background: theme.colors.primary[100],
   },
   secondary: {
@@ -45,7 +45,7 @@ export const Button = styled.button<ButtonProps>(
     &.inactive-tab {
       font-weight: 600;
       height: 42px;
-      color: ${theme.colors.text.inactive};
+      color: ${theme.colors.text.muted};
     }
   `
 );

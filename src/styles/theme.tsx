@@ -1,3 +1,12 @@
+const gray = {
+  50: "#f9fafb",
+  100: "#f2f4f6",
+  200: "#d1d6db",
+  300: "#8b95a1",
+  400: "#4e5968",
+  500: "#191f28",
+} as const;
+
 export const theme = {
   colors: {
     primary: {
@@ -6,17 +15,14 @@ export const theme = {
       200: "#5EC0C3",
       300: "#21A8AC",
     },
-    disabled: "#C4C4C4",
-    bg: {
-      primary: "#E5E8EB",
-      secondary: "#FFF",
-    },
+    black: "#000",
+    white: "#FFF",
+    gray,
     text: {
-      primary: "#191f28",
-      secondary: "#505050",
-      light: "#FFF",
-      inactive: "#757575",
-      muted: "#C1C1C1",
+      primary: gray[500],
+      secondary: gray[400],
+      white: "#FFF",
+      muted: gray[300],
     },
     success: "#D9F1DA",
     error: "#FF7C7C",
@@ -24,7 +30,7 @@ export const theme = {
   text: {
     size: {
       xs: "10px",
-      sm: "14px",
+      sm: "13px",
       md: "18px",
       lg: "20px",
       xlg: "30px",

@@ -22,31 +22,34 @@ export default async function handler(
   if (!meetingInfo)
     return res.status(500).json({ message: "일정 정보가 없습니다." });
 
-    const mappedMembersByTimeSlots = mapMembersToTimeSlots(
-      meetingInfo.candidates
-    );
+  const mappedMembersByTimeSlots = mapMembersToTimeSlots(
+    meetingInfo.candidates
+  );
 
-    const sortedCandidates = sortCandidatesByMultipleFactors(
-      meetingInfo.candidates
-    );
+  const sortedCandidates = sortCandidatesByMultipleFactors(
+    meetingInfo.candidates
+  );
 
-    const bestCandidatesEndIdx =
-      sortedCandidates.findIndex(
+  const isSingleMember = meetingInfo.members.length === 1;
+
+  const bestCandidatesEndIdx = isSingleMember
+    ? sortedCandidates.length - 1
+    : sortedCandidates.findIndex(
         ({ members }) => members.length !== meetingInfo.members.length
       ) - 1;
 
-    const hasBestCandidates = !!(bestCandidatesEndIdx >= 0);
+  const hasBestCandidates = isSingleMember || !!(bestCandidatesEndIdx >= 0);
 
-    return res.status(200).json({
-      ...meetingInfo,
-      hasBestCandidates,
-      candidates: {
-        bestCandidates: hasBestCandidates
-          ? sortedCandidates.splice(0, Math.min(bestCandidatesEndIdx + 1, 5))
-          : [],
-        otherCandidates: sortedCandidates.splice(0, 5),
-      },
+  return res.status(200).json({
+    ...meetingInfo,
+    hasBestCandidates,
+    candidates: {
+      bestCandidates: hasBestCandidates
+        ? sortedCandidates.splice(0, Math.min(bestCandidatesEndIdx + 1, 5))
+        : [],
+      otherCandidates: sortedCandidates.splice(0, 5),
+    },
 
-      schedule: mappedMembersByTimeSlots,
-    });
+    schedule: mappedMembersByTimeSlots,
+  });
 }
