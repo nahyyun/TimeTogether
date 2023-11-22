@@ -15,18 +15,18 @@ export const Avatar = styled.div<{
   size: keyof typeof AVATAR_SIZE;
   borderColor: keyof typeof AVATAR_BORDER_COLOR;
 }>`
-  ${({ size, borderColor }) => {
-    const { text, colors } = theme;
+  ${({ size: avatarSize, borderColor }) => {
+    const { size, colors } = theme;
 
-    return `width: ${AVATAR_SIZE[size]};
-            height:  ${AVATAR_SIZE[size]};
+    return `width: ${AVATAR_SIZE[avatarSize]};
+            height:  ${AVATAR_SIZE[avatarSize]};
             margin-left: -10px;
             text-align: center;
-            line-height: ${AVATAR_SIZE[size]};
-            font-size: ${text.size.sm};
+            line-height: ${AVATAR_SIZE[avatarSize]};
+            font-size: ${size.text.sm};
             color: ${colors.text.secondary};
             background-color: ${colors.white};
             border: 1px solid ${AVATAR_BORDER_COLOR[borderColor]};
-            border-radius: ${AVATAR_SIZE[size]};`;
+            border-radius: ${AVATAR_SIZE[avatarSize]};`;
   }}
 `;

@@ -10,6 +10,6 @@ export const CustomHeaderWrapper = styled.div`
 `;
 
 export const MonthSpan = styled.span`
-  font-size: ${theme.text.size.md};
+  font-size: ${theme.size.text.md};
   font-weight: 500;
 `;

@@ -27,8 +27,8 @@ export const theme = {
     success: "#D9F1DA",
     error: "#FF7C7C",
   },
-  text: {
-    size: {
+  size: {
+    text: {
       xs: "10px",
       sm: "13px",
       md: "18px",

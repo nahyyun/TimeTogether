@@ -30,7 +30,7 @@ export const ToggleBackground = styled.div<{ isChecked: boolean }>`
 `;
 
 export const ToggleStatusSpan = styled.span<{ isChecked: boolean }>`
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
   visibility: ${({ isChecked }) => (isChecked ? "visible" : "hidden")};
   transition: opacity cubic-bezier(0, 0.18, 0.58, 1) 0.1s;
 `;

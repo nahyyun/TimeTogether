@@ -7,7 +7,7 @@ export const Header = styled.header`
   align-items: center;
   height: 70px;
   margin: 0 35px;
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
 `;
 
 export const MenuButtonWrapper = styled.div`

@@ -8,7 +8,7 @@ export const InputWithLabelWrapper = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
 `;
 
 export const Input = styled.input`

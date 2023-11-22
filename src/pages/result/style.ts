@@ -24,8 +24,8 @@ export const ParticipationInfo = styled.div`
 `;
 
 export const MemberCountInfo = styled.span`
-  font-size: ${theme.text.size.sm};
-  line-height: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
+  line-height: ${theme.size.text.sm};
   align-self: center;
 `;
 

@@ -17,7 +17,7 @@ export const Navbar = styled.nav<NavbarProps>`
     display: flex;
     flex-direction: column;
     margin: 60px 0  0 20px;
-    font-size: ${theme.text.size.md};
+    font-size: ${theme.size.text.md};
   `}
   }
 `;

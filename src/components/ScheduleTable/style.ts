@@ -37,13 +37,13 @@ export const TableHeader = styled.div`
 `;
 
 export const Day = styled.div`
-  font-size: ${theme.text.size.md};
+  font-size: ${theme.size.text.md};
   font-weight: 700;
   color: ${theme.colors.text.primary};
 `;
 
 export const Date = styled.div`
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
   color: ${theme.colors.gray[300]};
 `;
 
@@ -57,7 +57,7 @@ export const TimeScale = styled.div<{ idx: number }>`
   }};
   width: ${TIME_SCALE_WIDTH}px;
   text-align: center;
-  font-size: ${theme.text.size.xs};
+  font-size: ${theme.size.text.xs};
 `;
 
 export const TimeBlocksWrapper = styled.div`

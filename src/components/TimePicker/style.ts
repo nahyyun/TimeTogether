@@ -22,5 +22,5 @@ export const HighlightBorder = styled.div`
 export const Separator = styled.span`
   height: ${TIME_ITEM_HEIGHT * ITEM_CNT_PER_SCROLL}px;
   line-height: ${TIME_ITEM_HEIGHT * ITEM_CNT_PER_SCROLL}px;
-  font-size: ${theme.text.size.xlg};
+  font-size: ${theme.size.text.xlg};
 `;

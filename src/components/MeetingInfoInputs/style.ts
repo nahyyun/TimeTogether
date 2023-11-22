@@ -12,13 +12,13 @@ export const MeetingInfoInputsContainer = styled.div`
 export const Fieldset = styled.div`
   h2 {
     font-weight: 600;
-    font-size: ${theme.text.size.lg};
+    font-size: ${theme.size.text.lg};
     color: ${theme.colors.text.primary};
   }
 
   label,
   span {
-    font-size: ${theme.text.size.sm};
+    font-size: ${theme.size.text.sm};
     color: ${theme.colors.text.secondary};
   }
 

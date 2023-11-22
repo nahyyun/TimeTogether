@@ -26,11 +26,11 @@ export const MeetingInfoWrapper = styled.div`
   height: 210px;
   border: 1px solid ${theme.colors.gray[200]};
   border-radius: 10px;
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
 `;
 
 export const MeetingTitle = styled.h3`
-  font-size: ${theme.text.size.md};
+  font-size: ${theme.size.text.md};
   margin-bottom: 30px;
   font-weight: 600;
 `;
@@ -41,7 +41,6 @@ export const MemberInfo = styled.div`
   align-items: center;
 `;
 
-
 export const ButtonWrapper = styled.div`
   display: flex;
   gap: 15px;
@@ -51,5 +50,5 @@ export const ButtonWrapper = styled.div`
 export const ButtonLink = styled(Button.withComponent(Link))`
   text-align: center;
   line-height: 42px;
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
 `;

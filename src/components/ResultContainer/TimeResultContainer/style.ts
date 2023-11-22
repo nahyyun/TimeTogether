@@ -9,7 +9,7 @@ export const Heading = styled.h4`
 
 export const ResultDesc = styled.span`
   color: ${theme.colors.text.secondary};
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
   word-break: keep-all;
 `;
 
@@ -38,16 +38,16 @@ export const DateInfo = styled.div`
 `;
 
 export const Day = styled.div`
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
   height: 20px;
 `;
 
 export const Date = styled.div`
-  font-size: ${theme.text.size.lg};
+  font-size: ${theme.size.text.lg};
 `;
 
 export const TimeInfo = styled.span`
-  font-size: ${theme.text.size.md};
+  font-size: ${theme.size.text.md};
   font-weight: 600;
   color: ${theme.colors.text.primary};
   display: flex;
@@ -67,7 +67,7 @@ export const MemberInfo = styled.div`
 
 export const MemberCountInfo = styled.span`
   margin-left: 4px;
-  font-size: ${theme.text.size.sm};
+  font-size: ${theme.size.text.sm};
   color: ${theme.colors.text.secondary};
   align-self: center;
 `;
