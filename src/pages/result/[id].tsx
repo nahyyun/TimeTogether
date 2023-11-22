@@ -38,7 +38,7 @@ export default function ScheduleResultPage() {
 
       case RESULT_TABS_INFO[1].value:
         return (
-          <S.PriorityResultWrapper>
+          <S.TimeResultContainerWrapper>
             {hasBestCandidates ? (
               <TimeResultContainer
                 headTitle="모두가 가능한 시간대는 아래와 같아요."
@@ -55,7 +55,7 @@ export default function ScheduleResultPage() {
               />
             )}
             ;
-          </S.PriorityResultWrapper>
+          </S.TimeResultContainerWrapper>
         );
     }
   };

@@ -6,6 +6,6 @@ export const ResultPageLayout = styled.div`
   flex-direction: column;
 `;
 
-export const PriorityResultWrapper = styled.div`
+export const TimeResultContainerWrapper = styled.div`
   margin: 20px 0;
 `;
