@@ -13,6 +13,10 @@ export const ParticipationInfoWrapper = styled.div`
   margin-top: 20px;
 `;
 
+export const Heading = styled.h4`
+  color: ${theme.colors.gray[500]};
+`;
+
 export const ParticipationInfo = styled.div`
   display: flex;
   gap: 10px;

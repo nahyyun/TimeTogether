@@ -53,7 +53,7 @@ export default function ScheduleResultPage() {
       {activeTab === RESULT_TABS_INFO[0].value && (
         <>
           <S.ParticipationInfoWrapper>
-            <h4>참여 인원</h4>
+            <S.Heading>참여 인원</S.Heading>
             <S.ParticipationInfo>
               <AvatarGroup list={members} max={6} />
               <S.MemberCountInfo>
@@ -75,7 +75,7 @@ export default function ScheduleResultPage() {
           <S.ButtonLink
             href={ROUTE_PATH.SCHEDULE_LOGIN(meetingId)}
             buttonstyle="secondary"
-            size="full"
+            size="full-width"
           >
             내 스케줄 등록하기
           </S.ButtonLink>

@@ -57,7 +57,7 @@ export const TimeInfo = styled.span`
 
 export const MemberInfoWrapper = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 18px;
   margin-top: 5px;
 `;
 
@@ -66,8 +66,8 @@ export const MemberInfo = styled.div`
 `;
 
 export const MemberCountInfo = styled.span`
-  margin-left: 3px;
-  font-size: 13px;
+  margin-left: 4px;
+  font-size: ${theme.text.size.sm};
   color: ${theme.colors.text.secondary};
   align-self: center;
 `;

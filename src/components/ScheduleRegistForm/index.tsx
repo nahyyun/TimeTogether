@@ -56,12 +56,12 @@ export default function ScheduleRegistForm({
 
   return (
     <>
-      <h3>
+      <S.Heading>
         {name}님의
         <br />
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
-      </h3>
+      </S.Heading>
       <ScheduleTable
         meetingInfo={meetingInfo}
         ref={dragSelectionRefs}

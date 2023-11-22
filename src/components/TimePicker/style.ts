@@ -15,8 +15,8 @@ export const HighlightBorder = styled.div`
   top: ${TIME_ITEM_HEIGHT}px;
   height: ${TIME_ITEM_HEIGHT}px;
   width: 100%;
-  border-top: 1px solid #eaeaea;
-  border-bottom: 1px solid #eaeaea;
+  border-top: 1px solid ${theme.colors.gray[100]};
+  border-bottom: 1px solid ${theme.colors.gray[100]};
 `;
 
 export const Separator = styled.span`

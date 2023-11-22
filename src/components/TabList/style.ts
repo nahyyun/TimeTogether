@@ -13,7 +13,7 @@ export const HighLighter = styled.div<{ activeTabIdx: number }>`
   bottom: 0px;
   left: 0px;
   height: 2px;
-  background: ${theme.colors.primary[200]};
+  background: ${theme.colors.primary[300]};
   transform: ${({ activeTabIdx }) => `translateX(${activeTabIdx * 100}%)`};
   transition: transform 0.3s;
 `;

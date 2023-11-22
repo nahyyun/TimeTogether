@@ -11,9 +11,9 @@ export const MeetingResultWrapper = styled.div`
   padding: 30px 60px 0 60px;
 `;
 
-export const MainTitle = styled.h2`
-  font-size: ${theme.text.size.lg};
+export const MainTitle = styled.h3`
   font-weight: 600;
+  color: ${theme.colors.gray[500]};
 `;
 
 export const MeetingInfoWrapper = styled.div`
@@ -23,10 +23,9 @@ export const MeetingInfoWrapper = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
-  height: 240px;
-  border: 1px solid rgb(221, 221, 221);
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
-  border-radius: 5%;
+  height: 210px;
+  border: 1px solid ${theme.colors.gray[200]};
+  border-radius: 10px;
   font-size: ${theme.text.size.sm};
 `;
 
@@ -35,6 +34,13 @@ export const MeetingTitle = styled.h3`
   margin-bottom: 30px;
   font-weight: 600;
 `;
+
+export const MemberInfo = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
 
 export const ButtonWrapper = styled.div`
   display: flex;

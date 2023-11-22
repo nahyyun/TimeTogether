@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 
 const TIME_BLOCK_HEIGHT = 20;
 const TABLE_HEADER_HEIGHT = 70;
-const borderColor = "#c6c6c6";
+const BORDER_COLOR = theme.colors.gray[200];
 
 export const ScheduleTableContainer = styled.div`
   width: 260px;
   margin: 30px auto;
-  border: 1px solid ${borderColor};
+  border: 1px solid ${BORDER_COLOR};
   border-radius: 13px;
   position: relative;
 `;
@@ -21,7 +21,7 @@ export const TableHeader = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid ${borderColor};
+  border-bottom: 1px solid ${BORDER_COLOR};
   gap: 5px;
   height: ${TABLE_HEADER_HEIGHT}px;
 
@@ -32,19 +32,19 @@ export const TableHeader = styled.div`
     left: -${TIME_DIVIDER}px;
     width: ${TIME_DIVIDER}px;
     height: 1px;
-    border-bottom: 1px solid ${borderColor};
+    border-bottom: 1px solid ${BORDER_COLOR};
   }
 `;
 
 export const Day = styled.div`
   font-size: ${theme.text.size.md};
   font-weight: 700;
-  color: #515954;
+  color: ${theme.colors.text.primary};
 `;
 
 export const Date = styled.div`
   font-size: ${theme.text.size.sm};
-  color: #acacac;
+  color: ${theme.colors.gray[300]};
 `;
 
 export const TimeScale = styled.div<{ idx: number }>`
@@ -62,12 +62,12 @@ export const TimeScale = styled.div<{ idx: number }>`
 
 export const TimeBlocksWrapper = styled.div`
   div:nth-of-type(odd) {
-    border-bottom: 1px dashed ${borderColor};
+    border-bottom: 1px dashed ${BORDER_COLOR};
   }
 
   div:nth-of-type(even):not(:last-child) {
     position: relative;
-    border-bottom: 1px solid ${borderColor};
+    border-bottom: 1px solid ${BORDER_COLOR};
 
     &:before {
       content: "";
@@ -76,7 +76,7 @@ export const TimeBlocksWrapper = styled.div`
       left: -${TIME_DIVIDER}px;
       width: ${TIME_DIVIDER}px;
       height: 1px;
-      border-bottom: 1px solid ${borderColor};
+      border-bottom: 1px solid ${BORDER_COLOR};
     }
   }
 `;

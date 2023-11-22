@@ -41,8 +41,8 @@ export default function TimeResultContainer({
               <S.MemberInfoWrapper>
                 <UsersIcon />
                 <S.MemberInfo>
-                  <AvatarGroup list={members} max={4} avatarSize={"sm"} />
-                  <S.MemberCountInfo>{members.length} 명</S.MemberCountInfo>
+                  <AvatarGroup list={members} max={4} avatarSize="sm" />
+                  <S.MemberCountInfo>{members.length}명</S.MemberCountInfo>
                 </S.MemberInfo>
               </S.MemberInfoWrapper>
             </div>

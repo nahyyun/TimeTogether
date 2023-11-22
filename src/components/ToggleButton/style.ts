@@ -18,12 +18,11 @@ export const ToggleButtonContainer = styled.label`
 
 export const ToggleBackground = styled.div<{ isChecked: boolean }>`
   background-color: ${({ isChecked }) =>
-    isChecked ? theme.colors.primary[100] : "#888888"};
+    isChecked ? theme.colors.primary[100] : theme.colors.gray[400]};
   color: ${theme.colors.text.white};
   position: relative;
   height: 100%;
   width: 100%;
-  font-size: 15px;
   border-radius: 15px;
   transition: background-color 0.5s;
   cursor: pointer;
@@ -31,7 +30,7 @@ export const ToggleBackground = styled.div<{ isChecked: boolean }>`
 `;
 
 export const ToggleStatusSpan = styled.span<{ isChecked: boolean }>`
-  font-size: 13px;
+  font-size: ${theme.text.size.sm};
   visibility: ${({ isChecked }) => (isChecked ? "visible" : "hidden")};
   transition: opacity cubic-bezier(0, 0.18, 0.58, 1) 0.1s;
 `;

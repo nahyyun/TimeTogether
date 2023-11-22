@@ -21,4 +21,8 @@ export const Input = styled.input`
   &:focus {
     border: 1.5px solid ${theme.colors.primary[300]};
   }
+
+  &::placeholder {
+    color: ${theme.colors.text.muted};
+  }
 `;

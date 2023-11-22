@@ -6,7 +6,7 @@ export default function MainPage() {
     <S.MainContainer>
       <S.BackgroundColorTop />
       <S.BackgroundColorBottom />
-      <h1>쉽고 간편하게 약속시간을 정하고 싶으신가요?</h1>
+      <S.Heading>쉽고 간편하게 약속시간을 정하고 싶으신가요?</S.Heading>
       <S.Description>
         지금 바로 <strong>TIME TOGETHER</strong> 서비스를 통해
         <br />

@@ -6,6 +6,7 @@ import { ROUTE_PATH } from "@/constants/path";
 import Button from "@/components/Common/Button";
 import * as S from "./style";
 import { getMeetingInfo } from "@/backend/services/meeting";
+import { UsersIcon } from "@/components/UI/Icons";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -53,10 +54,13 @@ export default function MakeMeetingResultPage({
         <strong>
           ⏱ {startTime} ~ {endTime} ⏱
         </strong>
-        <span>{memberCount}명</span>
+        <S.MemberInfo>
+          <UsersIcon color="secondary" />
+          {memberCount}명
+        </S.MemberInfo>
       </S.MeetingInfoWrapper>
       <S.ButtonWrapper>
-        <Button>일정 공유하기</Button>
+        <Button buttonstyle="secondary">일정 공유하기</Button>
         <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)}>
           내 일정 등록하기
         </S.ButtonLink>
