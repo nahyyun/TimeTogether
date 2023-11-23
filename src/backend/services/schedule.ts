@@ -1,5 +1,4 @@
 import { ScheduleForm } from "@/types/meeting";
-import { getUpdatedCandidates } from "../utils/schedule";
 import supabase from "./init";
 import { getMeetingInfo } from "./meeting";
 
@@ -11,18 +10,12 @@ export const createSchedule = async (
 
   if (!meetingInfo || error) throw new Error("error");
 
-  const { candidates: currCandidateTimeInfos, members } = meetingInfo;
-
-  const updatedCandidates = getUpdatedCandidates(
-    personalScheduleForm,
-    currCandidateTimeInfos
-  );
+  const { members } = meetingInfo;
 
   return supabase
     .from("Meeting")
     .update({
-      candidates: updatedCandidates,
-      members: [...members, personalScheduleForm.name],
+      members: [...members, personalScheduleForm],
     })
     .eq("id", meetingId);
 };

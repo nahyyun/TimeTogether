@@ -1,5 +1,6 @@
 import { getMeetingInfo } from "@/backend/services/meeting";
 import {
+  getUpdatedCandidates,
   mapMembersToTimeSlots,
   sortCandidatesByMultipleFactors,
 } from "@/backend/utils/schedule";
@@ -10,7 +11,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { id } = req.query;
-
   const meetingId = id as string;
 
   const { data: meetingInfo, error } = await getMeetingInfo(meetingId);
@@ -22,13 +22,12 @@ export default async function handler(
   if (!meetingInfo)
     return res.status(500).json({ message: "일정 정보가 없습니다." });
 
-  const mappedMembersByTimeSlots = mapMembersToTimeSlots(
-    meetingInfo.candidates
-  );
+  const { members } = meetingInfo;
 
-  const sortedCandidates = sortCandidatesByMultipleFactors(
-    meetingInfo.candidates
-  );
+  const updatedCandidates = getUpdatedCandidates(members);
+
+  const mappedMembersByTimeSlots = mapMembersToTimeSlots(updatedCandidates);
+  const sortedCandidates = sortCandidatesByMultipleFactors(updatedCandidates);
 
   const isSingleMember = meetingInfo.members.length === 1;
 

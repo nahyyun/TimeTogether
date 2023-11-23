@@ -1,4 +1,4 @@
-import { CandidateTimeInfo } from "./../../types/candidateTime";
+import { CandidateTimeInfo } from "@/types/candidateTime";
 import { apiService } from "@/api/apiService";
 import { END_POINT } from "@/constants/api";
 import { ROUTE_PATH } from "@/constants/path";

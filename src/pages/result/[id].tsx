@@ -54,7 +54,6 @@ export default function ScheduleResultPage() {
                 date={date}
               />
             )}
-            ;
           </S.TimeResultContainerWrapper>
         );
     }

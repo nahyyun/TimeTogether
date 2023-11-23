@@ -40,7 +40,7 @@ export interface Database {
           id: string;
           isMemberCountDecided: boolean;
           memberCount: number | null;
-          members: string[];
+          members: { name: string; schedule: string[] }[];
           timeRange: string[];
           title: string;
         };
@@ -51,7 +51,7 @@ export interface Database {
           id?: string;
           isMemberCountDecided: boolean;
           memberCount?: number | null;
-          members: string[];
+          members: { name: string; schedule: string[] }[];
           timeRange: string[];
           title: string;
         };
@@ -62,7 +62,7 @@ export interface Database {
           id?: string;
           isMemberCountDecided?: boolean;
           memberCount?: number | null;
-          members?: string[];
+          members?: { name: string; schedule: string[] }[];
           timeRange?: string[];
           title?: string;
         };

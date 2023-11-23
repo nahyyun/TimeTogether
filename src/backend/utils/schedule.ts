@@ -2,7 +2,6 @@ import {
   CandidateTimeInfo,
   ScheduleTimeRangeInfo,
 } from "@/types/candidateTime";
-import { ScheduleForm } from "@/types/Meeting";
 import { add30Minutes, isSequentialTimes } from "@/utils/time";
 import { getTimeInterval, getTimestampFromTime } from "./time";
 
@@ -35,14 +34,14 @@ const genCandidateTimes = (schedule: string[]) => {
   return candidateTimes;
 };
 
-const isDuplicatedCandidate = (
-  currCandidateTime: ScheduleTimeRangeInfo,
-  personalCandidateTimes: ScheduleTimeRangeInfo[]
+const findDuplicatedDataIdx = (
+  totalCandidateTimes: ScheduleTimeRangeInfo[],
+  currCandidateTime: ScheduleTimeRangeInfo
 ) => {
   const { startTime: currCandidateStartTime, endTime: currCandidateEndTime } =
     currCandidateTime;
 
-  return personalCandidateTimes.findIndex((candidateTime) => {
+  return totalCandidateTimes.findIndex((candidateTime) => {
     const { startTime, endTime } = candidateTime;
 
     return (
@@ -51,47 +50,42 @@ const isDuplicatedCandidate = (
   });
 };
 
-const getAdditionalCandidateTimes = (
-  candidateTimes: ScheduleTimeRangeInfo[],
-  name: string
-) => {
-  return candidateTimes.map((candidateTime) => ({
-    ...candidateTime,
-    members: [name],
-  }));
-};
-
+/**
+ * 모든 가능한 모임 시간대와 멤버들의 정보를 담은 객체로 이루어진 배열을 생성하는 함수
+ * @param members 각 멤버의 이름과 시간 정보로 이루어진 객체들이 담긴 배열
+ * @returns 모든 가능한 모임 시작 시간, 종료 시간, 참여 가능한 멤버 배열로 이루어진 객체들이 담긴 배열
+ */
 export const getUpdatedCandidates = (
-  { name, schedule: personalSchedule }: ScheduleForm,
-  currCandidateTimeInfos: CandidateTimeInfo[]
+  members: {
+    name: string;
+    schedule: string[];
+  }[]
 ) => {
-  const personalCandidateTimes = genCandidateTimes(personalSchedule);
+  const updatedCandidates: CandidateTimeInfo[] = [];
 
-  const updatedCurrCandidateTimeInfos = currCandidateTimeInfos.map(
-    (candidateTimeInfo) => {
-      const IndexOfDuplicatedTimeCandidate = isDuplicatedCandidate(
-        candidateTimeInfo,
-        personalCandidateTimes
-      );
+  members.forEach(({ name, schedule }) => {
+    const personalCandidateTimes = genCandidateTimes(schedule);
 
-      if (IndexOfDuplicatedTimeCandidate !== -1) {
-        personalCandidateTimes.splice(IndexOfDuplicatedTimeCandidate, 1);
+    personalCandidateTimes.forEach(({ startTime, endTime }) => {
+      if (updatedCandidates.length === 0)
+        return updatedCandidates.push({ startTime, endTime, members: [name] });
 
-        return {
-          ...candidateTimeInfo,
-          members: [...candidateTimeInfo.members, name],
-        };
-      }
-      return candidateTimeInfo;
-    }
-  );
+      const duplicatedTimeRange = findDuplicatedDataIdx(updatedCandidates, {
+        startTime,
+        endTime,
+      });
 
-  const additionalCandidateTimes = getAdditionalCandidateTimes(
-    personalCandidateTimes,
-    name
-  );
+      if (duplicatedTimeRange === -1)
+        return updatedCandidates.push({ startTime, endTime, members: [name] });
 
-  return [...updatedCurrCandidateTimeInfos, ...additionalCandidateTimes];
+      updatedCandidates[duplicatedTimeRange] = {
+        ...updatedCandidates[duplicatedTimeRange],
+        members: [...updatedCandidates[duplicatedTimeRange].members, name],
+      };
+    });
+  });
+
+  return updatedCandidates;
 };
 
 /**
