@@ -16,7 +16,7 @@ const addCandidateTime = (
   });
 };
 
-const genCandidateTimes = (schedule: string[]) => {
+export const genCandidateTimes = (schedule: string[]) => {
   const candidateTimes: ScheduleTimeRangeInfo[] = [];
 
   for (let i = 0; i < schedule.length; i++) {
@@ -106,6 +106,23 @@ export const mapMembersToTimeSlots = (candidates: CandidateTimeInfo[]) => {
     },
     initValue
   );
+};
+
+/**
+ * 한 멤버의 모든 time slot을 기준으로 true boolean 값을 매핑한 객체를 생성하는 함수
+ * @param candidates 시작 시간과 종료 시간으로 이루어진 객체 배열
+ * @returns time slot key - true boolean value map
+ */
+export const mapTrueToPersonalTimeSlots = (
+  candidates: ScheduleTimeRangeInfo[]
+) => {
+  const initValue = { [candidates[0].startTime]: true };
+
+  return candidates.reduce((acc: { [key: string]: boolean }, { startTime }) => {
+    acc[startTime] = true;
+
+    return acc;
+  }, initValue);
 };
 
 /**

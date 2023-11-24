@@ -48,7 +48,7 @@ export default function ScheduleResultContainer({
         buttonstyle="secondary"
         size="full-width"
       >
-        내 스케줄 등록하기
+        내 스케줄 등록 / 수정하기
       </S.ButtonLink>
     </>
   );

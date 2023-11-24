@@ -9,8 +9,11 @@ import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
-import { FormEvent, useRef, useState } from "react";
-import { useCreateSchedule } from "@/hooks/queries/schedule";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  useCreateSchedule,
+  useGetPersonalSchedule,
+} from "@/hooks/queries/schedule";
 import { getMeetingInfo } from "@/backend/services/meeting";
 
 interface PageProps {
@@ -40,9 +43,16 @@ export default function ScheduleLoginPage({
   meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
+  const [userName, setUserName] = useState("");
+
   const scheduleForm = useRef<ScheduleForm>({ name: "", schedule: [] });
 
   const { mutate: createSchedule } = useCreateSchedule();
+
+  const { data: personalScheduleData } = useGetPersonalSchedule(
+    meetingInfo.id,
+    userName
+  );
 
   const setScheduleTime = (schedule: string[]) => {
     scheduleForm.current = {
@@ -71,6 +81,11 @@ export default function ScheduleLoginPage({
     setStep((prevStep) => prevStep + 1);
   };
 
+  const ScheduleRegistForm = dynamic(
+    () => import("@/components/ScheduleRegistForm"),
+    { ssr: false }
+  );
+
   function renderStepComponent(step: number) {
     switch (step) {
       case 1:
@@ -92,14 +107,9 @@ export default function ScheduleLoginPage({
         );
 
       case 2:
-        const ScheduleRegistForm = dynamic(
-          () => import("@/components/ScheduleRegistForm"),
-          { ssr: false }
-        );
-
         return (
           <ScheduleRegistForm
-            name={scheduleForm.current.name}
+            name={scheduleForm.current.name || userName}
             meetingInfo={meetingInfo}
             setScheduleTime={setScheduleTime}
           />
@@ -107,7 +117,25 @@ export default function ScheduleLoginPage({
     }
   }
 
-  return <Form onSubmit={handleSubmit}>{renderStepComponent(step)}</Form>;
+  useEffect(() => {
+    const name = JSON.parse(localStorage.getItem("userName") || "null");
+    setUserName(name);
+  }, []);
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      {!userName ? (
+        renderStepComponent(step)
+      ) : (
+        <ScheduleRegistForm
+          name={scheduleForm.current.name || userName}
+          meetingInfo={meetingInfo}
+          setScheduleTime={setScheduleTime}
+          mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule}
+        />
+      )}
+    </Form>
+  );
 }
 
 

@@ -12,16 +12,36 @@ const useCreateSchedule = () => {
   return useMutation({
     mutationFn: ({
       meetingId,
-      scheduleForm: scheduleForm,
+      scheduleForm,
     }: {
       meetingId: string;
       scheduleForm: ScheduleForm;
     }) => apiService.post(END_POINT.GUEST_SCHEDULE(meetingId), scheduleForm),
 
-    onSuccess: ({ meetingId }: { meetingId: string }) =>
-      router.push(ROUTE_PATH.RESULT(meetingId)),
-
+    onSuccess: ({
+      meetingId,
+      userName,
+    }: {
+      meetingId: string;
+      userName: string;
+    }) => {
+      localStorage.setItem("userName", JSON.stringify(userName));
+      router.push(ROUTE_PATH.RESULT(meetingId));
+    },
     onError: (error) => console.error(error),
+  });
+};
+
+const useGetPersonalSchedule = (meetingId: string, name: string) => {
+  return useQuery({
+    queryKey: ["meeting", "schedule", meetingId, name],
+    queryFn: () =>
+      apiService.get<{
+        schedule: {
+          [key: string]: boolean;
+        };
+      }>(END_POINT.GUEST_SCHEDULE(meetingId, name)),
+    enabled: !!name,
   });
 };
 
@@ -46,4 +66,4 @@ const useGetScheduleResult = (meetingId: string) => {
   });
 };
 
-export { useCreateSchedule, useGetScheduleResult };
+export { useCreateSchedule, useGetPersonalSchedule, useGetScheduleResult };

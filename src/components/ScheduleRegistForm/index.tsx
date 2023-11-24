@@ -15,6 +15,7 @@ interface ScheduleRegistFormProps {
   name: string;
   meetingInfo: Meeting;
   setScheduleTime: (schedule: string[]) => void;
+  mappedTrueToPersonalTimeSlots?: { [key: string]: boolean };
 }
 
 export interface dragSelectionRefs {
@@ -26,6 +27,7 @@ export default function ScheduleRegistForm({
   name,
   meetingInfo,
   setScheduleTime,
+  mappedTrueToPersonalTimeSlots = {},
 }: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -67,6 +69,7 @@ export default function ScheduleRegistForm({
         ref={dragSelectionRefs}
         allTimeRange={allTimeRange}
         timeTableValues={timeTableValues}
+        mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
       >
         <DragSelector
           dragSelectionRefs={dragSelectionRefs.current}

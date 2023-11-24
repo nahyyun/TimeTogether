@@ -10,6 +10,7 @@ interface ScheduleTableProps {
   meetingInfo: Meeting;
   allTimeRange: number[];
   timeTableValues: string[];
+  mappedTrueToPersonalTimeSlots?: { [key: string]: boolean };
   mappedMembersByTimeSlots?: { [key: string]: string[] };
   availableTotalMemberCnt?: number;
 }
@@ -25,6 +26,7 @@ const ScheduleTable = forwardRef<
     },
     allTimeRange,
     timeTableValues,
+    mappedTrueToPersonalTimeSlots = {},
     mappedMembersByTimeSlots = {},
     availableTotalMemberCnt = 0,
     children,
@@ -55,7 +57,10 @@ const ScheduleTable = forwardRef<
           <React.Fragment key={idx}>
             <S.TimeBlock
               className={
-                mappedMembersByTimeSlots[time] ? "selected" : undefined
+                mappedTrueToPersonalTimeSlots[time] ||
+                mappedMembersByTimeSlots[time]
+                  ? "selected"
+                  : undefined
               }
               availableMemberCntByTime={mappedMembersByTimeSlots[time]?.length}
               availableMemberCnt={availableTotalMemberCnt}
