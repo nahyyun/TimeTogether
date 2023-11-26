@@ -1,7 +1,10 @@
 import { meetingInputRefsDefaultValue } from "@/constants/stateDefaultValue";
 import { Row, RowInsert } from "./supabase";
 
-export interface Meeting extends Row<"Meeting"> {}
+export interface Meeting extends Row<"Meeting"> {
+  members: { name: string; schedule: string[] }[];
+}
+
 export interface MeetingInsert extends RowInsert<"Meeting"> {}
 
 export type MeetingInputRefs = {

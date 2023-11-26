@@ -13,9 +13,10 @@ const useCreateMeeting = () => {
     mutationFn: (meetingFormData: MeetingInsert) =>
       apiService.post(END_POINT.GUEST_MEETING, meetingFormData),
 
-    onSuccess: ({ meetingId }: { meetingId: string }) =>
-      router.push(ROUTE_PATH.RESULT_OF_MAKE_MEETING(meetingId)),
-
+    onSuccess: ({ meetingId }: { meetingId: string }) => {
+      localStorage.removeItem("userName");
+      router.push(ROUTE_PATH.RESULT_OF_MAKE_MEETING(meetingId));
+    },
     onError: (error) => console.error(error),
   });
 };

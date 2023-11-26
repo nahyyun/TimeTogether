@@ -13,6 +13,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   useCreateSchedule,
   useGetPersonalSchedule,
+  useUpdatePersonalSchedule,
 } from "@/hooks/queries/schedule";
 import { getMeetingInfo } from "@/backend/services/meeting";
 
@@ -43,15 +44,16 @@ export default function ScheduleLoginPage({
   meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [step, setStep] = useState(1);
-  const [userName, setUserName] = useState("");
+  const [localStorageUserName, setLocalStorageUserName] = useState("");
 
   const scheduleForm = useRef<ScheduleForm>({ name: "", schedule: [] });
 
   const { mutate: createSchedule } = useCreateSchedule();
+  const { mutate: updateSchedule } = useUpdatePersonalSchedule();
 
   const { data: personalScheduleData } = useGetPersonalSchedule(
     meetingInfo.id,
-    userName
+    localStorageUserName
   );
 
   const setScheduleTime = (schedule: string[]) => {
@@ -67,9 +69,21 @@ export default function ScheduleLoginPage({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     const meetingId = meetingInfo.id;
 
-    createSchedule({ meetingId, scheduleForm: scheduleForm.current });
+    !localStorageUserName
+      ? createSchedule({
+          meetingId,
+          scheduleForm: scheduleForm.current,
+        })
+      : updateSchedule({
+          meetingId,
+          scheduleForm: {
+            name: localStorageUserName,
+            schedule: scheduleForm.current.schedule,
+          },
+        });
   };
 
   const goToNextStep = () => {
@@ -109,7 +123,7 @@ export default function ScheduleLoginPage({
       case 2:
         return (
           <ScheduleRegistForm
-            name={scheduleForm.current.name || userName}
+            name={scheduleForm.current.name || localStorageUserName}
             meetingInfo={meetingInfo}
             setScheduleTime={setScheduleTime}
           />
@@ -119,16 +133,16 @@ export default function ScheduleLoginPage({
 
   useEffect(() => {
     const name = JSON.parse(localStorage.getItem("userName") || "null");
-    setUserName(name);
+    setLocalStorageUserName(name);
   }, []);
 
   return (
     <Form onSubmit={handleSubmit}>
-      {!userName ? (
+      {!localStorageUserName ? (
         renderStepComponent(step)
       ) : (
         <ScheduleRegistForm
-          name={scheduleForm.current.name || userName}
+          name={scheduleForm.current.name || localStorageUserName}
           meetingInfo={meetingInfo}
           setScheduleTime={setScheduleTime}
           mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule}

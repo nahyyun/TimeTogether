@@ -6,5 +6,9 @@ export const createMeeting = (meetingData: Meeting) => {
 };
 
 export const getMeetingInfo = (meetingId: string) => {
-  return supabase.from("Meeting").select().eq("id", meetingId).maybeSingle();
+  return supabase
+    .from("Meeting")
+    .select()
+    .eq("id", meetingId)
+    .maybeSingle<Meeting>();
 };

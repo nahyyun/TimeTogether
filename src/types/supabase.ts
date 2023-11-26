@@ -1,5 +1,3 @@
-import { CandidateTimeInfo } from "./candidateTime";
-
 export type Json =
   | string
   | number
@@ -34,35 +32,35 @@ export interface Database {
       };
       Meeting: {
         Row: {
-          candidates: CandidateTimeInfo[];
+          candidates: Json[];
           created_at: string;
           date: string;
           id: string;
           isMemberCountDecided: boolean;
           memberCount: number | null;
-          members: { name: string; schedule: string[] }[];
+          members: Json[];
           timeRange: string[];
           title: string;
         };
         Insert: {
-          candidates?: CandidateTimeInfo[];
+          candidates: Json[];
           created_at?: string;
           date: string;
           id?: string;
           isMemberCountDecided: boolean;
           memberCount?: number | null;
-          members: { name: string; schedule: string[] }[];
+          members: Json[];
           timeRange: string[];
           title: string;
         };
         Update: {
-          candidates?: CandidateTimeInfo[];
+          candidates?: Json[];
           created_at?: string;
           date?: string;
           id?: string;
           isMemberCountDecided?: boolean;
           memberCount?: number | null;
-          members?: { name: string; schedule: string[] }[];
+          members?: Json[];
           timeRange?: string[];
           title?: string;
         };
@@ -73,7 +71,41 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      add_member: {
+        Args: {
+          meeting_id: string;
+          member_data: Json;
+        };
+        Returns: {
+          candidates: Json[];
+          created_at: string;
+          date: string;
+          id: string;
+          isMemberCountDecided: boolean;
+          memberCount: number | null;
+          members: Json[];
+          timeRange: string[];
+          title: string;
+        }[];
+      };
+      update_member_schedule_data: {
+        Args: {
+          meeting_id: string;
+          member_name: string;
+          schedule: string[];
+        };
+        Returns: {
+          candidates: Json[];
+          created_at: string;
+          date: string;
+          id: string;
+          isMemberCountDecided: boolean;
+          memberCount: number | null;
+          members: Json[];
+          timeRange: string[];
+          title: string;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;
@@ -83,6 +115,7 @@ export interface Database {
     };
   };
 }
+
 export type Row<T extends keyof Database["public"]["Tables"]> =
   Database["public"]["Tables"][T]["Row"];
 

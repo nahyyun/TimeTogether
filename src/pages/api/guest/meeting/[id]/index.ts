@@ -1,5 +1,5 @@
 import { getMeetingInfo } from "@/backend/services/meeting";
-import { createSchedule } from "@/backend/services/schedule";
+import { createSchedule, updateSchedule } from "@/backend/services/schedule";
 import {
   genCandidateTimes,
   mapTrueToPersonalTimeSlots,
@@ -24,34 +24,42 @@ export default async function handler(
         .status(Number(500))
         .json({ message: "일치하는 데이터가 존재하지 않습니다." });
 
-    const findUserIdx = meetingInfo?.members.findIndex(
+    const findUserIdx = meetingInfo.members.findIndex(
       (member) => member.name === userName
     );
 
     if (findUserIdx === -1)
       return new Error("일치하는 유저가 존재하지 않습니다.");
 
-    const schedule = meetingInfo?.members[findUserIdx].schedule;
+    const schedule = meetingInfo.members[findUserIdx].schedule;
 
     return res.status(200).json({
       schedule: mapTrueToPersonalTimeSlots(genCandidateTimes(schedule)),
     });
   }
 
-  if (req.method === "POST") {
-    const scheduleFormData = JSON.parse(req.body) as {
-      name: string;
-      schedule: string[];
-    };
+  const { name, schedule } = JSON.parse(req.body) as {
+    name: string;
+    schedule: string[];
+  };
 
-    const { error } = await createSchedule(
-      meetingId as string,
-      scheduleFormData
-    );
+  // 스케줄 생성
+  if (req.method === "POST") {
+    const { error } = await createSchedule(meetingId, { name, schedule });
 
     if (error)
       return res.status(Number(error.code)).json({ message: error.message });
 
-    return res.status(200).json({ meetingId, userName: scheduleFormData.name });
+    return res.status(200).json({ meetingId, userName: name });
+  }
+
+  // 스케줄 수정
+  if (req.method === "PUT") {
+    const { error } = await updateSchedule(meetingId, name, schedule);
+
+    if (error)
+      return res.status(Number(error.code)).json({ message: error.message });
+
+    return res.status(200).json({ meetingId });
   }
 }

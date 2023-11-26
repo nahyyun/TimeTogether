@@ -1,21 +1,24 @@
-import { ScheduleForm } from "@/types/meeting";
+import { Json } from "@/types/supabase";
 import supabase from "./init";
-import { getMeetingInfo } from "./meeting";
 
-export const createSchedule = async (
+export const createSchedule = (
   meetingId: string,
-  personalScheduleForm: ScheduleForm
+  personalScheduleForm: Json
 ) => {
-  const { data: meetingInfo, error } = await getMeetingInfo(meetingId);
+  return supabase.rpc("add_member", {
+    meeting_id: meetingId,
+    member_data: personalScheduleForm,
+  });
+};
 
-  if (!meetingInfo || error) throw new Error("error");
-
-  const { members } = meetingInfo;
-
-  return supabase
-    .from("Meeting")
-    .update({
-      members: [...members, personalScheduleForm],
-    })
-    .eq("id", meetingId);
+export const updateSchedule = (
+  meetingId: string,
+  userName: string,
+  schedule: string[]
+) => {
+  return supabase.rpc("update_member_schedule_data", {
+    meeting_id: meetingId,
+    member_name: userName,
+    schedule: schedule,
+  });
 };
