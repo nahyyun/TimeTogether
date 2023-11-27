@@ -49,12 +49,14 @@ export default function ScheduleLoginPage({
   const scheduleForm = useRef<ScheduleForm>({ name: "", schedule: [] });
 
   const { mutate: createSchedule } = useCreateSchedule();
-  const { mutate: updateSchedule } = useUpdatePersonalSchedule();
+  const { mutate: updateSchedule, isLoading: isMutating } =
+    useUpdatePersonalSchedule();
 
-  const { data: personalScheduleData } = useGetPersonalSchedule(
-    meetingInfo.id,
-    localStorageUserName
-  );
+  const {
+    data: personalScheduleData,
+
+    isFetching,
+  } = useGetPersonalSchedule(meetingInfo.id, localStorageUserName);
 
   const setScheduleTime = (schedule: string[]) => {
     scheduleForm.current = {
@@ -130,7 +132,6 @@ export default function ScheduleLoginPage({
         );
     }
   }
-
   useEffect(() => {
     const name = JSON.parse(localStorage.getItem("userName") || "null");
     setLocalStorageUserName(name);
@@ -146,6 +147,8 @@ export default function ScheduleLoginPage({
           meetingInfo={meetingInfo}
           setScheduleTime={setScheduleTime}
           mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule}
+          isFetching={isFetching}
+          isMutating={isMutating}
         />
       )}
     </Form>

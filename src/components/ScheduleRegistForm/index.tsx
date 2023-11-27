@@ -16,6 +16,8 @@ interface ScheduleRegistFormProps {
   meetingInfo: Meeting;
   setScheduleTime: (schedule: string[]) => void;
   mappedTrueToPersonalTimeSlots?: { [key: string]: boolean };
+  isFetching?: boolean;
+  isMutating?: boolean;
 }
 
 export interface dragSelectionRefs {
@@ -28,6 +30,8 @@ export default function ScheduleRegistForm({
   meetingInfo,
   setScheduleTime,
   mappedTrueToPersonalTimeSlots = {},
+  isFetching,
+  isMutating,
 }: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -64,22 +68,26 @@ export default function ScheduleRegistForm({
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
       </S.Heading>
-      <ScheduleTable
-        meetingInfo={meetingInfo}
-        ref={dragSelectionRefs}
-        allTimeRange={allTimeRange}
-        timeTableValues={timeTableValues}
-        mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
-      >
-        <DragSelector
-          dragSelectionRefs={dragSelectionRefs.current}
-          onSelect={(selected: HTMLElement[]) =>
-            setScheduleTime(getSelectedTime(selected))
-          }
-        />
-      </ScheduleTable>
+      {!isFetching && (
+        <ScheduleTable
+          meetingInfo={meetingInfo}
+          ref={dragSelectionRefs}
+          allTimeRange={allTimeRange}
+          timeTableValues={timeTableValues}
+          mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
+        >
+          <DragSelector
+            dragSelectionRefs={dragSelectionRefs.current}
+            onSelect={(selected: HTMLElement[]) =>
+              setScheduleTime(getSelectedTime(selected))
+            }
+          />
+        </ScheduleTable>
+      )}
       <S.ButtonWrapper>
-        <Button type="submit">일정 등록 완료</Button>
+        <Button type="submit">
+          {isMutating ? "loading..." : "일정 등록 완료"}
+        </Button>
       </S.ButtonWrapper>
     </>
   );

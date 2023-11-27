@@ -11,7 +11,7 @@ import {
 } from "@/components/ResultContainer";
 
 export default function ScheduleResultPage() {
-  const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[1].value);
+  const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
 
   const router = useRouter();
 
