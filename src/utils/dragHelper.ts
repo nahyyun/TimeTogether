@@ -94,11 +94,10 @@ const deSelectElement = (
 };
 
 export const handleElementSelection = (
-  prevSelectedAllElements: HTMLElement[],
   currSelectedAllElements: HTMLElement[],
   element: HTMLElement
 ) => {
-  if (!prevSelectedAllElements.includes(element)) {
+  if (!currSelectedAllElements.includes(element)) {
     return selectElement(currSelectedAllElements, element);
   }
 
@@ -113,18 +112,13 @@ const isElementInsidePrevDragArea = (
 export const selectElementByClick = (
   selectableTargets: HTMLElement[],
   clickedY: number,
-  { selectedAllElements: prevSelectedAllElements }: SelectionInfo,
   { selectedAllElements: currSelectedAllElements }: SelectionInfo
 ) => {
   selectableTargets.forEach((client) => {
     const { clientTop, clientBottom } = getClientBoundRect(client);
 
     if (isPositionInTopBottomBound(clickedY, clientTop, clientBottom)) {
-      handleElementSelection(
-        prevSelectedAllElements,
-        currSelectedAllElements,
-        client
-      );
+      handleElementSelection(currSelectedAllElements, client);
     }
   });
 };
@@ -133,10 +127,7 @@ export const selectElementsByDrag = (
   selectableTargets: HTMLElement[],
   dragAreaTop: number,
   dragAreaBottom: number,
-  {
-    draggedElements: prevDraggedElements,
-    selectedAllElements: prevSelectedAllElements,
-  }: SelectionInfo,
+  prevSelectionInfo: SelectionInfo,
   {
     draggedElements: currDraggedElements,
     selectedAllElements: currSelectedAllElements,
@@ -153,24 +144,21 @@ export const selectElementsByDrag = (
         dragAreaBottom
       )
     ) {
-      if (isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+      if (
+        isElementInsidePrevDragArea(prevSelectionInfo.draggedElements, client)
+      )
+        return;
 
       currDraggedElements.push(client);
 
-      return handleElementSelection(
-        prevSelectedAllElements,
-        currSelectedAllElements,
-        client
-      );
+      return handleElementSelection(currSelectedAllElements, client);
     }
-    if (!isElementInsidePrevDragArea(prevDraggedElements, client)) return;
+
+    if (!isElementInsidePrevDragArea(prevSelectionInfo.draggedElements, client))
+      return;
 
     deleteElementFromList(currDraggedElements, client);
-    handleElementSelection(
-      prevSelectedAllElements,
-      currSelectedAllElements,
-      client
-    );
+    handleElementSelection(currSelectedAllElements, client);
   });
 };
 

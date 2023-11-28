@@ -36,9 +36,7 @@ const ScheduleTable = forwardRef<
   if (typeof ref == "function") return null;
 
   return (
-    <S.ScheduleTableContainer
-      ref={(el) => el && ref?.current && (ref.current.dragContainerRef = el)}
-    >
+    <S.ScheduleTableContainer>
       <S.TableHeader>
         <S.Day>{daysOfWeek[new Date(date).getDay()]}</S.Day>
         <S.Date> {new Date(date).getDate()}</S.Date>
@@ -52,7 +50,9 @@ const ScheduleTable = forwardRef<
 
       {children}
 
-      <S.TimeBlocksWrapper>
+      <S.TimeBlocksWrapper
+        ref={(el) => el && ref?.current && (ref.current.dragContainerRef = el)}
+      >
         {timeTableValues.map((time, idx, arr) => (
           <React.Fragment key={idx}>
             <S.TimeBlock
@@ -72,11 +72,11 @@ const ScheduleTable = forwardRef<
                 startTime,
                 endTime
               )}
-              ref={(el) =>
+              ref={(el) => {
                 el &&
-                ref?.current?.selectableTargetsRefs &&
-                (ref.current.selectableTargetsRefs[idx] = el)
-              }
+                  ref?.current?.selectableTargetsRefs &&
+                  (ref.current.selectableTargetsRefs[idx] = el);
+              }}
             />
           </React.Fragment>
         ))}

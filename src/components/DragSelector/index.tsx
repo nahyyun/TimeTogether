@@ -115,7 +115,6 @@ export default function DragSelector({
       selectElementByClick(
         dragSelectionRefs.selectableTargetsRefs,
         currentY,
-        prevSelectionInfo.current,
         currSelectionInfo.current
       );
 
@@ -163,6 +162,17 @@ export default function DragSelector({
       window.removeEventListener("touchend", handleEndEvent);
     };
   }, [onSelect, handleStartEvent, handleEndEvent]);
+
+  useEffect(() => {
+    const selectedAllElements = filterSelectedElements(
+      dragSelectionRefs.selectableTargetsRefs
+    );
+
+    currSelectionInfo.current = {
+      ...currSelectionInfo.current,
+      selectedAllElements: selectedAllElements,
+    };
+  }, []);
 
   return <S.DragArea ref={dragArea} />;
 }
