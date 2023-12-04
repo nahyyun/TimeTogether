@@ -88,12 +88,24 @@ export default function ScheduleLoginPage({
         });
   };
 
+  const isDuplicatedName = (lists: string[], name: string) =>
+    lists.includes(name);
+
   const goToNextStep = () => {
-    const { name } = nameInputRef.current;
+    const name = nameInputRef.current.name?.value;
 
-    if (!name) return;
+    if (
+      !name ||
+      isDuplicatedName(
+        meetingInfo.members.map((member) => member.name),
+        name
+      ) ||
+      (meetingInfo.memberCount &&
+        meetingInfo.members.length >= meetingInfo.memberCount)
+    )
+      return;
 
-    scheduleForm.current = { ...scheduleForm.current, name: name.value };
+    scheduleForm.current = { ...scheduleForm.current, name };
     setStep((prevStep) => prevStep + 1);
   };
 
@@ -118,7 +130,9 @@ export default function ScheduleLoginPage({
                 ref={nameInputRef}
               />
             </Fieldset>
-            <Button onClick={goToNextStep}>다음</Button>
+            <Button type="button" onClick={goToNextStep}>
+              다음
+            </Button>
           </NameInputWrapper>
         );
 
@@ -132,6 +146,7 @@ export default function ScheduleLoginPage({
         );
     }
   }
+
   useEffect(() => {
     const name = JSON.parse(localStorage.getItem("userName") || "null");
     setLocalStorageUserName(name);
