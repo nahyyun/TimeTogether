@@ -5,6 +5,7 @@ import { Meeting } from "@/types/meeting";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
 import { daysOfWeek } from "@/constants/day";
 import * as S from "./style";
+import { FcCalendar } from "react-icons/fc";
 
 interface ScheduleTableProps {
   meetingInfo: Meeting;
@@ -28,7 +29,7 @@ const ScheduleTable = forwardRef<
     timeTableValues,
     mappedTrueToPersonalTimeSlots = {},
     mappedMembersByTimeSlots = {},
-    availableTotalMemberCnt = 0,
+    availableTotalMemberCnt = 1,
     children,
   }: PropsWithOptionalChildren<ScheduleTableProps>,
   ref
@@ -38,8 +39,11 @@ const ScheduleTable = forwardRef<
   return (
     <S.ScheduleTableContainer>
       <S.TableHeader>
-        <S.Day>{daysOfWeek[new Date(date).getDay()]}</S.Day>
-        <S.Date> {new Date(date).getDate()}</S.Date>
+        <S.Day>{daysOfWeek[new Date(date).getDay()].slice(0, 3)}</S.Day>
+        <S.Date>
+          <FcCalendar size={23} />
+          {new Date(date).getDate()}
+        </S.Date>
       </S.TableHeader>
 
       {allTimeRange.map((time, idx) => (

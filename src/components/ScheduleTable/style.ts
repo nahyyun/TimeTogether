@@ -2,7 +2,7 @@ import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 const TIME_BLOCK_HEIGHT = 20;
-const TABLE_HEADER_HEIGHT = 70;
+const TABLE_HEADER_HEIGHT = 60;
 const BORDER_COLOR = theme.colors.gray[200];
 
 export const ScheduleTableContainer = styled.div`
@@ -37,14 +37,16 @@ export const TableHeader = styled.div`
 `;
 
 export const Day = styled.div`
-  font-size: ${theme.size.text.md};
-  font-weight: 700;
-  color: ${theme.colors.text.primary};
+  font-size: ${theme.size.text.sm};
+  color: ${theme.colors.gray[300]};
 `;
 
 export const Date = styled.div`
-  font-size: ${theme.size.text.sm};
-  color: ${theme.colors.gray[300]};
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: ${theme.size.text.lg};
+  font-weight: 600;
 `;
 
 export const TimeScale = styled.div<{ idx: number }>`
@@ -89,9 +91,14 @@ export const TimeBlock = styled.div<{
   height: ${TIME_BLOCK_HEIGHT}px;
 
   &.selected {
-    background-color: ${theme.colors.primary[200]};
-    opacity: ${({ availableMemberCntByTime = 0, availableMemberCnt = 0 }) =>
+    background-color: #82bed8;
+    opacity: ${({ availableMemberCntByTime = 1, availableMemberCnt = 1 }) =>
       availableMemberCntByTime / availableMemberCnt};
+
+    &:last-child {
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
   }
 
   ${({ disabled }) =>
