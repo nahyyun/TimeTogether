@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import MeetingInfoInputs from "@/components/MeetingInfoInputs";
 import { MeetingInputRefs } from "@/types/meeting";
 import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
@@ -10,7 +10,9 @@ import {
 import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
 import { useCreateMeeting } from "@/hooks/queries/meeting";
 import { formatDateToString } from "@/utils/date";
+import { SnackbarContext } from "contexts/SnackbarContext";
 import * as S from "./style";
+import { ERROR_MESSAGE } from "@/constants/message";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
@@ -21,6 +23,8 @@ export default function MakeMeetingPage() {
   const meetingInputRefs = useRef<MeetingInputRefs>(
     meetingInputRefsDefaultValue
   );
+
+  const { openSnackbar } = useContext(SnackbarContext);
 
   const setDateValue = (date: Date) => {
     setMeetingForm((prev) => ({ ...prev, date }));
@@ -62,7 +66,7 @@ export default function MakeMeetingPage() {
       !memberCount ||
       !isFirstStepInputsValid(title.value, Number(memberCount.value))
     )
-      return;
+      return openSnackbar(ERROR_MESSAGE.INVALID_INPUT);
 
     const firstStepInputValue = {
       title: title.value,
