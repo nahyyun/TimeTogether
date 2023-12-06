@@ -3,20 +3,21 @@ import {
   calcMiddleItemIdxFromScollY,
   scrollToVisibleArea,
 } from "@/utils/scrollHelper";
-import { MIN_SCROLL_Y } from "@/constants/scroll";
 import * as S from "./style";
 
 interface TimeListContainerProps {
   range: string[];
+  startScrollY: number;
   setSelectedTimeIdx: (idx: number, value: string) => void;
 }
 
 export default function TimeListContainer({
   range,
+  startScrollY,
   setSelectedTimeIdx,
 }: TimeListContainerProps) {
   const [isScrollStart, setIsScrollStart] = useState(false);
-  const [scrollY, setScrollY] = useState(MIN_SCROLL_Y);
+  const [scrollY, setScrollY] = useState(startScrollY);
   const [prevTouchY, setPrevTouchY] = useState(0);
 
   const handleTouchMove = (e: React.TouchEvent) => {

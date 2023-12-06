@@ -1,6 +1,6 @@
 export const selectedTimeInfoDefaultValue = {
-  startTime: { value: "", idx: 0 },
-  endTime: { value: "", idx: 0 },
+  startTime: { value: "12:00", idx: 24 },
+  endTime: { value: "16:00", idx: 32 },
 };
 
 export const meetingFormDefaultValue = {
