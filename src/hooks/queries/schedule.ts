@@ -125,13 +125,10 @@ export type ResultResponseDataType = Meeting & {
 };
 
 const useGetScheduleResult = (meetingId: string | undefined) => {
-  return useQuery<
-    ResultResponseDataType,
-    ResultResponseDataType,
-    ResultResponseDataType
-  >({
+  return useQuery<ResultResponseDataType>({
     queryKey: ["meeting", "schedule", meetingId],
     queryFn: () => apiService.get(END_POINT.GUEST_SCHEDULE_RESULT(meetingId)),
+    enabled: !!meetingId,
   });
 };
 

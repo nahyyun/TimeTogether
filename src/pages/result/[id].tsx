@@ -17,9 +17,9 @@ export default function ScheduleResultPage() {
 
   const meetingId = router.query.id as string | undefined;
 
-  const { data: meetingInfo, error } = useGetScheduleResult(meetingId);
-
-  if (!meetingInfo) return;
+  const { data: meetingInfo } = useGetScheduleResult(meetingId);
+ 
+  if (!meetingInfo) return; 
 
   const {
     date,
