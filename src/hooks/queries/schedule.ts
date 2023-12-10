@@ -1,3 +1,4 @@
+import { SUCCESS_MESSAGE } from "@/constants/message";
 import { CandidateTimeInfo } from "@/types/candidateTime";
 import { apiService } from "@/api/apiService";
 import { END_POINT } from "@/constants/api";
@@ -5,9 +6,12 @@ import { ROUTE_PATH } from "@/constants/path";
 import { Meeting, ScheduleForm } from "@/types/meeting";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { SnackbarContext } from "contexts/SnackbarContext";
 
 const useCreateSchedule = () => {
   const router = useRouter();
+  const { openSnackbar } = useContext(SnackbarContext);
 
   return useMutation({
     mutationFn: ({
@@ -21,20 +25,20 @@ const useCreateSchedule = () => {
     onSuccess: ({ meetingId, userName }) => {
       localStorage.setItem("userName", JSON.stringify(userName));
       router.push(ROUTE_PATH.RESULT(meetingId));
+
+      openSnackbar(SUCCESS_MESSAGE.CREATE_SCHEDULE);
     },
-    onError: (error) => console.error(error),
   });
 };
 
 const useGetPersonalSchedule = (meetingId: string, name: string) => {
-  return useQuery({
+  return useQuery<{
+    schedule: {
+      [key: string]: boolean;
+    };
+  }>({
     queryKey: ["meeting", "schedule", meetingId, name],
-    queryFn: () =>
-      apiService.get<{
-        schedule: {
-          [key: string]: boolean;
-        };
-      }>(END_POINT.GUEST_SCHEDULE(meetingId, name)),
+    queryFn: () => apiService.get(END_POINT.GUEST_SCHEDULE(meetingId, name)),
     enabled: !!name,
     cacheTime: 0,
   });
@@ -43,6 +47,7 @@ const useGetPersonalSchedule = (meetingId: string, name: string) => {
 const useUpdatePersonalSchedule = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { openSnackbar } = useContext(SnackbarContext);
 
   return useMutation({
     mutationFn: ({
@@ -85,20 +90,25 @@ const useUpdatePersonalSchedule = () => {
 
       return { prevPersonalSchedule };
     },
-    onError: (err, { meetingId, scheduleForm }, context) => {
+
+    onError: (error, { meetingId, scheduleForm }, context) => {
       queryClient.setQueryData(
         ["meeting", "schedule", meetingId, scheduleForm.name],
         context?.prevPersonalSchedule
       );
+      throw error;
     },
 
-    onSettled: (data, err, { meetingId, scheduleForm }) => {
+    onSettled: (data, error, { meetingId, scheduleForm }) => {
       queryClient.invalidateQueries({
         queryKey: ["meeting", "schedule", meetingId, scheduleForm.name],
       });
     },
+
     onSuccess: ({ meetingId }) => {
       router.push(ROUTE_PATH.RESULT(meetingId));
+
+      openSnackbar(SUCCESS_MESSAGE.UPDATE_SCHEDULE);
     },
   });
 };
@@ -114,13 +124,14 @@ export type ResultResponseDataType = Meeting & {
   };
 };
 
-const useGetScheduleResult = (meetingId: string) => {
-  return useQuery({
+const useGetScheduleResult = (meetingId: string | undefined) => {
+  return useQuery<
+    ResultResponseDataType,
+    ResultResponseDataType,
+    ResultResponseDataType
+  >({
     queryKey: ["meeting", "schedule", meetingId],
-    queryFn: () =>
-      apiService.get<ResultResponseDataType>(
-        END_POINT.GUEST_SCHEDULE_RESULT(meetingId)
-      ),
+    queryFn: () => apiService.get(END_POINT.GUEST_SCHEDULE_RESULT(meetingId)),
   });
 };
 

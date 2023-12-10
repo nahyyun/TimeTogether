@@ -1,22 +1,42 @@
 export const apiService = {
-  get: <ResponseSuccessType>(endPoint: string) =>
-    fetch(endPoint)
-      .then<ResponseSuccessType>((data) => data.json())
-      .catch((err) => console.error(err)),
+  get: async (endPoint: string) => {
+    const response = await fetch(endPoint);
 
-  put: (endPoint: string, body: any) =>
-    fetch(endPoint, {
+    if (!response.ok) {
+      if (response.status === 404) {
+        const errorResponseJSON = await response.json();
+
+        throw new Error(errorResponseJSON.message || `${response.status}`);
+      }
+      throw new Error(`${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  put: async (endPoint: string, body: any) => {
+    const response = await fetch(endPoint, {
       method: "PUT",
       body: JSON.stringify(body),
-    })
-      .then((data) => data.json())
-      .catch((err) => console.error(err)),
+    });
 
-  post: (endPoint: string, body: any) =>
-    fetch(endPoint, {
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+
+    return response.json();
+  },
+
+  post: async (endPoint: string, body: any) => {
+    const response = await fetch(endPoint, {
       method: "POST",
       body: JSON.stringify(body),
-    })
-      .then((data) => data.json())
-      .catch((err) => console.error(err)),
+    });
+
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+
+    return response.json();
+  },
 };

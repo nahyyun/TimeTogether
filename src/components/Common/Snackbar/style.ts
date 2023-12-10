@@ -30,11 +30,12 @@ export const Snackbar = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  min-width: 250px;
+  min-width: 230px;
   max-width: 400px;
   font-size: ${theme.size.text.sm};
   width: auto;
   padding: 12px 16px;
+  text-align: center;
   background-color: ${theme.colors.success};
   color: ${theme.colors.text.secondary};
   border-radius: 23px;

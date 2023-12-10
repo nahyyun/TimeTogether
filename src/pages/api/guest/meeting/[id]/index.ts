@@ -16,20 +16,17 @@ export default async function handler(
   if (req.method === "GET") {
     const { data: meetingInfo, error } = await getMeetingInfo(meetingId);
 
-    if (error)
-      return res.status(Number(error.code)).json({ message: error.message });
+    if (error) return res.status(500).json({ message: error.message });
 
     if (!meetingInfo)
-      return res
-        .status(Number(500))
-        .json({ message: "일치하는 데이터가 존재하지 않습니다." });
+      return res.status(404).json({ message: "NOT_FOUND_MEETING" });
 
     const findUserIdx = meetingInfo.members.findIndex(
       (member) => member.name === userName
     );
 
     if (findUserIdx === -1)
-      return new Error("일치하는 유저가 존재하지 않습니다.");
+      return res.status(404).json({ message: "NOT_FOUND_USER" });
 
     const schedule = meetingInfo.members[findUserIdx].schedule;
 
@@ -47,8 +44,7 @@ export default async function handler(
   if (req.method === "POST") {
     const { error } = await createSchedule(meetingId, { name, schedule });
 
-    if (error)
-      return res.status(Number(error.code)).json({ message: error.message });
+    if (error) return res.status(500).json({ message: error.message });
 
     return res.status(200).json({ meetingId, userName: name });
   }
@@ -57,8 +53,7 @@ export default async function handler(
   if (req.method === "PUT") {
     const { error } = await updateSchedule(meetingId, name, schedule);
 
-    if (error)
-      return res.status(Number(error.code)).json({ message: error.message });
+    if (error) return res.status(500).json({ message: error.message });
 
     return res.status(200).json({ meetingId });
   }

@@ -7,7 +7,7 @@ import {
   meetingFormDefaultValue,
   meetingInputRefsDefaultValue,
 } from "@/constants/stateDefaultValue";
-import { isFirstStepInputsValid, isTimeValid } from "@/utils/validate";
+import { isFirstStepInputsValid, isValidTimeRange } from "@/utils/validate";
 import { useCreateMeeting } from "@/hooks/queries/meeting";
 import { formatDateToString } from "@/utils/date";
 import { SnackbarContext } from "contexts/SnackbarContext";
@@ -38,18 +38,17 @@ export default function MakeMeetingPage() {
     e.preventDefault();
 
     const {
-      startTime: { idx: startIdx },
-      endTime: { idx: endIdx },
+      startTime: { idx: startIdx, value: startTime },
+      endTime: { idx: endIdx, value: endTime },
     } = meetingForm.timeRange;
 
-    if (!isTimeValid(startIdx, endIdx)) return;
-
-    const { startTime, endTime } = meetingForm.timeRange;
+    if (!isValidTimeRange(startIdx, endIdx))
+      return openSnackbar(ERROR_MESSAGE.INVALID_TIME_RANGE);
 
     createMeeting({
       ...meetingForm,
       date: formatDateToString(meetingForm.date),
-      timeRange: [startTime.value, endTime.value],
+      timeRange: [startTime, endTime],
       candidates: [],
     });
   };

@@ -20,7 +20,7 @@ export default async function handler(
   }
 
   if (!meetingInfo)
-    return res.status(500).json({ message: "일정 정보가 없습니다." });
+    return res.status(404).json({ message: "NOT_FOUND_MEETING" });
 
   const { members } = meetingInfo;
 

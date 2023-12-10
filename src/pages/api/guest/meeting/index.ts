@@ -9,8 +9,7 @@ export default async function handler(
 
   const { data, error } = await createMeeting(meetingFormData);
 
-  if (error)
-    return res.status(Number(error.code)).json({ message: error.message });
+  if (error) return res.status(500).json({ message: error.message });
 
-  return res.status(200).json({ meetingId: data[0].id });
+  return res.status(200).json({ meetingId: data?.id });
 }

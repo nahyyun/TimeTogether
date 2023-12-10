@@ -9,13 +9,16 @@ import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import {
   useCreateSchedule,
   useGetPersonalSchedule,
   useUpdatePersonalSchedule,
 } from "@/hooks/queries/schedule";
 import { getMeetingInfo } from "@/backend/services/meeting";
+import { SnackbarContext } from "contexts/SnackbarContext";
+import { ERROR_MESSAGE } from "@/constants/message";
+import { isDuplicatedName, isExceededMemberCnt } from "@/utils/validate";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -58,6 +61,8 @@ export default function ScheduleLoginPage({
     isFetching,
   } = useGetPersonalSchedule(meetingInfo.id, localStorageUserName);
 
+  const { openSnackbar } = useContext(SnackbarContext);
+
   const setScheduleTime = (schedule: string[]) => {
     scheduleForm.current = {
       ...scheduleForm.current,
@@ -71,6 +76,9 @@ export default function ScheduleLoginPage({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (scheduleForm.current.schedule.length == 0)
+      return openSnackbar(ERROR_MESSAGE.INVALID_SCHEDULE_TIME);
 
     const meetingId = meetingInfo.id;
 
@@ -88,22 +96,24 @@ export default function ScheduleLoginPage({
         });
   };
 
-  const isDuplicatedName = (lists: string[], name: string) =>
-    lists.includes(name);
-
   const goToNextStep = () => {
     const name = nameInputRef.current.name?.value;
 
+    if (!name) return openSnackbar(ERROR_MESSAGE.INVALID_INPUT);
+
     if (
-      !name ||
       isDuplicatedName(
         meetingInfo.members.map((member) => member.name),
         name
-      ) ||
-      (meetingInfo.memberCount &&
-        meetingInfo.members.length >= meetingInfo.memberCount)
+      )
     )
-      return;
+      return openSnackbar(ERROR_MESSAGE.DUPLICATE_NAME);
+
+    if (
+      meetingInfo.memberCount &&
+      isExceededMemberCnt(meetingInfo.memberCount, meetingInfo.members.length)
+    )
+      return openSnackbar(ERROR_MESSAGE.EXCEEDED_MEMBER_CNT);
 
     scheduleForm.current = { ...scheduleForm.current, name };
     setStep((prevStep) => prevStep + 1);
@@ -169,5 +179,3 @@ export default function ScheduleLoginPage({
     </Form>
   );
 }
-
-
