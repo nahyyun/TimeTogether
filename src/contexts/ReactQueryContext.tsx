@@ -33,7 +33,10 @@ export default function ReactQueryClient({ children }: PropsWithChildren) {
       queries: { refetchOnWindowFocus: false },
     },
     queryCache: new QueryCache({
-      onError: handleError,
+      onError: (error) => {
+        handleError(error);
+        router.back();
+      },
     }),
     mutationCache: new MutationCache({
       onError: handleError,

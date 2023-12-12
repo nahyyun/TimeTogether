@@ -1,6 +1,6 @@
 import { ROUTE_PATH } from "@/constants/path";
 import { BackgroundColorBottom, BackgroundColorTop } from "@/pages/style";
-import * as S from "./style";
+import * as S from "../commonStyle";
 
 export default function Custom404Container() {
   return (
