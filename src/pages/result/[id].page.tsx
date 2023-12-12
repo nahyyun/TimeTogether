@@ -2,7 +2,10 @@ import { useState } from "react";
 import TabList from "@/components/TabList";
 import { Tab } from "@/components/TabList/tabs.type";
 import { RESULT_TABS_INFO } from "@/constants/resultTab";
-import { useGetScheduleResult } from "@/hooks/queries/schedule";
+import {
+  ResultResponseDataType as MeetingInfo,
+  useGetScheduleResult,
+} from "@/hooks/queries/schedule";
 import { useRouter } from "next/router";
 import * as S from "./style";
 import {
@@ -14,24 +17,24 @@ export default function ScheduleResultPage() {
   const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
 
   const router = useRouter();
-
   const meetingId = router.query.id as string | undefined;
 
   const { data: meetingInfo } = useGetScheduleResult(meetingId);
- 
-  if (!meetingInfo) return; 
-
-  const {
-    date,
-    hasBestCandidates,
-    candidates: { bestCandidates, otherCandidates },
-  } = meetingInfo;
 
   const onChangeActiveTab = (tab: Tab["value"]) => {
     setActiveTab(tab);
   };
 
-  const renderComponentForTab = (activeTab: string) => {
+  const renderComponentForTab = (
+    activeTab: string,
+    meetingInfo: MeetingInfo
+  ) => {
+    const {
+      date,
+      hasBestCandidates,
+      candidates: { bestCandidates, otherCandidates },
+    } = meetingInfo;
+
     switch (activeTab) {
       case RESULT_TABS_INFO[0].value:
         return <ScheduleResultContainer meetingInfo={meetingInfo} />;
@@ -66,7 +69,7 @@ export default function ScheduleResultPage() {
         activeTab={activeTab}
         onChange={onChangeActiveTab}
       />
-      {renderComponentForTab(activeTab)}
+      {meetingInfo && renderComponentForTab(activeTab, meetingInfo)}
     </S.ResultPageLayout>
   );
 }

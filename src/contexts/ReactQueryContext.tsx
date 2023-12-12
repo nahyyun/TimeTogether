@@ -1,4 +1,5 @@
 import { API_ERROR_MESSAGE } from "@/constants/api";
+import { ROUTE_PATH } from "@/constants/path";
 import { PropsWithChildren } from "@/types/propsWithChildren";
 import {
   MutationCache,
@@ -17,6 +18,9 @@ export default function ReactQueryClient({ children }: PropsWithChildren) {
   const handleError = (error: unknown) => {
     if (error instanceof Error) {
       const errorCode = error.message as keyof typeof API_ERROR_MESSAGE;
+
+      if (errorCode === "404") return router.push(ROUTE_PATH.NOT_FOUND);
+
       const errorMessage =
         API_ERROR_MESSAGE[errorCode] || API_ERROR_MESSAGE.DEFAULT;
 
@@ -29,10 +33,7 @@ export default function ReactQueryClient({ children }: PropsWithChildren) {
       queries: { refetchOnWindowFocus: false },
     },
     queryCache: new QueryCache({
-      onError: (error) => {
-        handleError(error);
-        router.back();
-      },
+      onError: handleError,
     }),
     mutationCache: new MutationCache({
       onError: handleError,

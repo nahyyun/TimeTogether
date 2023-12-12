@@ -129,6 +129,7 @@ const useGetScheduleResult = (meetingId: string | undefined) => {
     queryKey: ["meeting", "schedule", meetingId],
     queryFn: () => apiService.get(END_POINT.GUEST_SCHEDULE_RESULT(meetingId)),
     enabled: !!meetingId,
+    retry: false,
   });
 };
 

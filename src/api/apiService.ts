@@ -3,11 +3,6 @@ export const apiService = {
     const response = await fetch(endPoint);
 
     if (!response.ok) {
-      if (response.status === 404) {
-        const errorResponseJSON = await response.json();
-
-        throw new Error(errorResponseJSON.message || `${response.status}`);
-      }
       throw new Error(`${response.status}`);
     }
 

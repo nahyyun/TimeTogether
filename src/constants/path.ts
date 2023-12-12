@@ -6,5 +6,5 @@ export const ROUTE_PATH = {
   SCHEDULE_LOGIN: (id: string) => `/schedule/login/${id}`,
   RESULT: (id: string) => `/result/${id}`,
   INVITE: "/invite",
-  NOT_FOUND: "*",
+  NOT_FOUND: "/404",
 };
