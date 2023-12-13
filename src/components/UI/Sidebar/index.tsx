@@ -3,6 +3,8 @@ import * as S from "./style";
 import { CloseIcon } from "../Icons";
 import Navbar from "../Navbar";
 import Button from "@/components/Common/Button";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface SidebarProps {
   isSidebarOn: boolean;
@@ -10,6 +12,18 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      closeSidebar();
+
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+  }, [router]);
+
   return (
     <>
       <Dimmer onCloseSidebar={closeSidebar} />
