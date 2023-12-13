@@ -6,6 +6,14 @@ export const ResultPageLayout = styled.div`
   flex-direction: column;
 `;
 
+export const ContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  min-height: 400px;
+`;
+
 export const TimeResultContainerWrapper = styled.div`
   margin: 20px 0;
 `;

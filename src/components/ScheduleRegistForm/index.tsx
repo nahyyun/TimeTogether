@@ -10,6 +10,7 @@ import {
   getAllTimeRange,
   getTimeTableValues,
 } from "@/utils/time";
+import Spinner from "../Common/Spinner";
 
 interface ScheduleRegistFormProps {
   name: string;
@@ -17,7 +18,7 @@ interface ScheduleRegistFormProps {
   setScheduleTime: (schedule: string[]) => void;
   mappedTrueToPersonalTimeSlots?: { [key: string]: boolean };
   isFetching?: boolean;
-  isMutating?: boolean;
+  isSubmitting?: boolean;
 }
 
 export interface dragSelectionRefs {
@@ -31,7 +32,7 @@ export default function ScheduleRegistForm({
   setScheduleTime,
   mappedTrueToPersonalTimeSlots = {},
   isFetching,
-  isMutating,
+  isSubmitting,
 }: ScheduleRegistFormProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
@@ -68,25 +69,30 @@ export default function ScheduleRegistForm({
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
       </S.Heading>
-      {!isFetching && (
-        <ScheduleTable
-          meetingInfo={meetingInfo}
-          ref={dragSelectionRefs}
-          allTimeRange={allTimeRange}
-          timeTableValues={timeTableValues}
-          mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
-        >
-          <DragSelector
-            dragSelectionRefs={dragSelectionRefs.current}
-            onSelect={(selected: HTMLElement[]) =>
-              setScheduleTime(getSelectedTime(selected))
-            }
-          />
-        </ScheduleTable>
-      )}
+      <S.ContentLayout>
+        {isFetching ? (
+          <Spinner />
+        ) : (
+          <ScheduleTable
+            meetingInfo={meetingInfo}
+            ref={dragSelectionRefs}
+            allTimeRange={allTimeRange}
+            timeTableValues={timeTableValues}
+            mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
+          >
+            <DragSelector
+              dragSelectionRefs={dragSelectionRefs.current}
+              onSelect={(selected: HTMLElement[]) =>
+                setScheduleTime(getSelectedTime(selected))
+              }
+            />
+          </ScheduleTable>
+        )}
+      </S.ContentLayout>
+
       <S.ButtonWrapper>
         <Button type="submit">
-          {isMutating ? "loading..." : "일정 등록 완료"}
+          {isSubmitting ? <Spinner size="sm" /> : "일정 등록 완료"}
         </Button>
       </S.ButtonWrapper>
     </>

@@ -35,6 +35,9 @@ export const Button = styled.button<ButtonProps>(
     ${BUTTON_SIZE[props.size || "md"]}
     ${BUTTON_STYLE[props.buttonstyle || "primary"]}
     
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.active-tab {
       font-weight: 600;

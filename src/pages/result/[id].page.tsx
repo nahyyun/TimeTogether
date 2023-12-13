@@ -12,6 +12,7 @@ import {
   ScheduleResultContainer,
   TimeResultContainer,
 } from "@/components/ResultContainer";
+import Spinner from "@/components/Common/Spinner";
 
 export default function ScheduleResultPage() {
   const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
@@ -19,7 +20,7 @@ export default function ScheduleResultPage() {
   const router = useRouter();
   const meetingId = router.query.id as string | undefined;
 
-  const { data: meetingInfo } = useGetScheduleResult(meetingId);
+  const { data: meetingInfo, isFetching } = useGetScheduleResult(meetingId);
 
   const onChangeActiveTab = (tab: Tab["value"]) => {
     setActiveTab(tab);
@@ -69,7 +70,13 @@ export default function ScheduleResultPage() {
         activeTab={activeTab}
         onChange={onChangeActiveTab}
       />
-      {meetingInfo && renderComponentForTab(activeTab, meetingInfo)}
+      <S.ContentLayout>
+        {isFetching ? (
+          <Spinner />
+        ) : (
+          meetingInfo && renderComponentForTab(activeTab, meetingInfo)
+        )}
+      </S.ContentLayout>
     </S.ResultPageLayout>
   );
 }

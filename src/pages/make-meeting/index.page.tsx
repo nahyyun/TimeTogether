@@ -18,7 +18,7 @@ export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
   const [meetingForm, setMeetingForm] = useState(meetingFormDefaultValue);
 
-  const { mutate: createMeeting } = useCreateMeeting();
+  const { mutate: createMeeting, isLoading: isSubmitting } = useCreateMeeting();
 
   const meetingInputRefs = useRef<MeetingInputRefs>(
     meetingInputRefsDefaultValue
@@ -92,6 +92,7 @@ export default function MakeMeetingPage() {
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
             goToPrevStep={goToPrevStep}
+            isSubmitting={isSubmitting}
           />
         );
     }

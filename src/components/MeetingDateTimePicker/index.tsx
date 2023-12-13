@@ -1,5 +1,6 @@
 import { selectedTimeInfo } from "@/types/timeInfo";
 import Button from "../Common/Button";
+import Spinner from "../Common/Spinner";
 import CustomDatePicker from "../CustomDatePicker";
 import { Fieldset } from "../MeetingInfoInputs/style";
 import TimePicker from "../TimePicker";
@@ -9,12 +10,14 @@ interface MeetingDateTimePickerProps {
   setDateValue: (date: Date) => void;
   setTimeValue: (time: selectedTimeInfo) => void;
   goToPrevStep: () => void;
+  isSubmitting: boolean;
 }
 
 export default function MeetingDateTimePicker({
   setDateValue,
   setTimeValue,
   goToPrevStep,
+  isSubmitting,
 }: MeetingDateTimePickerProps) {
   return (
     <S.MeetingDateTimePickerWrapper>
@@ -37,7 +40,9 @@ export default function MeetingDateTimePicker({
         <Button type="button" buttonstyle="secondary" onClick={goToPrevStep}>
           이전 단계
         </Button>
-        <Button type="submit">일정 생성 완료</Button>
+        <Button type="submit">
+          {isSubmitting ? <Spinner size="sm" /> : "일정 생성 완료"}
+        </Button>
       </S.ButtonWrapper>
     </S.MeetingDateTimePickerWrapper>
   );

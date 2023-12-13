@@ -53,15 +53,16 @@ export default function ScheduleLoginPage({
 
   const scheduleForm = useRef<ScheduleForm>({ name: "", schedule: [] });
 
-  const { mutate: createSchedule } = useCreateSchedule();
-  const { mutate: updateSchedule, isLoading: isMutating } =
+  const { mutate: createSchedule, isLoading: isCreatingSchedule } =
+    useCreateSchedule();
+
+  const { mutate: updateSchedule, isLoading: isUpdatingSchedule } =
     useUpdatePersonalSchedule();
 
-  const {
-    data: personalScheduleData,
-
-    isFetching,
-  } = useGetPersonalSchedule(meetingInfo.id, localStorageUserName);
+  const { data: personalScheduleData, isFetching } = useGetPersonalSchedule(
+    meetingInfo.id,
+    localStorageUserName
+  );
 
   const { openSnackbar } = useContext(SnackbarContext);
 
@@ -154,6 +155,7 @@ export default function ScheduleLoginPage({
             name={scheduleForm.current.name || localStorageUserName}
             meetingInfo={meetingInfo}
             setScheduleTime={setScheduleTime}
+            isSubmitting={isCreatingSchedule}
           />
         );
     }
@@ -175,7 +177,7 @@ export default function ScheduleLoginPage({
           setScheduleTime={setScheduleTime}
           mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule}
           isFetching={isFetching}
-          isMutating={isMutating}
+          isSubmitting={isUpdatingSchedule}
         />
       )}
     </Form>
