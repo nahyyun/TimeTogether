@@ -35,6 +35,8 @@ export default function DragSelector({
     selectedAllElements: [],
   });
 
+  const isClicked = useRef(false);
+
   const addMoveEvent = (e: MouseEvent | TouchEvent) => {
     const eventType = isMouseEvent(e) ? "mousemove" : "touchmove";
 
@@ -61,7 +63,9 @@ export default function DragSelector({
   };
 
   const handleStartEvent = (e: MouseEvent | TouchEvent) => {
-    e.preventDefault();
+    e.cancelable && e.preventDefault();
+
+    isClicked.current = true;
 
     const { currentX, currentY } = getEventPosition(e);
 
@@ -111,7 +115,11 @@ export default function DragSelector({
 
     const { currentY } = getEventPosition(e);
 
-    if (isClickedNotDragged(currSelectionInfo.current.draggedElements)) {
+    if (
+      isClicked.current &&
+      isClickedNotDragged(currSelectionInfo.current.draggedElements)
+    ) {
+      console.log("click end");
       selectElementByClick(
         dragSelectionRefs.selectableTargetsRefs,
         currentY,
@@ -119,6 +127,8 @@ export default function DragSelector({
       );
 
       onSelect(filterSelectedElements(dragSelectionRefs.selectableTargetsRefs));
+
+      isClicked.current = false;
 
       return updatePrevInfoToCurrInfo(
         prevSelectionInfo.current,
@@ -129,6 +139,8 @@ export default function DragSelector({
 
     clearDragAreaBound(dragArea.current);
     clearDragInfo();
+
+    isClicked.current = false;
 
     onSelect(filterSelectedElements(dragSelectionRefs.selectableTargetsRefs));
   };
