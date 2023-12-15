@@ -117,9 +117,11 @@ export default function DragSelector({
 
     if (
       isClicked.current &&
-      isClickedNotDragged(currSelectionInfo.current.draggedElements)
+      isClickedNotDragged(
+        currSelectionInfo.current.draggedElements,
+        dragArea.current
+      )
     ) {
-      console.log("click end");
       selectElementByClick(
         dragSelectionRefs.selectableTargetsRefs,
         currentY,

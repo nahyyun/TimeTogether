@@ -171,5 +171,10 @@ export const clearDragAreaBound = (dragArea: HTMLDivElement) => {
 export const filterSelectedElements = (selectableTargets: HTMLElement[]) =>
   selectableTargets.filter((client) => client.classList.contains("selected"));
 
-export const isClickedNotDragged = (draggedElements: HTMLElement[]) =>
-  draggedElements.length === 0;
+const isZeroSize = (element: HTMLElement) =>
+  element.offsetWidth === 0 && element.offsetHeight === 0;
+
+export const isClickedNotDragged = (
+  draggedElements: HTMLElement[],
+  dragArea: HTMLDivElement
+) => draggedElements.length === 0 && isZeroSize(dragArea);
