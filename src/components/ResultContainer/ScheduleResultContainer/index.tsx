@@ -31,7 +31,7 @@ export default function ScheduleResultContainer({
             <S.AvailableMemberCount>
               {availableTotalMemberCnt}
             </S.AvailableMemberCount>
-            <S.ToTalMemberCount> / {memberCount}명</S.ToTalMemberCount>
+            <S.TotalMemberCount> / {memberCount}명</S.TotalMemberCount>
           </S.MemberCountInfo>
         </S.ParticipationInfo>
       </S.ParticipationInfoWrapper>

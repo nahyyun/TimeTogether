@@ -31,6 +31,8 @@ export default function ScheduleResultPage() {
     meetingInfo: MeetingInfo
   ) => {
     const {
+      id,
+      title,
       date,
       hasBestCandidates,
       candidates: { bestCandidates, otherCandidates },
@@ -42,23 +44,23 @@ export default function ScheduleResultPage() {
 
       case RESULT_TABS_INFO[1].value:
         return (
-          <S.TimeResultContainerWrapper>
+          <S.TimeResultContainerLayout>
             {hasBestCandidates ? (
               <TimeResultContainer
                 headTitle="모두가 가능한 시간대는 아래와 같아요."
                 desc="* 오래 만날 수 있는 순 > 빠른 모임 시간 순으로 나타냈어요."
                 list={bestCandidates}
-                date={date}
+                subInfo={{ id, title, date }}
               />
             ) : (
               <TimeResultContainer
                 headTitle={`❗️ 모두가 가능한 모임 시간은 없지만 \n 아래 모임 시간은 어때요?`}
                 desc="* 참여 가능한 사람이 많은 순 > 오래 만날 수 있는 순 > 빠른 모임 시간 순으로 나타냈어요."
                 list={otherCandidates}
-                date={date}
+                subInfo={{ id, title, date }}
               />
             )}
-          </S.TimeResultContainerWrapper>
+          </S.TimeResultContainerLayout>
         );
     }
   };

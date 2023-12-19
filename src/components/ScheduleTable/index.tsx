@@ -3,7 +3,7 @@ import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
 import { canSelect } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
-import { daysOfWeek } from "@/constants/day";
+import { daysOfWeek_EN } from "@/constants/day";
 import * as S from "./style";
 import { FcCalendar } from "react-icons/fc";
 
@@ -39,7 +39,7 @@ const ScheduleTable = forwardRef<
   return (
     <S.ScheduleTableContainer>
       <S.TableHeader>
-        <S.Day>{daysOfWeek[new Date(date).getDay()].slice(0, 3)}</S.Day>
+        <S.Day>{daysOfWeek_EN[new Date(date).getDay()].slice(0, 3)}</S.Day>
         <S.Date>
           <FcCalendar size={23} />
           {new Date(date).getDate()}

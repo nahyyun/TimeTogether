@@ -14,6 +14,6 @@ export const ContentLayout = styled.div`
   min-height: 400px;
 `;
 
-export const TimeResultContainerWrapper = styled.div`
+export const TimeResultContainerLayout = styled.div`
   margin: 20px 0;
 `;

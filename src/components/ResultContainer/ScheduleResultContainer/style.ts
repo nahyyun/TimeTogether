@@ -27,7 +27,7 @@ export const AvailableMemberCount = styled.span`
   color: ${theme.colors.primary[300]};
 `;
 
-export const ToTalMemberCount = styled.span`
+export const TotalMemberCount = styled.span`
   color: ${theme.colors.text.muted};
 `;
 
