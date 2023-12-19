@@ -7,6 +7,8 @@ import * as S from "./style";
 import { getMeetingInfo } from "@/backend/services/meeting";
 import MeetingInfoContainer from "@/components/MeetingInfoContainer";
 import { Kakao } from "@/utils/kakao";
+import { extractDatePartsFromStringType } from "@/utils/date";
+import { DAYS_OF_WEEK_KO } from "@/constants/day";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -40,9 +42,11 @@ export default function MakeMeetingResultPage({
     id,
     title,
     timeRange: [startTime, endTime],
-    date,
+    date: dateInfo,
     memberCount,
   } = meetingInfo;
+
+  const { month, date, day } = extractDatePartsFromStringType(dateInfo);
 
   return (
     <MeetingInfoContainer
@@ -59,7 +63,7 @@ export default function MakeMeetingResultPage({
               memberCount,
               startTime,
               endTime,
-              date,
+              date: `${month}월 ${date}일 (${DAYS_OF_WEEK_KO[day]})`,
             })
           }
         >
