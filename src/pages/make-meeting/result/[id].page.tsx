@@ -6,6 +6,7 @@ import Button from "@/components/Common/Button";
 import * as S from "./style";
 import { getMeetingInfo } from "@/backend/services/meeting";
 import MeetingInfoContainer from "@/components/MeetingInfoContainer";
+import { Kakao } from "@/utils/kakao";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -35,27 +36,13 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
 export default function MakeMeetingResultPage({
   meetingInfo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { id } = meetingInfo;
-
-  const shareMeetingInfo = ({
+  const {
     id,
     title,
     timeRange: [startTime, endTime],
     date,
     memberCount,
-  }: Meeting) => {
-    window.Kakao.Share.sendCustom({
-      templateId: 102017,
-      templateArgs: {
-        title,
-        memberCount,
-        startTime,
-        endTime,
-        date,
-        id,
-      },
-    });
-  };
+  } = meetingInfo;
 
   return (
     <MeetingInfoContainer
@@ -65,7 +52,16 @@ export default function MakeMeetingResultPage({
       <S.ButtonWrapper>
         <Button
           buttonstyle="secondary"
-          onClick={() => shareMeetingInfo(meetingInfo)}
+          onClick={() =>
+            Kakao.share(102017, {
+              id,
+              title,
+              memberCount,
+              startTime,
+              endTime,
+              date,
+            })
+          }
         >
           일정 공유하기
         </Button>

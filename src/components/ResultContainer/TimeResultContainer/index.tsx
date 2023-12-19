@@ -4,6 +4,7 @@ import { ClockIcon, UsersIcon } from "@/components/UI/Icons";
 import { daysOfWeek_EN, daysOfWeek_KO } from "@/constants/day";
 import { CandidateTimeInfo } from "@/types/candidateTime";
 import { Meeting } from "@/types/meeting";
+import { Kakao } from "@/utils/kakao";
 import * as S from "./style";
 
 interface TimeResultContainerProps {
@@ -49,13 +50,10 @@ export default function TimeResultContainer({
       {}
     );
 
-    window.Kakao.Share.sendCustom({
-      templateId: 102041,
-      templateArgs: {
-        id,
-        title,
-        ...args,
-      },
+    Kakao.share(102041, {
+      id,
+      title,
+      ...args,
     });
   };
 
