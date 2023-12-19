@@ -1,12 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { Meeting } from "@/types/meeting";
-import { extractDatePartsFromStringType } from "@/utils/date";
 import { ROUTE_PATH } from "@/constants/path";
 import Button from "@/components/Common/Button";
 import * as S from "./style";
 import { getMeetingInfo } from "@/backend/services/meeting";
-import { UsersIcon } from "@/components/UI/Icons";
+import MeetingInfoContainer from "@/components/MeetingInfoContainer";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -24,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
   const { data, error } = await getMeetingInfo(meetingId);
 
   if (error) throw error;
-  
+
   if (!data)
     return {
       notFound: true,
@@ -34,39 +33,46 @@ export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
 };
 
 export default function MakeMeetingResultPage({
-  meetingInfo: {
+  meetingInfo,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { id } = meetingInfo;
+
+  const shareMeetingInfo = ({
     id,
     title,
     timeRange: [startTime, endTime],
-    date: dateData,
+    date,
     memberCount,
-  },
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { year, month, date } = extractDatePartsFromStringType(dateData);
+  }: Meeting) => {
+    window.Kakao.Share.sendCustom({
+      templateId: 102017,
+      templateArgs: {
+        title,
+        memberCount,
+        startTime,
+        endTime,
+        date,
+        id,
+      },
+    });
+  };
 
   return (
-    <S.MeetingResultWrapper>
-      <S.MainTitle>일정이 생성되었습니다 🎉</S.MainTitle>
-      <S.MeetingInfoWrapper>
-        <S.MeetingTitle>{title}</S.MeetingTitle>
-        <div>
-          <span>{year}년 </span>
-          <strong>{month}</strong>월 <strong>{date}</strong>일
-        </div>
-        <strong>
-          ⏱ {startTime} ~ {endTime} ⏱
-        </strong>
-        <S.MemberInfo>
-          <UsersIcon color="secondary" />
-          {memberCount}명
-        </S.MemberInfo>
-      </S.MeetingInfoWrapper>
+    <MeetingInfoContainer
+      mainTitle="일정이 생성되었습니다 🎉"
+      meetingInfo={meetingInfo}
+    >
       <S.ButtonWrapper>
-        <Button buttonstyle="secondary">일정 공유하기</Button>
+        <Button
+          buttonstyle="secondary"
+          onClick={() => shareMeetingInfo(meetingInfo)}
+        >
+          일정 공유하기
+        </Button>
         <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)}>
-          내 일정 등록하기
+          내 스케줄 등록하기
         </S.ButtonLink>
       </S.ButtonWrapper>
-    </S.MeetingResultWrapper>
+    </MeetingInfoContainer>
   );
 }
