@@ -1,9 +1,10 @@
 import AvatarGroup from "@/components/Common/AvatarGroup";
 import Button from "@/components/Common/Button";
-import { ClockIcon, UsersIcon } from "@/components/UI/Icons";
-import { daysOfWeek_EN, daysOfWeek_KO } from "@/constants/day";
+import { ClockIcon, UsersIcon } from "@/components/Icons";
+import { DAYS_OF_WEEK_EN, DAYS_OF_WEEK_KO } from "@/constants/day";
 import { CandidateTimeInfo } from "@/types/candidateTime";
 import { Meeting } from "@/types/meeting";
+import { extractDatePartsFromStringType } from "@/utils/date";
 import { Kakao } from "@/utils/kakao";
 import * as S from "./style";
 
@@ -20,11 +21,7 @@ export default function TimeResultContainer({
   list,
   subInfo: { id, title, date: dateInfo },
 }: TimeResultContainerProps) {
-  const dateInstance = new Date(dateInfo);
-
-  const month = dateInstance.getMonth() + 1;
-  const date = dateInstance.getDate();
-  const day = dateInstance.getDay();
+  const { month, date, day } = extractDatePartsFromStringType(dateInfo);
 
   const shareScheduleResult = ({
     results,
@@ -37,7 +34,7 @@ export default function TimeResultContainer({
     title: string;
     dateInfo: { month: number; date: number; day: number };
   }) => {
-    const dateString = `${month}월 ${date}일 (${daysOfWeek_KO[day]})`;
+    const dateString = `${month}월 ${date}일 (${DAYS_OF_WEEK_KO[day]})`;
 
     const args = results.reduce(
       (result, { startTime, endTime, members }, idx) => {
@@ -65,7 +62,7 @@ export default function TimeResultContainer({
         {list.map(({ startTime, endTime, members }, idx) => (
           <S.Card key={idx}>
             <S.DateInfo>
-              <S.Day>{daysOfWeek_EN[day].slice(0, 3)}</S.Day>
+              <S.Day>{DAYS_OF_WEEK_EN[day].slice(0, 3)}</S.Day>
               <S.Date>{date}</S.Date>
             </S.DateInfo>
             <div>

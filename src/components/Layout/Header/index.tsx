@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
-import { HamburgerIcon } from "../Icons";
+import { HamburgerIcon } from "@/components/Icons";
 import * as S from "./style";
 import { ROUTE_PATH } from "@/constants/path";
 import Button from "@/components/Common/Button";

@@ -1,4 +1,4 @@
-export const daysOfWeek_EN = [
+export const DAYS_OF_WEEK_EN = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -8,4 +8,4 @@ export const daysOfWeek_EN = [
   "Saturday",
 ];
 
-export const daysOfWeek_KO = ["일", "월", "화", "수", "목", "금", "토"];
+export const DAYS_OF_WEEK_KO = ["일", "월", "화", "수", "목", "금", "토"];

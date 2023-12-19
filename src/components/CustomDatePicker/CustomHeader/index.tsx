@@ -1,5 +1,5 @@
 import Button from "@/components/Common/Button";
-import { NextArrowIcon, PrevArrowIcon } from "@/components/UI/Icons";
+import { NextArrowIcon, PrevArrowIcon } from "@/components/Icons";
 import { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import * as S from "./style";
 

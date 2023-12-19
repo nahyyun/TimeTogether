@@ -10,7 +10,7 @@ import {
 import { isFirstStepInputsValid, isValidTimeRange } from "@/utils/validate";
 import { useCreateMeeting } from "@/hooks/queries/meeting";
 import { formatDateToString } from "@/utils/date";
-import { SnackbarContext } from "contexts/SnackbarContext";
+import { SnackbarContext } from "@/contexts/SnackbarContext";
 import * as S from "./style";
 import { ERROR_MESSAGE } from "@/constants/message";
 

@@ -1,4 +1,4 @@
-import { UserIcon } from "@/components/UI/Icons";
+import { UserIcon } from "@/components/Icons";
 import Avatar from "./Avatar";
 import * as S from "./style";
 

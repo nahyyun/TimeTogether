@@ -6,7 +6,7 @@ import { ROUTE_PATH } from "@/constants/path";
 import { MeetingInsert } from "@/types/meeting";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { SnackbarContext } from "contexts/SnackbarContext";
+import { SnackbarContext } from "@/contexts/SnackbarContext";
 import { SUCCESS_MESSAGE } from "@/constants/message";
 
 const useCreateMeeting = () => {

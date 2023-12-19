@@ -16,7 +16,7 @@ import {
   useUpdatePersonalSchedule,
 } from "@/hooks/queries/schedule";
 import { getMeetingInfo } from "@/backend/services/meeting";
-import { SnackbarContext } from "contexts/SnackbarContext";
+import { SnackbarContext } from "@/contexts/SnackbarContext";
 import { ERROR_MESSAGE } from "@/constants/message";
 import { isDuplicatedName, isExceededMemberCnt } from "@/utils/validate";
 

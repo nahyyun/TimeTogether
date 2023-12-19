@@ -3,9 +3,10 @@ import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
 import { canSelect } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
 import { dragSelectionRefs } from "../ScheduleRegistForm";
-import { daysOfWeek_EN } from "@/constants/day";
+import { DAYS_OF_WEEK_EN } from "@/constants/day";
 import * as S from "./style";
-import { FcCalendar } from "react-icons/fc";
+import { extractDatePartsFromStringType } from "@/utils/date";
+import { CalendarIcon } from "../Icons";
 
 interface ScheduleTableProps {
   meetingInfo: Meeting;
@@ -22,7 +23,7 @@ const ScheduleTable = forwardRef<
 >(function ScheduleTable(
   {
     meetingInfo: {
-      date,
+      date: dateInfo,
       timeRange: [startTime, endTime],
     },
     allTimeRange,
@@ -36,13 +37,15 @@ const ScheduleTable = forwardRef<
 ) {
   if (typeof ref == "function") return null;
 
+  const { date, day } = extractDatePartsFromStringType(dateInfo);
+
   return (
     <S.ScheduleTableContainer>
       <S.TableHeader>
-        <S.Day>{daysOfWeek_EN[new Date(date).getDay()].slice(0, 3)}</S.Day>
+        <S.Day>{DAYS_OF_WEEK_EN[day].slice(0, 3)}</S.Day>
         <S.Date>
-          <FcCalendar size={23} />
-          {new Date(date).getDate()}
+          <CalendarIcon />
+          {date}
         </S.Date>
       </S.TableHeader>
 

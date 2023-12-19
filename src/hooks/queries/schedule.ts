@@ -7,7 +7,7 @@ import { Meeting, ScheduleForm } from "@/types/meeting";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { SnackbarContext } from "contexts/SnackbarContext";
+import { SnackbarContext } from "@/contexts/SnackbarContext";
 
 const useCreateSchedule = () => {
   const router = useRouter();

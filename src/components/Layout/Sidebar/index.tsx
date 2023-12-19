@@ -1,6 +1,6 @@
-import Dimmer from "../Dimmer";
+import Dimmer from "@/components/Common/Dimmer";
 import * as S from "./style";
-import { CloseIcon } from "../Icons";
+import { CloseIcon } from "@/components/Icons";
 import Navbar from "../Navbar";
 import Button from "@/components/Common/Button";
 import { useEffect } from "react";

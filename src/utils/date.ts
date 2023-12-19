@@ -6,6 +6,7 @@ export const extractDatePartsFromStringType = (stringDate: string) => {
   const year = dateData.getFullYear();
   const month = dateData.getMonth() + 1;
   const date = dateData.getDate();
+  const day = dateData.getDay();
 
-  return { year, month, date };
+  return { year, month, date, day };
 };

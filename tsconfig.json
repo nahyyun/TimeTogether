@@ -23,6 +23,7 @@
       "@/constants/*": ["constants/*"],
       "@/utils/*": ["utils/*"],
       "@/api/*": ["api/*"],
+      "@/contexts/*": ["contexts/*"],
       "@/backend/*": ["backend/*"]
     }
   },

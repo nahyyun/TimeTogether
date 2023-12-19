@@ -1,6 +1,6 @@
 import { Meeting } from "@/types/meeting";
 import { extractDatePartsFromStringType } from "@/utils/date";
-import { UsersIcon } from "@/components/UI/Icons";
+import { UsersIcon } from "@/components/Icons";
 import * as S from "./style";
 
 interface MeetingInfoProps {
