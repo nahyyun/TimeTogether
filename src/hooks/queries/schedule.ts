@@ -113,16 +113,23 @@ const useUpdatePersonalSchedule = () => {
   });
 };
 
-export type ResultResponseDataType = Meeting & {
+export type ResultResponseWithoutParticipants = Meeting;
+
+export type ResultResponseWithParticipants = Meeting & {
   schedule: {
     [key: string]: string[];
   };
+  hasParticipants: boolean;
   hasBestCandidates: boolean;
   candidates: {
     bestCandidates: CandidateTimeInfo[];
     otherCandidates: CandidateTimeInfo[];
   };
 };
+
+export type ResultResponseDataType =
+  | ResultResponseWithoutParticipants
+  | ResultResponseWithParticipants;
 
 const useGetScheduleResult = (meetingId: string | undefined) => {
   return useQuery<ResultResponseDataType>({

@@ -1,3 +1,4 @@
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
 export const ResultPageLayout = styled.div`
@@ -12,6 +13,17 @@ export const ContentLayout = styled.div`
   justify-content: center;
   margin: 0 auto;
   min-height: 400px;
+`;
+
+export const Heading = styled.h3`
+  color: ${theme.colors.text.secondary};
+  margin-bottom: 10px;
+`;
+
+export const SubDesc = styled.p`
+  color: ${theme.colors.gray[300]};
+  font-size: ${theme.size.text.sm};
+  text-align: center;
 `;
 
 export const TimeResultContainerLayout = styled.div`

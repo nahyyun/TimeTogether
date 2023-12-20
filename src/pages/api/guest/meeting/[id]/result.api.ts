@@ -24,6 +24,11 @@ export default async function handler(
 
   const { members } = meetingInfo;
 
+  if (members.length === 0)
+    return res.status(200).json({
+      ...meetingInfo,
+    });
+
   const updatedCandidates = getUpdatedCandidates(members);
 
   const mappedMembersByTimeSlots = mapMembersToTimeSlots(updatedCandidates);
@@ -41,6 +46,7 @@ export default async function handler(
 
   return res.status(200).json({
     ...meetingInfo,
+    hasParticipants: true,
     hasBestCandidates,
     candidates: {
       bestCandidates: hasBestCandidates
@@ -48,7 +54,6 @@ export default async function handler(
         : [],
       otherCandidates: sortedCandidates.splice(0, 5),
     },
-
     schedule: mappedMembersByTimeSlots,
   });
 }

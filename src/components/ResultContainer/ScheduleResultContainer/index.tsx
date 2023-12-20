@@ -1,18 +1,19 @@
 import AvatarGroup from "@/components/Common/AvatarGroup";
 import ScheduleTable from "@/components/ScheduleTable";
 import { ROUTE_PATH } from "@/constants/path";
-import { ResultResponseDataType } from "@/hooks/queries/schedule";
+import { ResultResponseDataType as MeetingInfo } from "@/hooks/queries/schedule";
 import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
+import { hasParticipants } from "@/utils/typeGuard";
 import * as S from "./style";
 
 interface ScheduleResultContainerProps {
-  meetingInfo: ResultResponseDataType;
+  meetingInfo: MeetingInfo;
 }
 
 export default function ScheduleResultContainer({
   meetingInfo,
 }: ScheduleResultContainerProps) {
-  const { id: meetingId, memberCount, members, schedule } = meetingInfo;
+  const { id: meetingId, memberCount, members } = meetingInfo;
 
   const [startTime, endTime] = meetingInfo.timeRange;
 
@@ -39,7 +40,9 @@ export default function ScheduleResultContainer({
         meetingInfo={meetingInfo}
         allTimeRange={allTimeRange}
         timeTableValues={timeTableValues}
-        mappedMembersByTimeSlots={schedule}
+        mappedMembersByTimeSlots={
+          hasParticipants(meetingInfo) ? meetingInfo.schedule : undefined
+        }
         availableTotalMemberCnt={availableTotalMemberCnt}
       />
 

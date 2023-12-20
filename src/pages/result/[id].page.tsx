@@ -13,6 +13,7 @@ import {
   TimeResultContainer,
 } from "@/components/ResultContainer";
 import Spinner from "@/components/Common/Spinner";
+import { hasParticipants } from "@/utils/typeGuard";
 
 export default function ScheduleResultPage() {
   const [activeTab, setActiveTab] = useState(RESULT_TABS_INFO[0].value);
@@ -30,19 +31,26 @@ export default function ScheduleResultPage() {
     activeTab: string,
     meetingInfo: MeetingInfo
   ) => {
-    const {
-      id,
-      title,
-      date,
-      hasBestCandidates,
-      candidates: { bestCandidates, otherCandidates },
-    } = meetingInfo;
+    const { id, title, date } = meetingInfo;
 
     switch (activeTab) {
       case RESULT_TABS_INFO[0].value:
         return <ScheduleResultContainer meetingInfo={meetingInfo} />;
 
-      case RESULT_TABS_INFO[1].value:
+      case RESULT_TABS_INFO[1].value: {
+        if (!hasParticipants(meetingInfo))
+          return (
+            <>
+              <S.Heading>등록된 스케줄이 없어요!</S.Heading>
+              <S.SubDesc>스케줄을 먼저 등록해주세요.</S.SubDesc>
+            </>
+          );
+
+        const {
+          hasBestCandidates,
+          candidates: { bestCandidates, otherCandidates },
+        } = meetingInfo;
+
         return (
           <S.TimeResultContainerLayout>
             {hasBestCandidates ? (
@@ -62,6 +70,7 @@ export default function ScheduleResultPage() {
             )}
           </S.TimeResultContainerLayout>
         );
+      }
     }
   };
 
