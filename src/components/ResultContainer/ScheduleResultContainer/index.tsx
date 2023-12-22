@@ -2,6 +2,7 @@ import AvatarGroup from "@/components/Common/AvatarGroup";
 import ScheduleTable from "@/components/ScheduleTable";
 import { ROUTE_PATH } from "@/constants/path";
 import { ResultResponseDataType as MeetingInfo } from "@/hooks/queries/schedule";
+import { MdMarginDiv } from "@/styles/commonStyle";
 import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
 import { hasParticipants } from "@/utils/typeGuard";
 import * as S from "./style";
@@ -36,6 +37,7 @@ export default function ScheduleResultContainer({
           </S.MemberCountInfo>
         </S.ParticipationInfo>
       </S.ParticipationInfoWrapper>
+
       <ScheduleTable
         meetingInfo={meetingInfo}
         allTimeRange={allTimeRange}

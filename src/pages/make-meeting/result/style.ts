@@ -1,12 +1,22 @@
 import { Button } from "@/components/Common/Button/style";
+import { mq } from "@/styles/mediaQuery";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import Link from "next/link";
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: 15px;
-  margin-top: 20px;
+  margin-top: 50px;
+  justify-content: space-evenly;
+
+  ${mq.Large`
+    flex-direction: column;
+    gap: 10px;
+
+    a, button {
+      width: 100%;
+    }
+  `}
 `;
 
 export const ButtonLink = styled(Button.withComponent(Link))`

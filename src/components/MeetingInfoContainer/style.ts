@@ -6,7 +6,9 @@ export const MeetingResultWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  padding: 30px 60px 0 60px;
+  max-width: 330px;
+  margin: 0 auto;
+  padding: 20px;
 `;
 
 export const MainTitle = styled.h3`

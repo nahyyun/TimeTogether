@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { dragSelectionRefs } from "../ScheduleRegistForm";
+import { dragSelectionRefs } from "../ScheduleRegistContainer";
 import {
   getDragAreaBoundRect,
   selectElementsByDrag,

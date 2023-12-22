@@ -9,6 +9,7 @@ import MeetingInfoContainer from "@/components/MeetingInfoContainer";
 import { Kakao } from "@/utils/kakao";
 import { extractDatePartsFromStringType } from "@/utils/date";
 import { DAYS_OF_WEEK_KO } from "@/constants/day";
+import { CommonLayout } from "@/styles/commonStyle";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -49,12 +50,14 @@ export default function MakeMeetingResultPage({
   const { month, date, day } = extractDatePartsFromStringType(dateInfo);
 
   return (
-    <MeetingInfoContainer
-      mainTitle="일정이 생성되었습니다 🎉"
-      meetingInfo={meetingInfo}
-    >
+    <CommonLayout>
+      <MeetingInfoContainer
+        mainTitle="일정이 생성되었습니다 🎉"
+        meetingInfo={meetingInfo}
+      />
       <S.ButtonWrapper>
         <Button
+          type="button"
           buttonstyle="secondary"
           onClick={() =>
             Kakao.share(102017, {
@@ -73,6 +76,6 @@ export default function MakeMeetingResultPage({
           내 스케줄 등록하기
         </S.ButtonLink>
       </S.ButtonWrapper>
-    </MeetingInfoContainer>
+    </CommonLayout>
   );
 }

@@ -32,4 +32,5 @@ export const Spinner = styled.div<{ size?: SIZE_KEY }>`
 
     ${SPINNER_SIZE[size]};
   `};
+
 `;

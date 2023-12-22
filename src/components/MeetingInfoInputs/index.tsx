@@ -3,6 +3,7 @@ import { MeetingInputRefs } from "@/types/meeting";
 import Button from "../Common/Button";
 import InputWithLabel from "../Common/InputWithLabel";
 import * as S from "./style";
+import { Fieldset } from "@/styles/commonStyle";
 
 interface MeetingInfoInputsProps {
   goToNextStep: () => void;
@@ -12,7 +13,7 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
   function MeetingInfoInputs({ goToNextStep }: MeetingInfoInputsProps, ref) {
     return (
       <S.MeetingInfoInputsContainer>
-        <S.Fieldset>
+        <Fieldset>
           <h2>어떤 약속인가요?</h2>
           <InputWithLabel
             id="title"
@@ -22,9 +23,9 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
             required
             ref={ref}
           />
-        </S.Fieldset>
+        </Fieldset>
 
-        <S.Fieldset>
+        <Fieldset>
           <h2>몇명이서 모이나요?</h2>
           <InputWithLabel
             id="memberCount"
@@ -36,9 +37,11 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
             required
             ref={ref}
           />
-        </S.Fieldset>
+        </Fieldset>
 
-        <Button onClick={goToNextStep}>다음</Button>
+        <Button type="button" onClick={goToNextStep} size="full-width">
+          다음
+        </Button>
       </S.MeetingInfoInputsContainer>
     );
   }

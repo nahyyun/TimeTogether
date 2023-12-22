@@ -1,3 +1,4 @@
+import { mq } from "@/styles/mediaQuery";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
@@ -15,7 +16,7 @@ export const MenuButtonWrapper = styled.div`
   width: 32px;
   height: 32px;
 
-  @media (min-width: 992px) {
+  ${mq.Large`
     display: none;
-  }
+  `}
 `;

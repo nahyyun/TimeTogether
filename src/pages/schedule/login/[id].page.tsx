@@ -1,10 +1,6 @@
 import Button from "@/components/Common/Button";
 import InputWithLabel from "@/components/Common/InputWithLabel";
-import {
-  Fieldset,
-  MeetingInfoInputsContainer as NameInputWrapper,
-} from "@/components/MeetingInfoInputs/style";
-import { Form } from "@/pages/make-meeting/style";
+import { MeetingInfoInputsContainer as NameInputWrapper } from "@/components/MeetingInfoInputs/style";
 import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import dynamic from "next/dynamic";
@@ -19,6 +15,7 @@ import { getMeetingInfo } from "@/backend/services/meeting";
 import { SnackbarContext } from "@/contexts/SnackbarContext";
 import { ERROR_MESSAGE } from "@/constants/message";
 import { isDuplicatedName, isExceededMemberCnt } from "@/utils/validate";
+import { Fieldset, Form } from "@/styles/commonStyle";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -122,8 +119,8 @@ export default function ScheduleLoginPage({
     setStep((prevStep) => prevStep + 1);
   };
 
-  const ScheduleRegistForm = dynamic(
-    () => import("@/components/ScheduleRegistForm"),
+  const ScheduleRegistContainer = dynamic(
+    () => import("@/components/ScheduleRegistContainer"),
     { ssr: false }
   );
 
@@ -143,7 +140,7 @@ export default function ScheduleLoginPage({
                 ref={nameInputRef}
               />
             </Fieldset>
-            <Button type="button" onClick={goToNextStep}>
+            <Button type="button" onClick={goToNextStep} size="full-width">
               다음
             </Button>
           </NameInputWrapper>
@@ -151,7 +148,7 @@ export default function ScheduleLoginPage({
 
       case 2:
         return (
-          <ScheduleRegistForm
+          <ScheduleRegistContainer
             name={scheduleForm.current.name || localStorageUserName}
             meetingInfo={meetingInfo}
             setScheduleTime={setScheduleTime}
@@ -171,7 +168,7 @@ export default function ScheduleLoginPage({
       {!localStorageUserName ? (
         renderStepComponent(step)
       ) : (
-        <ScheduleRegistForm
+        <ScheduleRegistContainer
           name={scheduleForm.current.name || localStorageUserName}
           meetingInfo={meetingInfo}
           setScheduleTime={setScheduleTime}

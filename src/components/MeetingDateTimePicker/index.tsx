@@ -1,8 +1,8 @@
+import { Fieldset } from "@/styles/commonStyle";
 import { selectedTimeInfo } from "@/types/timeInfo";
 import Button from "../Common/Button";
 import Spinner from "../Common/Spinner";
 import CustomDatePicker from "../CustomDatePicker";
-import { Fieldset } from "../MeetingInfoInputs/style";
 import TimePicker from "../TimePicker";
 import * as S from "./style";
 
@@ -22,7 +22,7 @@ export default function MeetingDateTimePicker({
   return (
     <S.MeetingDateTimePickerWrapper>
       <Fieldset>
-        <h3>언제 모일 예정인가요?</h3>
+        <h2>언제 모일 예정인가요?</h2>
         <div>
           <span>모임 날짜를 지정해주세요.</span>
           <CustomDatePicker setDateValue={setDateValue} />

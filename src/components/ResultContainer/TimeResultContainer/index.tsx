@@ -2,6 +2,7 @@ import AvatarGroup from "@/components/Common/AvatarGroup";
 import Button from "@/components/Common/Button";
 import { ClockIcon, UsersIcon } from "@/components/Icons";
 import { DAYS_OF_WEEK_EN, DAYS_OF_WEEK_KO } from "@/constants/day";
+import { SmMarginDiv } from "@/styles/commonStyle";
 import { CandidateTimeInfo } from "@/types/candidateTime";
 import { Meeting } from "@/types/meeting";
 import { extractDatePartsFromStringType } from "@/utils/date";
@@ -81,6 +82,7 @@ export default function TimeResultContainer({
           </S.Card>
         ))}
       </S.CardList>
+      <SmMarginDiv />
       <Button
         type="button"
         size="full-width"

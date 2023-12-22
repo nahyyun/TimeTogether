@@ -5,11 +5,14 @@ export const TabList = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+  max-width: 800px;
+  min-width: 280px;
+  margin: 0 auto;
 `;
 
 export const HighLighter = styled.div<{ activeTabIdx: number }>`
   position: absolute;
-  width: 147px;
+  width: 50%;
   bottom: 0px;
   left: 0px;
   height: 2px;

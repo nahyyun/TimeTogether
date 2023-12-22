@@ -12,35 +12,11 @@ export const MainContainer = styled.div`
   gap: 15px;
 `;
 
-const BackgroundColorCommonCSS = `
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: ${theme.colors.primary[50]};
-  opacity: 0.71;
-  filter: blur(150px);
-  z-index: -10;
-`;
-
-export const BackgroundColorTop = styled.div`
-  ${BackgroundColorCommonCSS}
-  left: 0;
-  top: 0;
-  transform: translate(-50%, -50%);
-`;
-
-export const BackgroundColorBottom = styled.div`
-  ${BackgroundColorCommonCSS}
-  right: 0;
-  bottom: 0;
-  transform: translate(50%, 50%);
-`;
-
 export const Heading = styled.h1`
   color: ${theme.colors.text.primary};
-  margin: 0 10px;
   word-break: keep-all;
   text-align: center;
+  margin: 0 20px;
 `;
 
 export const Description = styled.p`
@@ -52,8 +28,8 @@ export const Description = styled.p`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 20px;
+  justify-content: center;
 `;
 
 export const ButtonLink = styled(Button.withComponent(Link))`

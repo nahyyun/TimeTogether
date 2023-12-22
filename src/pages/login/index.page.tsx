@@ -1,6 +1,9 @@
 import * as S from "@/components/Error/commonStyle";
 import { ROUTE_PATH } from "@/constants/path";
-import { BackgroundColorBottom, BackgroundColorTop } from "../style";
+import {
+  BackgroundColorBottom,
+  BackgroundColorTop,
+} from "@/styles/commonStyle";
 
 export default function LoginPage() {
   return (

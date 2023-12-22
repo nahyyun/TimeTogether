@@ -1,16 +1,16 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
-const TIME_BLOCK_HEIGHT = 20;
-const TABLE_HEADER_HEIGHT = 60;
+export const TIME_BLOCK_HEIGHT = 20;
+export const TABLE_HEADER_HEIGHT = 60;
 const BORDER_COLOR = theme.colors.gray[200];
 
 export const ScheduleTableContainer = styled.div`
-  width: 260px;
-  margin: 30px auto;
+  margin: 0 10px 0 50px;
   border: 1px solid ${BORDER_COLOR};
   border-radius: 13px;
   position: relative;
+  width: calc(100% - 60px);
 `;
 
 const TIME_SCALE_WIDTH = 33;

@@ -11,8 +11,11 @@ import {
   getTimeTableValues,
 } from "@/utils/time";
 import Spinner from "../Common/Spinner";
+import { MdMarginDiv } from "@/styles/commonStyle";
+import { TIME_ITEM_HEIGHT } from "@/constants/scroll";
+import { TABLE_HEADER_HEIGHT, TIME_BLOCK_HEIGHT } from "../ScheduleTable/style";
 
-interface ScheduleRegistFormProps {
+interface ScheduleRegistContainerProps {
   name: string;
   meetingInfo: Meeting;
   setScheduleTime: (schedule: string[]) => void;
@@ -26,14 +29,14 @@ export interface dragSelectionRefs {
   selectableTargetsRefs: HTMLElement[];
 }
 
-export default function ScheduleRegistForm({
+export default function ScheduleRegistContainer({
   name,
   meetingInfo,
   setScheduleTime,
   mappedTrueToPersonalTimeSlots = {},
   isFetching,
   isSubmitting,
-}: ScheduleRegistFormProps) {
+}: ScheduleRegistContainerProps) {
   const [isAvailable, setIsAvailable] = useState(true);
 
   const [startTime, endTime] = meetingInfo.timeRange;
@@ -61,6 +64,9 @@ export default function ScheduleRegistForm({
     return selectedTimeStringList;
   };
 
+  const LAYOUT_HEIGHT =
+    timeTableValues.length * TIME_BLOCK_HEIGHT + TABLE_HEADER_HEIGHT;
+
   return (
     <>
       <S.Heading>
@@ -69,8 +75,8 @@ export default function ScheduleRegistForm({
         <ToggleButton isChecked={isAvailable} toggle={toggle} />
         시간을 선택해주세요.
       </S.Heading>
-      <S.ContentLayout>
-        {isFetching ? (
+      <S.ContentLayout height={LAYOUT_HEIGHT}>
+        {isFetching || isSubmitting ? (
           <Spinner />
         ) : (
           <ScheduleTable
@@ -89,12 +95,10 @@ export default function ScheduleRegistForm({
           </ScheduleTable>
         )}
       </S.ContentLayout>
-
-      <S.ButtonWrapper>
-        <Button type="submit">
-          {isSubmitting ? <Spinner size="sm" /> : "일정 등록 완료"}
-        </Button>
-      </S.ButtonWrapper>
+      <MdMarginDiv />
+      <Button type="submit" size="full-width">
+        {isSubmitting ? <Spinner size="sm" /> : "일정 등록 완료"}
+      </Button>
     </>
   );
 }

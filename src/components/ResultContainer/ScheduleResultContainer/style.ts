@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 
 export const ParticipationInfoWrapper = styled.div`
-  margin-top: 20px;
+  margin: 20px 0;
 `;
 
 export const Heading = styled.h4`
@@ -35,5 +35,5 @@ export const ButtonLink = styled(Button.withComponent(Link))`
   text-align: center;
   line-height: 42px;
   align-self: center;
-  margin-top: 10px;
+  margin-top: 50px;
 `;

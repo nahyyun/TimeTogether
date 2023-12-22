@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { ButtonProps } from ".";
 
 const BUTTON_SIZE = {
-  md: { width: "120px", height: "42px", fontSize: "13px" },
+  md: { width: "140px", height: "42px", fontSize: "13px" },
   full: { width: "100%", height: "100%" },
   square: { width: "45px", height: "45px" },
   "full-width": { width: "100%", height: "42px", fontSize: "13px" },
@@ -18,7 +18,7 @@ const BUTTON_STYLE = {
   secondary: {
     color: theme.colors.text.secondary,
     background: "transparent",
-    border: `1px solid ${theme.colors.gray[400]}`,
+    border: `1px solid ${theme.colors.gray[200]}`,
   },
   "icon-only": {
     color: theme.colors.text.primary,

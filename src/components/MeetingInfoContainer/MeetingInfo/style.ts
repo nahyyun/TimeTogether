@@ -9,7 +9,7 @@ export const MeetingInfoWrapper = styled.div`
   gap: 10px;
   width: 100%;
   height: 210px;
-  border: 1px solid ${theme.colors.gray[200]};
+  border: 1px solid ${theme.colors.gray[100]};
   border-radius: 10px;
   font-size: ${theme.size.text.sm};
 `;

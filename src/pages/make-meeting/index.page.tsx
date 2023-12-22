@@ -11,8 +11,8 @@ import { isFirstStepInputsValid, isValidTimeRange } from "@/utils/validate";
 import { useCreateMeeting } from "@/hooks/queries/meeting";
 import { formatDateToString } from "@/utils/date";
 import { SnackbarContext } from "@/contexts/SnackbarContext";
-import * as S from "./style";
 import { ERROR_MESSAGE } from "@/constants/message";
+import { Form } from "@/styles/commonStyle";
 
 export default function MakeMeetingPage() {
   const [step, setStep] = useState(1);
@@ -98,5 +98,5 @@ export default function MakeMeetingPage() {
     }
   };
 
-  return <S.Form onSubmit={handleSubmit}>{renderStepComponent(step)}</S.Form>;
+  return <Form onSubmit={handleSubmit}>{renderStepComponent(step)}</Form>;
 }

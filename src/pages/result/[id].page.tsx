@@ -75,7 +75,7 @@ export default function ScheduleResultPage() {
   };
 
   return (
-    <S.ResultPageLayout>
+    <S.Layout>
       <TabList
         tabsInfo={RESULT_TABS_INFO}
         activeTab={activeTab}
@@ -88,6 +88,6 @@ export default function ScheduleResultPage() {
           meetingInfo && renderComponentForTab(activeTab, meetingInfo)
         )}
       </S.ContentLayout>
-    </S.ResultPageLayout>
+    </S.Layout>
   );
 }

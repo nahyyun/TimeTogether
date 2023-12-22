@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
 import { canSelect } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
-import { dragSelectionRefs } from "../ScheduleRegistForm";
+import { dragSelectionRefs } from "../ScheduleRegistContainer";
 import { DAYS_OF_WEEK_EN } from "@/constants/day";
 import * as S from "./style";
 import { extractDatePartsFromStringType } from "@/utils/date";

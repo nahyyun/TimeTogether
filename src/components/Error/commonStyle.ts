@@ -7,10 +7,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 30px 30px 30px;
-  gap: 40px;
+  margin: 0 auto;
+  max-width: 360px;
+  gap: 20px;
   text-align: center;
   word-break: keep-all;
+  padding-top: 150px;
 `;
 
 export const Title = styled.h1`
