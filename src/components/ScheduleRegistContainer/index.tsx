@@ -12,7 +12,6 @@ import {
 } from "@/utils/time";
 import Spinner from "../Common/Spinner";
 import { MdMarginDiv } from "@/styles/commonStyle";
-import { TIME_ITEM_HEIGHT } from "@/constants/scroll";
 import { TABLE_HEADER_HEIGHT, TIME_BLOCK_HEIGHT } from "../ScheduleTable/style";
 
 interface ScheduleRegistContainerProps {

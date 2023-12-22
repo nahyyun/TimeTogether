@@ -16,7 +16,7 @@ export const MeetingInfoWrapper = styled.div`
 
 export const MeetingTitle = styled.h3`
   font-size: ${theme.size.text.md};
-  margin-bottom: 30px;
+  margin: 0 30px 30px 30px;
   font-weight: 600;
 `;
 

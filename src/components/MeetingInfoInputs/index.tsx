@@ -17,10 +17,12 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
           <h2>어떤 약속인가요?</h2>
           <InputWithLabel
             id="title"
-            label="약속명을 입력해주세요."
+            label="20자 이하로 약속명을 입력해주세요."
             type="text"
             placeholder="해커톤 뒷풀이"
             required
+            minLength={1}
+            maxLength={20}
             ref={ref}
           />
         </Fieldset>
@@ -29,7 +31,7 @@ const MeetingInfoInputs = forwardRef<MeetingInputRefs, MeetingInfoInputsProps>(
           <h2>몇명이서 모이나요?</h2>
           <InputWithLabel
             id="memberCount"
-            label="모임 인원 수를 입력해주세요."
+            label="모임 인원 수를 입력해주세요. (최대 20명)"
             type="number"
             placeholder="5"
             min={1}

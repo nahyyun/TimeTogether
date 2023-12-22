@@ -1,6 +1,7 @@
-const isTitleNull = (title: string) => title.trim().length > 0;
+const isTitleNull = (title: string) =>
+  title.trim().length > 0 && title.trim().length < 21;
 
-const isMemeberCntValid = (cnt: number) => cnt > 0 && cnt < 20;
+const isMemeberCntValid = (cnt: number) => cnt > 0 && cnt < 21;
 
 export const isValidTimeRange = (startIdx: number, endIdx: number) =>
   startIdx < endIdx;
