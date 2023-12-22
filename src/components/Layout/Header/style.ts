@@ -9,6 +9,7 @@ export const Header = styled.header`
   height: 70px;
   margin: 0 35px;
   font-size: ${theme.size.text.sm};
+  min-width: 280px;
 `;
 
 export const MenuButtonWrapper = styled.div`

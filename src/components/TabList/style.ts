@@ -6,7 +6,6 @@ export const TabList = styled.div`
   justify-content: center;
   position: relative;
   max-width: 800px;
-  min-width: 280px;
   margin: 0 auto;
 `;
 

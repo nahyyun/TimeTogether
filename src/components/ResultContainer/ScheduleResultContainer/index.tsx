@@ -2,7 +2,6 @@ import AvatarGroup from "@/components/Common/AvatarGroup";
 import ScheduleTable from "@/components/ScheduleTable";
 import { ROUTE_PATH } from "@/constants/path";
 import { ResultResponseDataType as MeetingInfo } from "@/hooks/queries/schedule";
-import { MdMarginDiv } from "@/styles/commonStyle";
 import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
 import { hasParticipants } from "@/utils/typeGuard";
 import * as S from "./style";
@@ -24,19 +23,17 @@ export default function ScheduleResultContainer({
   const availableTotalMemberCnt = members.length;
 
   return (
-    <>
-      <S.ParticipationInfoWrapper>
-        <S.Heading>참여 인원</S.Heading>
-        <S.ParticipationInfo>
-          <AvatarGroup list={members} max={6} />
-          <S.MemberCountInfo>
-            <S.AvailableMemberCount>
-              {availableTotalMemberCnt}
-            </S.AvailableMemberCount>
-            <S.TotalMemberCount> / {memberCount}명</S.TotalMemberCount>
-          </S.MemberCountInfo>
-        </S.ParticipationInfo>
-      </S.ParticipationInfoWrapper>
+    <S.ParticipationInfoWrapper>
+      <S.Heading>참여 인원</S.Heading>
+      <S.ParticipationInfo>
+        <AvatarGroup list={members} max={6} />
+        <S.MemberCountInfo>
+          <S.AvailableMemberCount>
+            {availableTotalMemberCnt}
+          </S.AvailableMemberCount>
+          <S.TotalMemberCount> / {memberCount}명</S.TotalMemberCount>
+        </S.MemberCountInfo>
+      </S.ParticipationInfo>
 
       <ScheduleTable
         meetingInfo={meetingInfo}
@@ -55,6 +52,6 @@ export default function ScheduleResultContainer({
       >
         내 스케줄 등록 / 수정하기
       </S.ButtonLink>
-    </>
+    </S.ParticipationInfoWrapper>
   );
 }

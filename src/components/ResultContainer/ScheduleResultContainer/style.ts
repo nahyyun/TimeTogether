@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 
 export const ParticipationInfoWrapper = styled.div`
-  margin: 20px 0;
+  flex: 0 0 100%;
 `;
 
 export const Heading = styled.h4`
@@ -14,7 +14,7 @@ export const Heading = styled.h4`
 export const ParticipationInfo = styled.div`
   display: flex;
   gap: 10px;
-  margin: 4px 0 0 10px;
+  margin: 4px 0 20px 10px;
 `;
 
 export const MemberCountInfo = styled.span`
