@@ -35,13 +35,14 @@ export default function InvitePage({
   meetingInfo: { id, ...rest },
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <MeetingInfoContainer
-      mainTitle={"💌 초대장 💌"}
-      meetingInfo={{ id, ...rest }}
-    >
+    <>
+      <MeetingInfoContainer
+        mainTitle={"💌 초대장 💌"}
+        meetingInfo={{ id, ...rest }}
+      ></MeetingInfoContainer>
       <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)} size="full-width">
         내 스케줄 등록하기
       </S.ButtonLink>
-    </MeetingInfoContainer>
+    </>
   );
 }

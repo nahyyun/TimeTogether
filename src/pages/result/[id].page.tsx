@@ -40,10 +40,10 @@ export default function ScheduleResultPage() {
       case RESULT_TABS_INFO[1].value: {
         if (!hasParticipants(meetingInfo))
           return (
-            <>
+            <div>
               <S.Heading>등록된 스케줄이 없어요!</S.Heading>
               <S.SubDesc>스케줄을 먼저 등록해주세요.</S.SubDesc>
-            </>
+            </div>
           );
 
         const {
