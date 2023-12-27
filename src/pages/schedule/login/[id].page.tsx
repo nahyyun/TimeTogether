@@ -130,10 +130,10 @@ export default function ScheduleLoginPage({
         return (
           <NameInputWrapper>
             <Fieldset>
-              <h2>10자 이하로 이름을 입력해주세요.</h2>
+              <h2>이름을 입력해주세요.</h2>
               <InputWithLabel
                 id="name"
-                label="이름을 입력해주세요."
+                label="10자 이하로 이름을 입력해주세요."
                 type="text"
                 placeholder="홍길동"
                 required

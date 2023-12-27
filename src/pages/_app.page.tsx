@@ -5,12 +5,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactQueryClient from "contexts/ReactQueryContext";
 import SnackbarContextProvider from "@/contexts/SnackbarContext";
 import type { AppProps } from "next/app";
+import HeadMeta from "@/components/HeadMeta";
 
 export default function App({ Component, pageProps }: AppProps) {
   useInitKakaoSdk();
 
   return (
     <>
+      <HeadMeta />
       <GlobalStyle />
       <Layout>
         <SnackbarContextProvider>

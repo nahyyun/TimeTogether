@@ -1,10 +1,11 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 
-export const Heading = styled.h4`
+export const Heading = styled.h1`
   color: ${theme.colors.text.primary};
   line-height: 1.5;
   white-space: pre-line;
+  font-size: ${theme.size.text.md};
 `;
 
 export const ResultDesc = styled.span`

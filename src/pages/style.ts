@@ -35,4 +35,5 @@ export const ButtonWrapper = styled.div`
 export const ButtonLink = styled(Button.withComponent(Link))`
   text-align: center;
   line-height: 42px;
+  font-size: 15px;
 `;

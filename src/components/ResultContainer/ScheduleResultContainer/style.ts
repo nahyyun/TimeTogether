@@ -7,8 +7,9 @@ export const ParticipationInfoWrapper = styled.div`
   flex: 0 0 100%;
 `;
 
-export const Heading = styled.h4`
+export const Heading = styled.h1`
   color: ${theme.colors.gray[500]};
+  font-size: ${theme.size.text.md};
 `;
 
 export const ParticipationInfo = styled.div`

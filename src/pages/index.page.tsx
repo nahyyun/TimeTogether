@@ -2,7 +2,6 @@ import { ROUTE_PATH } from "@/constants/path";
 import {
   BackgroundColorTop,
   BackgroundColorBottom,
-  CommonLayout,
 } from "@/styles/commonStyle";
 import * as S from "./style";
 

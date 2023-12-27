@@ -35,6 +35,7 @@ export default function Header() {
             size="full"
             type="button"
             onClick={toggleSidebar}
+            aria-label="Menu button"
           >
             <HamburgerIcon />
           </Button>
