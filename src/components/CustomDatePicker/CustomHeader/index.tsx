@@ -17,6 +17,7 @@ export default function CustomHeader({
         buttonstyle="icon-only"
         onClick={decreaseMonth}
         disabled={prevMonthButtonDisabled}
+        aria-label="이전 달로 전환하기"
       >
         <PrevArrowIcon />
       </Button>
@@ -26,6 +27,7 @@ export default function CustomHeader({
         buttonstyle="icon-only"
         onClick={increaseMonth}
         disabled={nextMonthButtonDisabled}
+        aria-label="다음 달로 전환하기"
       >
         <NextArrowIcon />
       </Button>

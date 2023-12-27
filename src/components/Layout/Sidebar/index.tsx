@@ -35,6 +35,7 @@ export default function Sidebar({ isSidebarOn, closeSidebar }: SidebarProps) {
               size="full"
               type="button"
               onClick={closeSidebar}
+              aria-label="사이드 바 닫기"
             >
               <CloseIcon />
             </Button>

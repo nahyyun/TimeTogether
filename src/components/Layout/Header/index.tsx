@@ -35,7 +35,7 @@ export default function Header() {
             size="full"
             type="button"
             onClick={toggleSidebar}
-            aria-label="Menu button"
+            aria-label="메뉴 탐색하기"
           >
             <HamburgerIcon />
           </Button>
