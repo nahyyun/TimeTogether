@@ -4,4 +4,8 @@ const nextConfig = {
   pageExtensions: ["page.tsx", "api.ts"],
 };
 
-module.exports = nextConfig
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer(nextConfig);

@@ -19,12 +19,12 @@ export default function ReactQueryClient({ children }: PropsWithChildren) {
     if (error instanceof Error) {
       const errorCode = error.message as keyof typeof API_ERROR_MESSAGE;
 
-      if (errorCode === "404") return router.push(ROUTE_PATH.NOT_FOUND);
-
       const errorMessage =
         API_ERROR_MESSAGE[errorCode] || API_ERROR_MESSAGE.DEFAULT;
 
-      return openSnackbar(errorMessage);
+      openSnackbar(errorMessage);
+
+      if (errorCode === "404") return router.push(ROUTE_PATH.NOT_FOUND);
     }
   };
 

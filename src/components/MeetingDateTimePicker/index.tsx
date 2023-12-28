@@ -1,8 +1,8 @@
 import { Fieldset } from "@/styles/commonStyle";
 import { selectedTimeInfo } from "@/types/timeInfo";
+import dynamic from "next/dynamic";
 import Button from "../Common/Button";
 import Spinner from "../Common/Spinner";
-import CustomDatePicker from "../CustomDatePicker";
 import TimePicker from "../TimePicker";
 import * as S from "./style";
 
@@ -19,6 +19,10 @@ export default function MeetingDateTimePicker({
   goToPrevStep,
   isSubmitting,
 }: MeetingDateTimePickerProps) {
+  const CustomDatePicker = dynamic(
+    () => import("@/components/CustomDatePicker")
+  );
+
   return (
     <S.MeetingDateTimePickerWrapper>
       <Fieldset>
