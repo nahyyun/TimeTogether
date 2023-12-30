@@ -13,6 +13,7 @@ export default function CustomHeader({
   return (
     <S.CustomHeaderWrapper>
       <Button
+        type="button"
         size="square"
         buttonstyle="icon-only"
         onClick={decreaseMonth}
@@ -23,6 +24,7 @@ export default function CustomHeader({
       </Button>
       <S.MonthSpan>{date.getMonth() + 1}월</S.MonthSpan>
       <Button
+        type="button"
         size="square"
         buttonstyle="icon-only"
         onClick={increaseMonth}
