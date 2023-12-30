@@ -6,6 +6,7 @@ export const TimeList = styled.div`
   line-height: ${TIME_ITEM_HEIGHT}px;
   overflow-y: hidden;
   text-align: center;
+  touch-action: none;
 `;
 
 export const TimeItem = styled.div<{
