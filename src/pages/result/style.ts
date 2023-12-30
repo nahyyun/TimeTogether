@@ -7,7 +7,7 @@ export const Layout = styled.div`
 `;
 
 export const ContentLayout = styled.div`
-  min-height: 400px;
+  min-height: 300px;
   max-width: 360px;
   margin: 0px auto;
   padding: 20px 10px;
@@ -25,8 +25,4 @@ export const SubDesc = styled.p`
   color: ${theme.colors.gray[300]};
   font-size: ${theme.size.text.sm};
   text-align: center;
-`;
-
-export const TimeResultContainerLayout = styled.div`
-  margin: 20px 0;
 `;

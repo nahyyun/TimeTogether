@@ -52,7 +52,7 @@ export default function ScheduleResultPage() {
         } = meetingInfo;
 
         return (
-          <S.TimeResultContainerLayout>
+          <div>
             {hasBestCandidates ? (
               <TimeResultContainer
                 headTitle="모두가 가능한 시간대는 아래와 같아요."
@@ -68,7 +68,7 @@ export default function ScheduleResultPage() {
                 subInfo={{ id, title, date }}
               />
             )}
-          </S.TimeResultContainerLayout>
+          </div>
         );
       }
     }
