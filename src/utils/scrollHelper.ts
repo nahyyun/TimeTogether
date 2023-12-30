@@ -6,8 +6,8 @@ import {
 } from "@/constants/scroll";
 
 export const scrollToVisibleArea = (scrollY: number) => {
-  if (scrollY < MIN_SCROLL_Y) return MIN_SCROLL_Y;
-  if (scrollY > MAX_SCROLL_Y) return MAX_SCROLL_Y;
+  if (scrollY <= MIN_SCROLL_Y) return MIN_SCROLL_Y;
+  if (scrollY >= MAX_SCROLL_Y) return MAX_SCROLL_Y;
 
   const remainderFromScroll = scrollY % TIME_ITEM_HEIGHT;
 
