@@ -58,6 +58,7 @@ export default function TimeListContainer({
 
   const handleMouseUp = () => {
     if (!isScrollStart) return;
+
     setIsScrollStart(false);
     setPrevTouchY(0);
     setScrollY((prev) => scrollToVisibleArea(prev));
