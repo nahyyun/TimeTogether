@@ -2,6 +2,7 @@ import { theme } from "@/styles/theme";
 import { Button } from "@/components/Common/Button/style";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { mq } from "@/styles/mediaQuery";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -17,6 +18,10 @@ export const Heading = styled.h1`
   word-break: keep-all;
   text-align: center;
   margin: 0 20px;
+
+  ${mq.Large`
+  font-size: ${theme.size.text.xxlg};
+`}
 `;
 
 export const Description = styled.p`
@@ -24,6 +29,10 @@ export const Description = styled.p`
   text-align: center;
   margin: 20px 0 40px 0;
   color: ${theme.colors.text.secondary};
+
+  ${mq.Large`
+  font-size: ${theme.size.text.lg};
+`}
 `;
 
 export const ButtonWrapper = styled.div`

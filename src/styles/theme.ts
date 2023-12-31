@@ -34,7 +34,7 @@ export const theme = {
       md: "18px",
       lg: "20px",
       xlg: "30px",
-      xxlg: "46px",
+      xxlg: "44px",
     },
   },
 } as const;
