@@ -22,7 +22,8 @@ export const DatePickerWrapper = styled.div`
     font-weight: 600;
   }
 
-  .react-datepicker__day--selected {
+  .react-datepicker__day--selected,
+  .react-datepicker__day--selected:hover {
     background: ${theme.colors.primary[50]};
     border-radius: 50%;
   }
