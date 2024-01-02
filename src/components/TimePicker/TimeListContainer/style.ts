@@ -7,6 +7,7 @@ export const TimeList = styled.div`
   overflow-y: hidden;
   text-align: center;
   touch-action: none;
+  user-select: none;
 `;
 
 export const TimeItem = styled.div<{
