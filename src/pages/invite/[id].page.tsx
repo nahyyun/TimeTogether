@@ -5,6 +5,7 @@ import { ROUTE_PATH } from "@/constants/path";
 import { getMeetingInfo } from "@/backend/services/meeting";
 import MeetingInfoContainer from "@/components/MeetingInfoContainer";
 import * as S from "./style";
+import { CommonLayout } from "@/styles/commonStyle";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -35,7 +36,7 @@ export default function InvitePage({
   meetingInfo: { id, ...rest },
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <>
+    <CommonLayout>
       <MeetingInfoContainer
         mainTitle={"💌 초대장 💌"}
         meetingInfo={{ id, ...rest }}
@@ -43,6 +44,6 @@ export default function InvitePage({
       <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)} size="full-width">
         내 스케줄 등록하기
       </S.ButtonLink>
-    </>
+    </CommonLayout>
   );
 }
