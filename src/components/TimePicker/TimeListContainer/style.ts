@@ -9,6 +9,7 @@ export const TimeList = styled.div`
   text-align: center;
   cursor: pointer;
   touch-action: none;
+  width: 48px;
 `;
 
 export const TimeItem = styled.div<{
