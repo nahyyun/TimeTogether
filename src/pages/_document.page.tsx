@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="shortcut icon" href="/logo.png" />
-        <meta property="og:url" content="https://time-together.vercel.app" />
+        <meta property="og:url" content="https://time-together.vercel.app/" />
         <meta
           property="og:title"
           content="time together | 약속 시간 결정 서비스"
