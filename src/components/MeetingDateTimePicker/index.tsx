@@ -1,6 +1,7 @@
 import { Fieldset } from "@/styles/commonStyle";
 import { selectedTimeInfo } from "@/types/timeInfo";
 import dynamic from "next/dynamic";
+import { useCallback } from "react";
 import Button from "../Common/Button";
 import Spinner from "../Common/Spinner";
 import TimePicker from "../TimePicker";
@@ -19,8 +20,11 @@ export default function MeetingDateTimePicker({
   goToPrevStep,
   isSubmitting,
 }: MeetingDateTimePickerProps) {
-  const CustomDatePicker = dynamic(
-    () => import("@/components/CustomDatePicker")
+  const CustomDatePicker = useCallback(
+    dynamic(() => import("@/components/CustomDatePicker"), {
+      loading: () => <Spinner />,
+    }),
+    []
   );
 
   return (
@@ -29,7 +33,9 @@ export default function MeetingDateTimePicker({
         <h2>언제 모일 예정인가요?</h2>
         <div>
           <span>모임 날짜를 지정해주세요.</span>
-          <CustomDatePicker setDateValue={setDateValue} />
+          <S.Layout>
+            <CustomDatePicker setDateValue={setDateValue} />
+          </S.Layout>
         </div>
       </Fieldset>
 

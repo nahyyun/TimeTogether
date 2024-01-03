@@ -7,6 +7,13 @@ export const MeetingDateTimePickerWrapper = styled.div`
   gap: 25px;
 `;
 
+export const Layout = styled.div`
+  min-height: 325.45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;

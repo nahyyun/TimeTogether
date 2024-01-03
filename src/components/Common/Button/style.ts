@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { ButtonProps } from ".";
 
 const BUTTON_SIZE = {
-  md: { width: "140px", height: "42px", fontSize: "13px" },
+  md: { width: "150px", height: "42px", fontSize: "13px" },
   full: { width: "100%", height: "100%" },
   square: { width: "45px", height: "45px" },
   "full-width": { width: "100%", height: "42px", fontSize: "13px" },
@@ -27,13 +27,17 @@ const BUTTON_STYLE = {
   none: {
     borderRadius: "0px",
   },
+  kakao: {
+    color: "#3c1e1e",
+    background: "#ffde00",
+  },
 } as const;
 
-export const Button = styled.button<ButtonProps>(
+export const Button = styled.button<Pick<ButtonProps, "size" | "buttonstyle">>(
   { borderRadius: "5px" },
-  (props) => css`
-    ${BUTTON_SIZE[props.size || "md"]}
-    ${BUTTON_STYLE[props.buttonstyle || "primary"]}
+  ({ size = "md", buttonstyle = "primary" }) => css`
+    ${BUTTON_SIZE[size]}
+    ${BUTTON_STYLE[buttonstyle]}
     
     display: flex;
     justify-content: center;

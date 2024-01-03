@@ -3,7 +3,7 @@ import * as S from "./style";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "md" | "full" | "square" | "full-width";
-  buttonstyle?: "primary" | "secondary" | "icon-only" | "none";
+  buttonstyle?: "primary" | "secondary" | "icon-only" | "kakao" | "none";
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   isActive?: boolean;

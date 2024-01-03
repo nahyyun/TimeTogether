@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TimeRange } from "@/constants/timeArray";
 import TimeListContainer from "./TimeListContainer";
 import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
@@ -20,11 +20,8 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
 
   const updateSelectedTimeIdx = (key: string, idx: number, value: string) => {
     setSelectedTimeInfo((prev) => ({ ...prev, [key]: { idx, value } }));
-  };
-
-  useEffect(() => {
     setTimeValue(selectedTimeInfo);
-  }, [selectedTimeInfo]);
+  };
 
   return (
     <S.TimePickerContainer>

@@ -58,6 +58,7 @@ export default function TimeListContainer({
 
   const handleMouseUp = () => {
     if (!isScrollStart) return;
+
     setIsScrollStart(false);
     setPrevTouchY(0);
     setScrollY((prev) => scrollToVisibleArea(prev));
@@ -84,6 +85,7 @@ export default function TimeListContainer({
           key={idx}
           scrollY={scrollY}
           isActiveItem={idx === calcMiddleItemIdxFromScollY(scrollY)}
+          isScrollEnd={!isScrollStart}
         >
           {time}
         </S.TimeItem>

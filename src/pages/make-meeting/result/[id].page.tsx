@@ -2,7 +2,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { Meeting } from "@/types/meeting";
 import { ROUTE_PATH } from "@/constants/path";
-import Button from "@/components/Common/Button";
 import * as S from "./style";
 import { getMeetingInfo } from "@/backend/services/meeting";
 import MeetingInfoContainer from "@/components/MeetingInfoContainer";
@@ -10,6 +9,7 @@ import { Kakao } from "@/utils/kakao";
 import { extractDatePartsFromStringType } from "@/utils/date";
 import { DAYS_OF_WEEK_KO } from "@/constants/day";
 import { CommonLayout } from "@/styles/commonStyle";
+import KakaoShareButton from "@/components/KakaoShareButton";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -56,10 +56,9 @@ export default function MakeMeetingResultPage({
         meetingInfo={meetingInfo}
       />
       <S.ButtonWrapper>
-        <Button
-          type="button"
-          buttonstyle="secondary"
-          onClick={() =>
+        <KakaoShareButton
+          size="md"
+          clickHandler={() =>
             Kakao.share(102017, {
               id,
               title,
@@ -69,9 +68,7 @@ export default function MakeMeetingResultPage({
               date: `${month}월 ${date}일 (${DAYS_OF_WEEK_KO[day]})`,
             })
           }
-        >
-          일정 공유하기
-        </Button>
+        />
         <S.ButtonLink href={ROUTE_PATH.SCHEDULE_LOGIN(id)}>
           내 스케줄 등록하기
         </S.ButtonLink>
