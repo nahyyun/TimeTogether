@@ -8,6 +8,7 @@ export const TimePickerContainer = styled.div`
   justify-content: center;
   gap: 15px;
   height: ${TIME_ITEM_HEIGHT * ITEM_CNT_PER_SCROLL}px;
+  user-select: none;
 `;
 
 export const HighlightBorder = styled.div`
