@@ -58,7 +58,7 @@ export default function ScheduleLoginPage({
 
   const { data: personalScheduleData, isFetching } = useGetPersonalSchedule(
     meetingInfo.id,
-    localStorageUserName
+    scheduleForm.current.name || localStorageUserName
   );
 
   const { openSnackbar } = useContext(SnackbarContext);
@@ -74,6 +74,8 @@ export default function ScheduleLoginPage({
     name: null,
   });
 
+  const isExistingMember = personalScheduleData?.schedule;
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -82,7 +84,7 @@ export default function ScheduleLoginPage({
 
     const meetingId = meetingInfo.id;
 
-    !localStorageUserName
+    !isExistingMember
       ? createSchedule({
           meetingId,
           scheduleForm: scheduleForm.current,
@@ -90,7 +92,7 @@ export default function ScheduleLoginPage({
       : updateSchedule({
           meetingId,
           scheduleForm: {
-            name: localStorageUserName,
+            name: localStorageUserName || scheduleForm.current.name,
             schedule: scheduleForm.current.schedule,
           },
         });
@@ -102,15 +104,11 @@ export default function ScheduleLoginPage({
     if (!name) return openSnackbar(ERROR_MESSAGE.INVALID_INPUT);
 
     if (
-      isDuplicatedName(
+      meetingInfo.memberCount &&
+      !isDuplicatedName(
         meetingInfo.members.map((member) => member.name),
         name
-      )
-    )
-      return openSnackbar(ERROR_MESSAGE.DUPLICATE_NAME);
-
-    if (
-      meetingInfo.memberCount &&
+      ) &&
       isExceededMemberCnt(meetingInfo.memberCount, meetingInfo.members.length)
     )
       return openSnackbar(ERROR_MESSAGE.EXCEEDED_MEMBER_CNT);
@@ -148,37 +146,39 @@ export default function ScheduleLoginPage({
           </NameInputWrapper>
         );
 
-      case 2:
+      case 2: {
         return (
           <ScheduleRegistContainer
             name={scheduleForm.current.name || localStorageUserName}
             meetingInfo={meetingInfo}
             setScheduleTime={setScheduleTime}
-            isSubmitting={isCreatingSchedule}
+            mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule || {}}
+            isFetching={isFetching}
+            isSubmitting={isCreatingSchedule || isUpdatingSchedule}
           />
         );
+      }
     }
   }
 
+  const LAST_STEP = 2;
+
   useEffect(() => {
     const name = JSON.parse(localStorage.getItem("userName") || "null");
+
     setLocalStorageUserName(name);
   }, []);
 
+  useEffect(() => {
+    if (step === LAST_STEP)
+      localStorage.setItem("userName", scheduleForm.current.name);
+  }, [step]);
+
   return (
     <Form onSubmit={handleSubmit}>
-      {!localStorageUserName ? (
-        renderStepComponent(step)
-      ) : (
-        <ScheduleRegistContainer
-          name={scheduleForm.current.name || localStorageUserName}
-          meetingInfo={meetingInfo}
-          setScheduleTime={setScheduleTime}
-          mappedTrueToPersonalTimeSlots={personalScheduleData?.schedule}
-          isFetching={isFetching}
-          isSubmitting={isUpdatingSchedule}
-        />
-      )}
+      {!localStorageUserName || (localStorageUserName && !isExistingMember)
+        ? renderStepComponent(step)
+        : renderStepComponent(LAST_STEP)}
     </Form>
   );
 }
