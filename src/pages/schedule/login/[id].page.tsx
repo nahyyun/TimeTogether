@@ -176,7 +176,8 @@ export default function ScheduleLoginPage({
 
   return (
     <Form onSubmit={handleSubmit}>
-      {!localStorageUserName || (localStorageUserName && !isExistingMember)
+      {!localStorageUserName ||
+      (localStorageUserName && !isFetching && !isExistingMember)
         ? renderStepComponent(step)
         : renderStepComponent(LAST_STEP)}
     </Form>
