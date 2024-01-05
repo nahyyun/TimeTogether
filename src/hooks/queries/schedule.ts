@@ -35,7 +35,7 @@ const useGetPersonalSchedule = (meetingId: string, name: string) => {
   return useQuery<{
     schedule: {
       [key: string]: boolean;
-    };
+    } | null;
   }>({
     queryKey: ["meeting", "schedule", meetingId, name],
     queryFn: () => apiService.get(END_POINT.GUEST_SCHEDULE(meetingId, name)),

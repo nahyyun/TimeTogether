@@ -26,7 +26,7 @@ export default async function handler(
     );
 
     if (findUserIdx === -1)
-      return res.status(404).json({ message: "NOT_FOUND_USER" });
+      return res.status(200).json({ schedule: null });
 
     const schedule = meetingInfo.members[findUserIdx].schedule;
 
