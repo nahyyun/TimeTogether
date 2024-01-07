@@ -23,7 +23,7 @@ const useCreateSchedule = () => {
     }) => apiService.post(END_POINT.GUEST_SCHEDULE(meetingId), scheduleForm),
 
     onSuccess: ({ meetingId, userName }) => {
-      localStorage.setItem("userName", JSON.stringify(userName));
+      localStorage.setItem("userName", userName);
       router.push(ROUTE_PATH.RESULT(meetingId));
 
       openSnackbar(SUCCESS_MESSAGE.CREATE_SCHEDULE);
