@@ -164,7 +164,7 @@ export default function ScheduleLoginPage({
   const LAST_STEP = 2;
 
   useEffect(() => {
-    const name = JSON.parse(localStorage.getItem("userName") || "null");
+    const name = localStorage.getItem("userName") || "";
 
     setLocalStorageUserName(name);
   }, []);

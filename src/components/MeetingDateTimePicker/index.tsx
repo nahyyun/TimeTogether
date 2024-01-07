@@ -1,5 +1,5 @@
 import { Fieldset } from "@/styles/commonStyle";
-import { selectedTimeInfo } from "@/types/timeInfo";
+import { setTimeValueFnArg } from "@/types/meeting";
 import dynamic from "next/dynamic";
 import { useCallback } from "react";
 import Button from "../Common/Button";
@@ -9,7 +9,7 @@ import * as S from "./style";
 
 interface MeetingDateTimePickerProps {
   setDateValue: (date: Date) => void;
-  setTimeValue: (time: selectedTimeInfo) => void;
+  setTimeValue: ({ key, info }: setTimeValueFnArg) => void;
   goToPrevStep: () => void;
   isSubmitting: boolean;
 }

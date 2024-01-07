@@ -2,7 +2,7 @@ import AvatarGroup from "@/components/Common/AvatarGroup";
 import ScheduleTable from "@/components/ScheduleTable";
 import { ROUTE_PATH } from "@/constants/path";
 import { ResultResponseDataType as MeetingInfo } from "@/hooks/queries/schedule";
-import { getAllTimeRange, getTimeTableValues } from "@/utils/time";
+import { getAllTimeHourRange, getTimeTableValues } from "@/utils/time";
 import { hasParticipants } from "@/utils/typeGuard";
 import * as S from "./style";
 
@@ -17,8 +17,8 @@ export default function ScheduleResultContainer({
 
   const [startTime, endTime] = meetingInfo.timeRange;
 
-  const allTimeRange = getAllTimeRange(startTime, endTime);
-  const timeTableValues = getTimeTableValues(allTimeRange);
+  const allTimeHourRange = getAllTimeHourRange(startTime, endTime);
+  const timeTableValues = getTimeTableValues(endTime, allTimeHourRange);
 
   const availableTotalMemberCnt = members.length;
 
@@ -37,7 +37,7 @@ export default function ScheduleResultContainer({
 
       <ScheduleTable
         meetingInfo={meetingInfo}
-        allTimeRange={allTimeRange}
+        allTimeHourRange={allTimeHourRange}
         timeTableValues={timeTableValues}
         mappedMembersByTimeSlots={
           hasParticipants(meetingInfo) ? meetingInfo.schedule : undefined
