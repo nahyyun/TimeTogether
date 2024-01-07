@@ -1,4 +1,5 @@
 import { meetingInputRefsDefaultValue } from "@/constants/stateDefaultValue";
+import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
 import { Row, RowInsert } from "./supabase";
 
 export interface Meeting extends Row<"Meeting"> {
@@ -15,3 +16,8 @@ export interface ScheduleForm {
   name: string;
   schedule: string[];
 }
+
+export type setTimeValueFnArg = {
+  key: keyof typeof selectedTimeInfoDefaultValue;
+  info: { idx: number; value: string };
+};

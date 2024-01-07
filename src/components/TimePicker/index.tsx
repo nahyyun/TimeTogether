@@ -1,28 +1,17 @@
-import { useState } from "react";
 import { TimeRange } from "@/constants/timeArray";
 import TimeListContainer from "./TimeListContainer";
-import { selectedTimeInfoDefaultValue } from "@/constants/stateDefaultValue";
-import { selectedTimeInfo } from "@/types/timeInfo";
 import {
   START_TIME_START_SCROLL_Y,
   END_TIME_START_SCROLL_Y,
 } from "@/constants/scroll";
 import * as S from "./style";
+import { setTimeValueFnArg } from "@/types/meeting";
 
 interface TimePickerProps {
-  setTimeValue: (time: selectedTimeInfo) => void;
+  setTimeValue: ({ key, info }: setTimeValueFnArg) => void;
 }
 
 export default function TimePicker({ setTimeValue }: TimePickerProps) {
-  const [selectedTimeInfo, setSelectedTimeInfo] = useState(
-    selectedTimeInfoDefaultValue
-  );
-
-  const updateSelectedTimeIdx = (key: string, idx: number, value: string) => {
-    setSelectedTimeInfo((prev) => ({ ...prev, [key]: { idx, value } }));
-    setTimeValue(selectedTimeInfo);
-  };
-
   return (
     <S.TimePickerContainer>
       <S.HighlightBorder />
@@ -30,7 +19,7 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
         range={TimeRange}
         startScrollY={START_TIME_START_SCROLL_Y}
         setSelectedTimeIdx={(idx: number, value: string) =>
-          updateSelectedTimeIdx("startTime", idx, value)
+          setTimeValue({ key: "startTime", info: { idx, value } })
         }
       />
 
@@ -40,7 +29,7 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
         range={TimeRange}
         startScrollY={END_TIME_START_SCROLL_Y}
         setSelectedTimeIdx={(idx: number, value: string) =>
-          updateSelectedTimeIdx("endTime", idx, value)
+          setTimeValue({ key: "endTime", info: { idx, value } })
         }
       />
     </S.TimePickerContainer>

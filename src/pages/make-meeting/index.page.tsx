@@ -1,8 +1,7 @@
-import { FormEvent, useContext, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import MeetingInfoInputs from "@/components/MeetingInfoInputs";
-import { MeetingInputRefs } from "@/types/meeting";
+import { MeetingInputRefs, setTimeValueFnArg } from "@/types/meeting";
 import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
-import { selectedTimeInfo } from "@/types/timeInfo";
 import {
   meetingFormDefaultValue,
   meetingInputRefsDefaultValue,
@@ -26,13 +25,14 @@ export default function MakeMeetingPage() {
 
   const { openSnackbar } = useContext(SnackbarContext);
 
-  const setDateValue = (date: Date) => {
+  const setDateValue = (date: Date) =>
     setMeetingForm((prev) => ({ ...prev, date }));
-  };
 
-  const setTimeValue = (time: selectedTimeInfo) => {
-    setMeetingForm((prev) => ({ ...prev, timeRange: time }));
-  };
+  const setTimeValue = ({ key, info }: setTimeValueFnArg) =>
+    setMeetingForm((prev) => ({
+      ...prev,
+      timeRange: { ...prev.timeRange, [key]: info },
+    }));
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
