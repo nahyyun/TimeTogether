@@ -7,7 +7,7 @@ import ScheduleTable from "../ScheduleTable";
 import * as S from "./style";
 import {
   extractTimeDataset,
-  getAllTimeRange,
+  getAllTimeHourRange,
   getTimeTableValues,
 } from "@/utils/time";
 import Spinner from "../Common/Spinner";
@@ -40,8 +40,8 @@ export default function ScheduleRegistContainer({
 
   const [startTime, endTime] = meetingInfo.timeRange;
 
-  const allTimeRange = getAllTimeRange(startTime, endTime);
-  const timeTableValues = getTimeTableValues(allTimeRange);
+  const allTimeHourRange = getAllTimeHourRange(startTime, endTime);
+  const timeTableValues = getTimeTableValues(endTime, allTimeHourRange);
 
   const dragSelectionRefs = useRef<dragSelectionRefs>({
     dragContainerRef: null,
@@ -81,7 +81,7 @@ export default function ScheduleRegistContainer({
           <ScheduleTable
             meetingInfo={meetingInfo}
             ref={dragSelectionRefs}
-            allTimeRange={allTimeRange}
+            allTimeHourRange={allTimeHourRange}
             timeTableValues={timeTableValues}
             mappedTrueToPersonalTimeSlots={mappedTrueToPersonalTimeSlots}
           >

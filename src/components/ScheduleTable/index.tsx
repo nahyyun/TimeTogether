@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { PropsWithOptionalChildren } from "@/types/propsWithChildren";
-import { canSelect } from "@/utils/time";
+import { cannotSelect } from "@/utils/time";
 import { Meeting } from "@/types/meeting";
 import { dragSelectionRefs } from "../ScheduleRegistContainer";
 import { DAYS_OF_WEEK_EN } from "@/constants/day";
@@ -10,7 +10,7 @@ import { CalendarIcon } from "../Icons";
 
 interface ScheduleTableProps {
   meetingInfo: Meeting;
-  allTimeRange: number[];
+  allTimeHourRange: number[];
   timeTableValues: string[];
   mappedTrueToPersonalTimeSlots?: { [key: string]: boolean };
   mappedMembersByTimeSlots?: { [key: string]: string[] };
@@ -24,9 +24,9 @@ const ScheduleTable = forwardRef<
   {
     meetingInfo: {
       date: dateInfo,
-      timeRange: [startTime, endTime],
+      timeRange: [startTime],
     },
-    allTimeRange,
+    allTimeHourRange,
     timeTableValues,
     mappedTrueToPersonalTimeSlots = {},
     mappedMembersByTimeSlots = {},
@@ -49,7 +49,7 @@ const ScheduleTable = forwardRef<
         </S.Date>
       </S.TableHeader>
 
-      {allTimeRange.map((time, idx) => (
+      {allTimeHourRange.map((time, idx) => (
         <S.TimeScale key={idx} idx={idx}>
           {time < 12 ? time + " AM" : time + " PM"}
         </S.TimeScale>
@@ -72,13 +72,7 @@ const ScheduleTable = forwardRef<
               availableMemberCntByTime={mappedMembersByTimeSlots[time]?.length}
               availableMemberCnt={availableTotalMemberCnt}
               data-time={time}
-              disabled={canSelect(
-                idx,
-                time,
-                arr.length - 1,
-                startTime,
-                endTime
-              )}
+              disabled={cannotSelect(idx, time, startTime)}
               ref={(el) => {
                 el &&
                   ref?.current?.selectableTargetsRefs &&

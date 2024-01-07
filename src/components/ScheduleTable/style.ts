@@ -63,7 +63,7 @@ export const TimeScale = styled.div<{ idx: number }>`
 `;
 
 export const TimeBlocksWrapper = styled.div`
-  div:nth-of-type(odd) {
+  div:nth-of-type(odd):not(:last-child) {
     border-bottom: 1px dashed ${BORDER_COLOR};
   }
 

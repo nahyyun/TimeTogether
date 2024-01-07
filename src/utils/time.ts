@@ -4,32 +4,36 @@ const extractHourAndMinute = (time: string) => {
   return [hour, minute];
 };
 
-export const getAllTimeRange = (startTime: string, endTime: string) => {
+export const getAllTimeHourRange = (startTime: string, endTime: string) => {
   const [startHour] = extractHourAndMinute(startTime);
-  const [endHour] = extractHourAndMinute(endTime);
+  const [endHour, endMinute] = extractHourAndMinute(endTime);
 
   return Array.from(
-    { length: endHour - startHour + 1 },
+    { length: endHour - startHour + (endMinute === 30 ? 1 : 0) },
     (_, i) => startHour + i
   );
 };
 
-export const getTimeTableValues = (allTimeRange: number[]) =>
-  allTimeRange
+export const getTimeTableValues = (
+  endTime: string,
+  allTimeHourRange: number[]
+) => {
+  const [_, endMinute] = extractHourAndMinute(endTime);
+
+  const timeTableValues = allTimeHourRange
     .map((time) => [
       `${String(time).padStart(2, "0")}:00`,
       `${String(time).padStart(2, "0")}:30`,
     ])
     .flat();
 
-export const canSelect = (
-  idx: number,
-  target: string,
-  endIdx: number,
-  startTime: string,
-  endTime: string
-) =>
-  (idx == 0 && startTime !== target) || (idx == endIdx && endTime !== target);
+  if (endMinute === 30) timeTableValues.pop();
+
+  return timeTableValues;
+};
+
+export const cannotSelect = (idx: number, currValue: string, startTime: string) =>
+  idx == 0 && startTime !== currValue;
 
 export const extractTimeDataset = (elements: HTMLElement[]) =>
   elements.map((el) => el.dataset.time || "");
