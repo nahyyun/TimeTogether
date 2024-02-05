@@ -1,7 +1,6 @@
 import { Fieldset } from "@/styles/commonStyle";
 import { setTimeValueFnArg } from "@/types/meeting";
 import dynamic from "next/dynamic";
-import { useCallback } from "react";
 import Button from "../Common/Button";
 import Spinner from "../Common/Spinner";
 import TimePicker from "../TimePicker";
@@ -14,19 +13,19 @@ interface MeetingDateTimePickerProps {
   isSubmitting: boolean;
 }
 
+const CustomDatePicker = dynamic(
+  () => import("@/components/CustomDatePicker"),
+  {
+    loading: () => <Spinner />,
+  }
+);
+
 export default function MeetingDateTimePicker({
   setDateValue,
   setTimeValue,
   goToPrevStep,
   isSubmitting,
 }: MeetingDateTimePickerProps) {
-  const CustomDatePicker = useCallback(
-    dynamic(() => import("@/components/CustomDatePicker"), {
-      loading: () => <Spinner />,
-    }),
-    []
-  );
-
   return (
     <S.MeetingDateTimePickerWrapper>
       <Fieldset>
