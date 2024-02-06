@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Fieldset } from "@/styles/commonStyle";
 import { setTimeValueFnArg } from "@/types/meeting";
 import dynamic from "next/dynamic";
@@ -7,6 +8,7 @@ import TimePicker from "../TimePicker";
 import * as S from "./style";
 
 interface MeetingDateTimePickerProps {
+  date: Date;
   setDateValue: (date: Date) => void;
   setTimeValue: ({ key, info }: setTimeValueFnArg) => void;
   goToPrevStep: () => void;
@@ -20,7 +22,8 @@ const CustomDatePicker = dynamic(
   }
 );
 
-export default function MeetingDateTimePicker({
+const MeetingDateTimePicker = memo(function MeetingDateTimePicker({
+  date,
   setDateValue,
   setTimeValue,
   goToPrevStep,
@@ -33,7 +36,7 @@ export default function MeetingDateTimePicker({
         <div>
           <span>모임 날짜를 지정해주세요.</span>
           <S.Layout>
-            <CustomDatePicker setDateValue={setDateValue} />
+            <CustomDatePicker date={date} setDateValue={setDateValue} />
           </S.Layout>
         </div>
       </Fieldset>
@@ -55,4 +58,6 @@ export default function MeetingDateTimePicker({
       </S.ButtonWrapper>
     </S.MeetingDateTimePickerWrapper>
   );
-}
+});
+
+export default MeetingDateTimePicker;

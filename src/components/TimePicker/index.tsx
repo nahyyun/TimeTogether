@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { TimeRange } from "@/constants/timeArray";
 import TimeListContainer from "./TimeListContainer";
 import {
@@ -11,7 +12,7 @@ interface TimePickerProps {
   setTimeValue: ({ key, info }: setTimeValueFnArg) => void;
 }
 
-export default function TimePicker({ setTimeValue }: TimePickerProps) {
+const TimePicker = memo(function TimePicker({ setTimeValue }: TimePickerProps) {
   return (
     <S.TimePickerContainer>
       <S.HighlightBorder />
@@ -34,4 +35,6 @@ export default function TimePicker({ setTimeValue }: TimePickerProps) {
       />
     </S.TimePickerContainer>
   );
-}
+});
+
+export default TimePicker;

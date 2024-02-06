@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import CustomHeader from "./CustomHeader";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,23 +7,19 @@ import * as S from "./style";
 registerLocale("ko", ko);
 
 interface CustomDatePickerProps {
+  date: Date;
   setDateValue: (date: Date) => void;
 }
+
 export default function CustomDatePicker({
+  date,
   setDateValue,
 }: CustomDatePickerProps) {
-  const [startDate, setStartDate] = useState(new Date());
-
-  const onChangeHandler = (date: Date) => {
-    setStartDate(date);
-    setDateValue(date);
-  };
-
   return (
     <S.DatePickerWrapper>
       <DatePicker
-        selected={startDate}
-        onChange={onChangeHandler}
+        selected={date}
+        onChange={(date: Date) => setDateValue(date)}
         locale="ko"
         inline
         dateFormatCalendar="yyyy년 MM월"
@@ -35,8 +30,3 @@ export default function CustomDatePicker({
     </S.DatePickerWrapper>
   );
 }
-
-
-
-
-
