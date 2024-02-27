@@ -1,17 +1,13 @@
-import { useContext } from "react";
-import { SnackbarContext } from "@/contexts/SnackbarContext";
 import * as S from "./style";
 
-export default function Snackbar() {
-  const { isOpen, message } = useContext(SnackbarContext);
+interface SnackbarProps {
+  message: string;
+}
 
+export default function Snackbar({ message }: SnackbarProps) {
   return (
-    <>
-      {isOpen && (
-        <S.Snackbar>
-          <span>{message}</span>
-        </S.Snackbar>
-      )}
-    </>
+    <S.Snackbar>
+      <span>{message}</span>
+    </S.Snackbar>
   );
 }
