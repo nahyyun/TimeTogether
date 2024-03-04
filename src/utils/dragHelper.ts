@@ -7,18 +7,18 @@ export const getDragAreaBoundRect = (
 ) => {
   const top = Math.min(startY, currentY);
   const left = Math.min(startX, currentX);
+  const right = Math.max(startX, currentX);
+  const bottom = Math.max(startY, currentY);
 
-  const width = Math.abs(currentX - startX);
-  const height = Math.abs(currentY - startY);
+  const width = right - left;
+  const height = bottom - top;
 
   const viewportTop = top - window.scrollY;
   const viewportLeft = left - window.scrollX;
 
   return {
     top,
-    right: Math.max(startX, currentX),
-    bottom: Math.max(startY, currentY),
-    left,
+    bottom,
     width,
     height,
     viewportTop,
