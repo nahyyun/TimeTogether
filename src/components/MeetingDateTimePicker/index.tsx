@@ -19,6 +19,7 @@ const CustomDatePicker = dynamic(
   () => import("@/components/CustomDatePicker"),
   {
     loading: () => <Spinner />,
+    ssr: false,
   }
 );
 
