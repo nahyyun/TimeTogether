@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useContext, useRef, useState } from "react";
 import MeetingInfoInputs from "@/components/MeetingInfoInputs";
 import { MeetingInputRefs, setTimeValueFnArg } from "@/types/meeting";
 import MeetingDateTimePicker from "@/components/MeetingDateTimePicker";
@@ -25,16 +25,21 @@ export default function MakeMeetingPage() {
 
   const { openSnackbar } = useContext(SnackbarContext);
 
-  const setDateValue = (date: Date) =>
-    setMeetingForm((prev) => ({ ...prev, date }));
+  const setDateValue = useCallback(
+    (date: Date) => setMeetingForm((prev) => ({ ...prev, date })),
+    []
+  );
 
-  const setTimeValue = ({ key, info }: setTimeValueFnArg) =>
-    setMeetingForm((prev) => ({
-      ...prev,
-      timeRange: { ...prev.timeRange, [key]: info },
-    }));
+  const setTimeValue = useCallback(
+    ({ key, info }: setTimeValueFnArg) =>
+      setMeetingForm((prev) => ({
+        ...prev,
+        timeRange: { ...prev.timeRange, [key]: info },
+      })),
+    []
+  );
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const {
@@ -53,9 +58,9 @@ export default function MakeMeetingPage() {
     });
   };
 
-  const goToPrevStep = () => {
+  const goToPrevStep = useCallback(() => {
     setStep((prevStep) => prevStep - 1);
-  };
+  }, []);
 
   const goToNextStep = () => {
     const { title, memberCount } = meetingInputRefs.current;
@@ -89,6 +94,7 @@ export default function MakeMeetingPage() {
       case 2:
         return (
           <MeetingDateTimePicker
+            date={meetingForm.date}
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
             goToPrevStep={goToPrevStep}

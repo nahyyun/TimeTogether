@@ -3,8 +3,6 @@ import Snackbar from "@/components/Common/Snackbar";
 import { PropsWithChildren } from "@/types/propsWithChildren";
 
 export const SnackbarContext = createContext({
-  isOpen: false,
-  message: "",
   openSnackbar: (message: string) => {},
 });
 
@@ -30,8 +28,8 @@ export default function SnackbarContextProvider({
   };
 
   return (
-    <SnackbarContext.Provider value={{ isOpen, message, openSnackbar }}>
-      <Snackbar />
+    <SnackbarContext.Provider value={{ openSnackbar }}>
+      {isOpen && <Snackbar message={message} />}
       {children}
     </SnackbarContext.Provider>
   );

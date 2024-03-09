@@ -55,4 +55,5 @@ export const CheckBox = styled.input`
   position: absolute;
   top: 0;
   width: 0;
+  display: none;
 `;

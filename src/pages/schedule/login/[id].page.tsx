@@ -3,7 +3,6 @@ import InputWithLabel from "@/components/Common/InputWithLabel";
 import { MeetingInfoInputsContainer as NameInputWrapper } from "@/components/MeetingInfoInputs/style";
 import { Meeting, ScheduleForm } from "@/types/meeting";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import dynamic from "next/dynamic";
 import { ParsedUrlQuery } from "querystring";
 import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import {
@@ -16,6 +15,7 @@ import { SnackbarContext } from "@/contexts/SnackbarContext";
 import { ERROR_MESSAGE } from "@/constants/message";
 import { isDuplicatedName, isExceededMemberCnt } from "@/utils/validate";
 import { Fieldset, Form } from "@/styles/commonStyle";
+import ScheduleRegistContainer from "@/components/ScheduleRegistContainer";
 
 interface PageProps {
   meetingInfo: Meeting;
@@ -116,11 +116,6 @@ export default function ScheduleLoginPage({
     scheduleForm.current = { ...scheduleForm.current, name };
     setStep((prevStep) => prevStep + 1);
   };
-
-  const ScheduleRegistContainer = dynamic(
-    () => import("@/components/ScheduleRegistContainer"),
-    { ssr: false }
-  );
 
   function renderStepComponent(step: number) {
     switch (step) {
