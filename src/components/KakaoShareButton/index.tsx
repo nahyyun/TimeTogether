@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../Common/Button";
 import Image from "next/image";
-import kakaotalk from "/src/assets/kakaotalk.svg";
 import * as S from "./style";
 
 interface KakaoShareButtonProps {
@@ -22,7 +21,7 @@ export default function KakaoShareButton({
     >
       <S.ButtonContent>
         <Image
-          src={kakaotalk}
+          src="/kakaotalk.svg"
           alt="카카오톡 공유 보내기 버튼"
           width={18}
           height={18}
