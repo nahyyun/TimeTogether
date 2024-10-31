@@ -16,7 +16,12 @@ export default function MakeMeetingResultPage() {
 
   const { data: meetingInfo, isLoading } = useGetMeeting(meetingId);
 
-  if (!meetingInfo) return;
+  if (isLoading || !meetingInfo)
+    return (
+      <S.SpinnerWrapper>
+        <Spinner />
+      </S.SpinnerWrapper>
+    );
 
   const {
     id,
@@ -30,7 +35,6 @@ export default function MakeMeetingResultPage() {
 
   return (
     <CommonLayout>
-      {isLoading && <Spinner />}
       <MeetingInfoContainer
         mainTitle="일정이 생성되었습니다 🎉"
         meetingInfo={meetingInfo}
