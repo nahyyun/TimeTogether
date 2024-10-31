@@ -1,9 +1,8 @@
 import { useContext } from "react";
 import { apiService } from "@/api/apiService";
-import { getMeetingInfo } from "@/backend/services/meeting";
 import { END_POINT } from "@/constants/api";
 import { ROUTE_PATH } from "@/constants/path";
-import { MeetingInsert } from "@/types/meeting";
+import { Meeting, MeetingInsert } from "@/types/meeting";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { SnackbarContext } from "@/contexts/SnackbarContext";
@@ -15,7 +14,7 @@ const useCreateMeeting = () => {
 
   return useMutation({
     mutationFn: (meetingForm: MeetingInsert) =>
-      apiService.post(END_POINT.GUEST_MEETING, meetingForm),
+      apiService.post(END_POINT.GUEST_MEETING.BASE, meetingForm),
 
     onSuccess: ({ meetingId }: { meetingId: string }) => {
       localStorage.removeItem("userName");
@@ -26,15 +25,12 @@ const useCreateMeeting = () => {
   });
 };
 
-const useGetMeeting = (meetingId: string) => {
-  return useQuery({
+const useGetMeeting = (meetingId?: string) => {
+  return useQuery<Meeting>({
     queryKey: ["meeting", meetingId],
-    queryFn: async () => {
-      const { data } = await getMeetingInfo(meetingId);
-
-      return data;
-    },
+    queryFn: () => apiService.get(END_POINT.GUEST_MEETING.BY_ID(meetingId)),
+    enabled: !!meetingId,
+    cacheTime: 0,
   });
 };
-
 export { useCreateMeeting, useGetMeeting };

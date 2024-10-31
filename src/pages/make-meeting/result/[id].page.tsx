@@ -1,44 +1,23 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { Meeting } from "@/types/meeting";
 import { ROUTE_PATH } from "@/constants/path";
 import * as S from "./style";
-import { getMeetingInfo } from "@/backend/services/meeting";
 import MeetingInfoContainer from "@/components/MeetingInfoContainer";
 import { Kakao } from "@/utils/kakao";
 import { extractDatePartsFromStringType } from "@/utils/date";
 import { DAYS_OF_WEEK_KO } from "@/constants/day";
 import { CommonLayout } from "@/styles/commonStyle";
 import KakaoShareButton from "@/components/KakaoShareButton";
+import { useGetMeeting } from "@/hooks/queries/meeting";
+import { useRouter } from "next/router";
+import Spinner from "@/components/Common/Spinner";
 
-interface PageProps {
-  meetingInfo: Meeting;
-}
+export default function MakeMeetingResultPage() {
+  const router = useRouter();
+  const meetingId = router.query.id as string;
 
-interface Params extends ParsedUrlQuery {
-  id: string;
-}
+  const { data: meetingInfo, isLoading } = useGetMeeting(meetingId);
 
-export const getServerSideProps: GetServerSideProps<PageProps, Params> = async (
-  context
-) => {
-  const meetingId = context.params?.id || "";
+  if (!meetingInfo) return;
 
-  const { data, error } = await getMeetingInfo(meetingId);
-
-  if (error) throw error;
-
-  if (!data)
-    return {
-      notFound: true,
-    };
-
-  return { props: { meetingInfo: data } };
-};
-
-export default function MakeMeetingResultPage({
-  meetingInfo,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     id,
     title,
@@ -51,6 +30,7 @@ export default function MakeMeetingResultPage({
 
   return (
     <CommonLayout>
+      {isLoading && <Spinner />}
       <MeetingInfoContainer
         mainTitle="일정이 생성되었습니다 🎉"
         meetingInfo={meetingInfo}
